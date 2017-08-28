@@ -1,0 +1,22 @@
+cc_library {
+    name: "libbatteryservice",
+
+    srcs: [
+        "BatteryProperties.cpp",
+        "BatteryProperty.cpp",
+        "IBatteryPropertiesListener.cpp",
+        "IBatteryPropertiesRegistrar.cpp",
+    ],
+
+    shared_libs: [
+        "libutils",
+        "libbinder",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wunused",
+        "-Wunreachable-code",
+    ],
+}

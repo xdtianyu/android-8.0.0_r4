@@ -1,0 +1,27 @@
+// Copyright 2012 The Android Open Source Project
+
+cc_binary {
+    name: "atrace",
+    srcs: ["atrace.cpp"],
+
+    shared_libs: [
+        "libbinder",
+        "libhwbinder",
+        "android.hidl.manager@1.0",
+        "libhidlbase",
+        "libhidltransport",
+        "liblog",
+        "libcutils",
+        "libutils",
+        "libz",
+        "libbase",
+    ],
+
+    init_rc: ["atrace.rc"],
+
+    product_variables: {
+        debuggable: {
+            init_rc: ["atrace_userdebug.rc"],
+        },
+    },
+}

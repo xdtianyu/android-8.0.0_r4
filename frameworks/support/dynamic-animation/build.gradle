@@ -1,0 +1,33 @@
+apply plugin: android.support.SupportLibraryPlugin
+archivesBaseName = 'support-dynamic-animation'
+
+dependencies {
+    compile project(':support-core-utils')
+
+    androidTestCompile (libs.test_runner) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile (libs.espresso_core) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile libs.mockito_core
+    androidTestCompile libs.dexmaker
+    androidTestCompile libs.dexmaker_mockito
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 16
+    }
+
+    sourceSets {
+        main.java.srcDir 'src'
+        main.res.srcDirs 'res', 'res-public'
+    }
+}
+
+supportLibrary {
+    name 'Android Support DynamicAnimation'
+    inceptionYear '2017'
+    description "Physics-based animation in support library, where the animations are driven by physics force. You can use this Animation library to create smooth and realistic animations."
+}

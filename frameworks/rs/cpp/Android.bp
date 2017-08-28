@@ -1,0 +1,20 @@
+cc_library_static {
+    name: "libRSDispatch",
+
+    srcs: ["rsDispatch.cpp"],
+
+    include_dirs: ["frameworks/rs"],
+
+    cflags: [
+        "-Wno-unused-parameter",
+        "-std=c++11",
+    ],
+
+    sdk_version: "9",
+    shared_libs: ["libdl"],
+    // Used in librsjni, which is built as NDK code => no ASan.
+    sanitize: {
+        never: true,
+    },
+    stl: "none",
+}

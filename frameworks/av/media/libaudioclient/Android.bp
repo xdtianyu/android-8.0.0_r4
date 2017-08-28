@@ -1,0 +1,59 @@
+cc_library_headers {
+    name: "libaudioclient_headers",
+    vendor_available: true,
+    export_include_dirs: ["include"],
+}
+
+cc_library_shared {
+    name: "libaudioclient",
+    srcs: [
+        "AudioEffect.cpp",
+        "AudioPolicy.cpp",
+        "AudioRecord.cpp",
+        "AudioSystem.cpp",
+        "AudioTrack.cpp",
+        "AudioTrackShared.cpp",
+        "IAudioFlinger.cpp",
+        "IAudioFlingerClient.cpp",
+        "IAudioPolicyService.cpp",
+        "IAudioPolicyServiceClient.cpp",
+        "IAudioRecord.cpp",
+        "IAudioTrack.cpp",
+        "IEffect.cpp",
+        "IEffectClient.cpp",
+        "ToneGenerator.cpp",
+        "PlayerBase.cpp",
+        "TrackPlayerBase.cpp",
+    ],
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libutils",
+        "libbinder",
+        "libdl",
+        "libaudioutils",
+        "libaudiomanager",
+    ],
+    export_shared_lib_headers: ["libbinder"],
+
+    local_include_dirs: ["include/media"],
+    header_libs: ["libaudioclient_headers"],
+    export_header_lib_headers: ["libaudioclient_headers"],
+
+    // for memory heap analysis
+    static_libs: [
+        "libc_malloc_debug_backtrace",
+        "libc_logging",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-error=deprecated-declarations",
+    ],
+    sanitize: {
+        misc_undefined : [
+            "unsigned-integer-overflow",
+            "signed-integer-overflow",
+        ],
+    },
+}

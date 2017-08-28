@@ -1,0 +1,65 @@
+apply plugin: android.support.SupportLibraryPlugin
+archivesBaseName = 'support-emoji'
+
+ext {
+    fontDir = project(':noto-emoji-compat').projectDir
+}
+
+evaluationDependsOn(':noto-emoji-compat')
+dependencies {
+    compile project(':support-compat')
+    compile files(project(':noto-emoji-compat').configurations.parser.artifacts.getFiles())
+
+    androidTestCompile (libs.test_runner) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile (libs.espresso_core) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile libs.mockito_core
+    androidTestCompile libs.dexmaker
+    androidTestCompile libs.dexmaker_mockito
+    androidTestCompile project(path: ':support-testutils')
+}
+
+android {
+    compileSdkVersion project.ext.currentSdk
+
+    defaultConfig {
+        minSdkVersion 14
+    }
+
+    sourceSets {
+        main.java {
+            srcDirs = ['src']
+        }
+        main.res.srcDirs = ['res', 'res-public']
+        main.resources {
+            srcDirs = [fontDir.getAbsolutePath()]
+            includes = ["LICENSE_UNICODE", "LICENSE_OFL"]
+        }
+
+        androidTest {
+            assets {
+                srcDirs = [new File(fontDir, "font").getAbsolutePath(),
+                           new File(fontDir, "supported-emojis").getAbsolutePath()]
+            }
+        }
+    }
+}
+
+supportLibrary {
+    name 'Android Emoji Compat'
+    inceptionYear '2017'
+    description 'Core library to enable emoji compatibility in Kitkat and newer devices to avoid the empty emoji characters.'
+
+    license {
+        name 'SIL Open Font License, Version 1.1'
+        url  'http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web'
+    }
+
+    license {
+        name 'Unicode, Inc. License'
+        url 'http://www.unicode.org/copyright.html#License'
+    }
+}

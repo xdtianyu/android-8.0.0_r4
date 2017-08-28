@@ -1,0 +1,46 @@
+apply plugin: android.support.SupportLibraryPlugin
+archivesBaseName = 'appcompat-v7'
+
+dependencies {
+    compile project(':support-annotations')
+    compile project(':support-v4')
+    compile project(':support-vector-drawable')
+    compile project(':support-animated-vector-drawable')
+
+    androidTestCompile (libs.test_runner) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile (libs.espresso_core) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile libs.mockito_core
+    androidTestCompile libs.dexmaker
+    androidTestCompile libs.dexmaker_mockito
+    androidTestCompile project(':support-testutils')
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 14
+        // This disables the builds tools automatic vector -> PNG generation
+        generatedDensities = []
+    }
+
+    sourceSets {
+        main.java.srcDir 'src'
+        main.res.srcDirs 'res', 'res-public'
+        main.assets.srcDir 'assets'
+        main.resources.srcDir 'src'
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+        noCompress 'ttf'
+    }
+}
+
+supportLibrary {
+    name 'Android AppCompat Library v7'
+    inceptionYear '2011'
+    description "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
+}

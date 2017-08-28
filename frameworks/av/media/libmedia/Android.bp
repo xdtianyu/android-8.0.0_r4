@@ -1,0 +1,20 @@
+cc_library_headers {
+    name: "libmedia_headers",
+    vendor_available: true,
+    export_include_dirs: ["include"],
+}
+
+cc_library {
+    name: "libmedia_helper",
+    vendor_available: true,
+    srcs: ["AudioParameter.cpp", "TypeConverter.cpp"],
+    cflags: [
+        "-Werror",
+        "-Wno-error=deprecated-declarations",
+        "-Wall",
+    ],
+    shared: {
+      shared_libs: ["libutils", "liblog"],
+    },
+    clang: true,
+}

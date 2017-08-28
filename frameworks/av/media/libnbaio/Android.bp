@@ -1,0 +1,41 @@
+cc_library_shared {
+    name: "libnbaio",
+    srcs: [
+        "AudioBufferProviderSource.cpp",
+        "AudioStreamInSource.cpp",
+        "AudioStreamOutSink.cpp",
+        "MonoPipe.cpp",
+        "MonoPipeReader.cpp",
+        "NBAIO.cpp",
+        "NBLog.cpp",
+        "Pipe.cpp",
+        "PipeReader.cpp",
+        "SourceAudioBufferProvider.cpp",
+    ],
+
+    // libsndfile license is incompatible; uncomment to use for local debug only
+    // srcs: [
+    //     "LibsndfileSink.cpp",
+    //     "LibsndfileSource.cpp",
+    // ],
+    // static_libs: ["libsndfile"],
+
+    shared_libs: [
+        "libaudioutils",
+        "libbinder",
+        "libcutils",
+        "libutils",
+        "liblog",
+    ],
+
+    cflags: [
+        "-Werror",
+        "-Wall",
+    ],
+
+    include_dirs: ["system/media/audio_utils/include"],
+
+    local_include_dirs: ["include"],
+
+    export_include_dirs: ["include"],
+}
