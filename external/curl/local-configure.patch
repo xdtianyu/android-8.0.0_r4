@@ -1,0 +1,57 @@
+diff --git a/lib/curl_config.h b/lib/curl_config.h
+index d3d74dc..526bcf7 100644
+--- a/lib/curl_config.h
++++ b/lib/curl_config.h
+@@ -128,7 +128,10 @@
+ #define HAVE_BORINGSSL 1
+ 
+ /* Define to 1 if you have the clock_gettime function and monotonic timer. */
++#ifndef __APPLE__
++/* CLOCK_MONOTONIC is not defined in mac when building for the host. */
+ #define HAVE_CLOCK_GETTIME_MONOTONIC 1
++#endif
+ 
+ /* Define to 1 if you have the closesocket function. */
+ /* #undef HAVE_CLOSESOCKET */
+@@ -442,10 +445,14 @@
+ #define HAVE_MEMORY_H 1
+ 
+ /* Define to 1 if you have the memrchr function or macro. */
++#ifndef __APPLE__
+ #define HAVE_MEMRCHR 1
++#endif
+ 
+ /* Define to 1 if you have the MSG_NOSIGNAL flag. */
++#ifndef __APPLE__
+ #define HAVE_MSG_NOSIGNAL 1
++#endif
+ 
+ /* Define to 1 if you have the <netdb.h> header file. */
+ #define HAVE_NETDB_H 1
+@@ -858,7 +865,7 @@
+ #define RETSIGTYPE void
+ 
+ /* Define to the type qualifier of arg 5 for select. */
+-#define SELECT_QUAL_ARG5 
++#define SELECT_QUAL_ARG5
+ 
+ /* Define to the type of arg 1 for select. */
+ #define SELECT_TYPE_ARG1 int
+@@ -890,18 +897,9 @@
+ /* Define to the function return type for send. */
+ #define SEND_TYPE_RETV int
+ 
+-/* The size of `long', as computed by sizeof. */
+-#define SIZEOF_LONG 4
+-
+ /* The size of `long long', as computed by sizeof. */
+ /* #undef SIZEOF_LONG_LONG */
+ 
+-/* The size of `off_t', as computed by sizeof. */
+-#define SIZEOF_OFF_T 8
+-
+-/* The size of `void*', as computed by sizeof. */
+-#define SIZEOF_VOIDP 4
+-
+ /* Define to 1 if you have the ANSI C header files. */
+ #define STDC_HEADERS 1

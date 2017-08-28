@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e
+
+if [[ "${TARGET_PRODUCT}" != "aosp_arm" ]]; then
+  # Some of the include paths below assume that this is an arm 32bit configure
+  # run.
+  echo "Run 'lunch aosp_arm-eng' first." >&2
+  exit 1
+fi
+
+cd $(dirname "$0")
+
+export CC="$(ls "${ANDROID_TOOLCHAIN}" | grep "\-gcc$" | grep -v kernel)"
+export LD="$(ls "${ANDROID_TOOLCHAIN}" | grep "\-ld$" | grep -v kernel)"
+
+T="${ANDROID_BUILD_TOP}"
+CFLAGS=(
+  "-isystem ${T}/external/libcxx/include"
+  "-isystem ${T}/bionic/libc/include/"
+  "-isystem ${T}/bionic/libc/arch-arm/include"
+  "-isystem ${T}/bionic/libc/kernel/android/uapi/"
+  "-isystem ${T}/bionic/libc/kernel/uapi/"
+  "-isystem ${T}/bionic/libc/kernel/uapi/asm-arm/"
+  "-isystem ${T}/bionic/libm/include"
+  "-isystem ${T}/build/core/combo/include/arch/linux-arm/"
+  "-fno-exceptions"
+  "-ffunction-sections"
+  "-fdata-sections"
+  "-fstack-protector"
+  "-fno-short-enums"
+  "-no-canonical-prefixes"
+  "-fmessage-length=0"
+  "-fomit-frame-pointer"
+  "-fPIC"
+  "-fno-strict-aliasing"
+  "-nostdlib"
+)
+
+./buildconf
+CFLAGS="${CFLAGS[@]}"
+./configure \
+  --host=arm-linux-androideabi \
+  CFLAGS="${CFLAGS}" \
+  LIBS="-lc" \
+  CPPFLAGS="${CFLAGS} -I${T}/external/zlib/src" \
+  LDFLAGS="-L${ANDROID_PRODUCT_OUT}/obj/lib/" \
+  --disable-ntlm-wb \
+  --enable-ipv6 \
+  --with-ssl="${T}/external/boringssl" \
+  --with-zlib \
+  --with-ca-path="/system/etc/security/cacerts"
+
+# Apply local changes to the default configure output.
+patch -p1 --no-backup-if-mismatch < local-configure.patch

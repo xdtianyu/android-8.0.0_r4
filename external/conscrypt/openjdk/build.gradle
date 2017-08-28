@@ -1,0 +1,326 @@
+description = 'Conscrypt: OpenJdk'
+
+ext {
+    jniSourceDir = "$rootDir/common/src/jni"
+    assert file("$jniSourceDir").exists()
+
+    // Build the list of classifiers that will be used in the build.
+    arch32Name = 'x86'
+    arch64Name = 'x86_64'
+    // Allow the java executable to be specified via env/property for each architecture.
+    javaExecutable32 = properties['javaExecutable32'] ?: System.env.CONSCRYPT_JAVA_EXECUTABLE_32
+    javaExecutable64 = properties['javaExecutable64'] ?: System.env.CONSCRYPT_JAVA_EXECUTABLE_64
+    nativeClassifiers = []
+    if (build64Bit) {
+        // Add the 64-Bit classifier first, as the preferred classifier.
+        nativeClassifiers += classifierFor(osName, arch64Name)
+    }
+    if (build32Bit) {
+        nativeClassifiers += classifierFor(osName, arch32Name)
+    }
+
+    // Create a "preferred" configuration that can be used by other modules (e.g. tests/benchmarks)
+    preferredNativeConfiguration = normalizeClassifier(nativeClassifiers[0])
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "${rootDir}/common/src/main/java"
+            srcDirs += project(':conscrypt-constants').sourceSets.main.java.srcDirs
+        }
+    }
+}
+
+configurations {
+    publicApiDocs
+}
+
+// Append the BoringSSL-Version to the manifest.
+jar.manifest {
+    attributes 'BoringSSL-Version' : boringSslVersion
+}
+
+dependencies {
+    // This is used for the @hide annotation processing in JavaDoc
+    publicApiDocs project(':conscrypt-api-doclet')
+
+    compileOnly project(':conscrypt-constants')
+
+    testCompile project(':conscrypt-constants'),
+                project(':conscrypt-testing'),
+                libraries.junit,
+                libraries.mockito
+}
+
+javadoc {
+    options.doclet = "org.conscrypt.doclet.FilterDoclet"
+    options.docletpath = configurations.publicApiDocs.files as List
+}
+
+/**
+ * Create Jar and Test tasks for each native classifier.
+ */
+nativeClassifiers.each { nativeClassifier ->
+    // Create all native configurations
+    addNativeSourceSet(nativeClassifier)
+    addNativeSourceSet("${nativeClassifier}Test")
+
+    // Create the JAR task and add it's output to the published archives for this project
+    addNativeJar(nativeClassifier)
+
+    // Create the test task and have it auto run whenever the test task runs.
+    addNativeTest(nativeClassifier)
+}
+
+def nativeFileDir(nativeClassifier) {
+    def normalizedClassifier = normalizeClassifier(nativeClassifier)
+    "${buildDir}/${normalizedClassifier}/resources/main"
+}
+
+// Creates a source set (and resulting configurations) containing only the
+// native shared library.
+def addNativeSourceSet(nativeClassifier) {
+    def normalizedClassifier = normalizeClassifier(nativeClassifier)
+
+    // Create a configuration which will contain the artifact.
+    configurations.create(normalizedClassifier)
+
+    // Create a new source set. This will automatically create configurations for:
+    // ${normalizedClassifier}Compile
+    // ${normalizedClassifier}Runtime
+    def sources = sourceSets.create(normalizedClassifier)
+    sources.resources {
+        srcDirs += files(nativeFileDir(nativeClassifier))
+    }
+}
+
+// Adds a JAR task for the native library.
+def addNativeJar(nativeClassifier) {
+    def normalizedClassifier = normalizeClassifier(nativeClassifier)
+    // Create a JAR for this configuration and add it to the output archives.
+    def jarTaskName = "create${normalizedClassifier}Jar"
+    // The testRuntime configuration is created automatically when we created the source set.
+    def testRuntimeConfigName = "${normalizedClassifier}TestRuntime"
+    task "$jarTaskName"(type: Jar) {
+        dependsOn classes
+        dependsOn configurations[testRuntimeConfigName]
+        from sourceSets.main.output + files(nativeFileDir(nativeClassifier))
+        manifest = jar.manifest
+        classifier = nativeClassifier
+    }
+    // Add it to the 'archives' configuration so that the artifact will be automatically built and
+    // installed/deployed.
+    artifacts.add('archives', tasks["$jarTaskName"])
+
+    // Also add the artifact to its own configuration so that it can be referenced from other projects.
+    artifacts.add(normalizedClassifier, tasks["$jarTaskName"])
+}
+
+// Optionally adds a test task for the given platform
+def addNativeTest(nativeClassifier) {
+    def normalizedClassifier = normalizeClassifier(nativeClassifier)
+    def testTaskName = "${normalizedClassifier}Test"
+    def javaExecutable
+    def javaArchFlag
+    if (normalizedClassifier.endsWith(arch32Name)) {
+        // 32-bit test
+        javaExecutable = javaExecutable32 != null ? javaExecutable32 : test.executable
+        javaArchFlag = '-d32'
+    } else {
+        // 64-bit test
+        javaExecutable = javaExecutable64 != null ? javaExecutable64 : test.executable
+        javaArchFlag = '-d64'
+    }
+
+    // Execute the java executable to see if it supports the architecture flag.
+    def javaError = new ByteArrayOutputStream()
+    exec {
+        executable javaExecutable
+        args = ["$javaArchFlag", '-version']
+        ignoreExitValue true
+        errorOutput = javaError
+    }
+
+    // Only add the test if the javaArchFlag is supported for the selected JVM
+    def archSupported = !javaError.toString().toLowerCase().contains('error')
+    if (archSupported) {
+        task "$testTaskName"(type: Test) {
+            testClassesDir = test.testClassesDir
+            classpath = test.classpath + files(nativeFileDir(nativeClassifier))
+            jvmArgs javaArchFlag
+            executable = javaExecutable
+        }
+        test.dependsOn "$testTaskName"
+    }
+}
+
+// Exclude all test classes from the default test suite.
+// We will test each available native artifact separately (see nativeClassifiers).
+test.exclude("**")
+
+model {
+    platforms {
+        x86 {
+            architecture arch32Name
+        }
+        x86_64 {
+            architecture arch64Name
+        }
+    }
+
+    buildTypes {
+        release
+    }
+
+    components {
+        // Builds the JNI library.
+        conscrypt_openjdk_jni(NativeLibrarySpec) {
+            if (build32Bit) { targetPlatform arch32Name }
+            if (build64Bit) { targetPlatform arch64Name }
+
+            sources {
+                cpp {
+                    source {
+                        srcDirs "$jniSourceDir/main/cpp"
+                        include "**/*.cpp"
+                    }
+                }
+            }
+
+            binaries {
+                // Build the JNI lib as a shared library.
+                withType (SharedLibraryBinarySpec) {
+                    cppCompiler.define "CONSCRYPT_OPENJDK"
+
+                    // Set up 32-bit vs 64-bit build
+                    def libPath
+                    if (targetPlatform.getArchitecture().getName() == "x86") {
+                        libPath = "$boringssl32BuildDir"
+                    } else if (targetPlatform.getArchitecture().getName() == "x86-64") {
+                        libPath = "$boringssl64BuildDir"
+                    } else {
+                        throw new GradleException("Unknown architecture: " +
+                                targetPlatform.getArchitecture().name)
+                    }
+
+                    if (toolChain in Clang || toolChain in Gcc) {
+                        cppCompiler.args "-Wall",
+                                "-fPIC",
+                                "-O2",
+                                "-std=c++11",
+                                "-I$jniSourceDir/main/include",
+                                "-I$jniSourceDir/unbundled/include",
+                                "-I$boringsslIncludeDir",
+                                "-I$jdkIncludeDir",
+                                "-I$jdkIncludeDir/linux",
+                                "-I$jdkIncludeDir/darwin",
+                                "-I$jdkIncludeDir/win32"
+
+                        // Static link to BoringSSL
+                        linker.args "-O2",
+                                "-fvisibility=hidden",
+                                "-lstdc++",
+                                libPath + "/ssl/libssl.a",
+                                libPath + "/crypto/libcrypto.a"
+                    } else if (toolChain in VisualCpp) {
+                        cppCompiler.define "DLL_EXPORT"
+                        cppCompiler.define "WIN32_LEAN_AND_MEAN"
+                        cppCompiler.define "WIN64"
+                        cppCompiler.define "_WINDOWS"
+                        cppCompiler.define "UNICODE"
+                        cppCompiler.define "_UNICODE"
+                        cppCompiler.define "NDEBUG"
+
+                        cppCompiler.args "/nologo",
+                                "/MT",
+                                "/WX-",
+                                "/Wall",
+                                "/O2",
+                                "/Oi",
+                                "/Ot",
+                                "/GL",
+                                "/GS",
+                                "/Gy",
+                                "/fp:precise",
+                                "-wd4514", // Unreferenced inline function removed
+                                "-wd4548", // Expression before comma has no effect
+                                "-wd4625", // Copy constructor was implicitly defined as deleted
+                                "-wd4626", // Assignment operator was implicitly defined as deleted
+                                "-wd4710", // function not inlined
+                                "-wd4711", // function inlined
+                                "-wd4820", // Extra padding added to struct
+                                "-wd4946", // reinterpret_cast used between related classes:
+                                "-wd4996", // Thread safety for strerror
+                                "-wd5027", // Move assignment operator was implicitly defined as deleted
+                                "-I$jniSourceDir/main/include",
+                                "-I$jniSourceDir/unbundled/include",
+                                "-I$boringsslIncludeDir",
+                                "-I$jdkIncludeDir",
+                                "-I$jdkIncludeDir/win32"
+
+                        // Static link to BoringSSL
+                        linker.args "-WX",
+                                "ws2_32.lib",
+                                "advapi32.lib",
+                                libPath + "\\ssl\\ssl.lib",
+                                libPath + "\\crypto\\crypto.lib"
+                    }
+                }
+
+                // Never build a static library.
+                withType(StaticLibraryBinarySpec) {
+                    buildable = false
+                }
+            }
+        }
+    }
+
+    tasks { t ->
+        $.binaries.withType(SharedLibraryBinarySpec).each { binary ->
+            // Build the native artifact classifier from the OS and architecture.
+            def archName = binary.targetPlatform.architecture.name.replaceAll('-', '_')
+            def classifier = classifierFor(osName, archName)
+            def normalizedClassifier = normalizeClassifier("$classifier")
+            def source = binary.sharedLibraryFile
+
+            // Copies the native library to a resource location that will be included in the jar.
+            def copyTaskName = "copyNativeLib${normalizedClassifier}"
+            task "$copyTaskName"(type: Copy, dependsOn: binary.buildTask) {
+                from source
+                // Rename the artifact to include the generated classifier
+                rename '(.+)(\\.[^\\.]+)', "\$1-$classifier\$2"
+                // This location will automatically be included in the jar.
+                into "${buildDir}/${normalizedClassifier}/resources/main/META-INF/native"
+            }
+
+            // Make sure we build and copy the native library to the output directory.
+            compileJava.dependsOn "$copyTaskName"
+
+            // Now define a task to strip the release binary (linux only)
+            def stripTask = binary.tasks.taskName("strip")
+            t.create(stripTask) {
+                dependsOn binary.tasks.link
+                doFirst {
+                    if (osName == 'linux') {
+                        ["strip", binary.tasks.link.outputFile].execute().waitForOrKill(1000)
+                    }
+                }
+            }
+            binary.tasks.build.dependsOn stripTask
+        }
+    }
+}
+
+static classifierFor(osName, archName) {
+    return "${osName}-${archName}"
+}
+
+static normalizeClassifier(classifier) {
+    return classifier.replaceAll("-", "_")
+}
+
+// Manually add the native library to help IntelliJ run tests.
+idea.module {
+    scopes.PROVIDED.plus += [ configurations["$preferredNativeConfiguration"] ]
+}

@@ -1,0 +1,10 @@
+URL: https://curl.haxx.se/download/curl-7.50.1.tar.gz
+Version: 7.50.1
+Upstream commit: f2cb3a01192d36395d16acec6cdb93446ca6fd45
+License: MIT
+License File: NOTICE
+BugComponent: 31714
+Owners: deymo, enh
+
+Description:
+Curl is a command line tool for transferring data specified with URL syntax.

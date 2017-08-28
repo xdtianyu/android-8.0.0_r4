@@ -1,0 +1,124 @@
+language: android
+
+env:
+  global:
+    - BORINGSSL_HOME="$HOME/boringssl"
+    - CC=clang
+    - CXX=clang++
+    - GOOGLE_JAVA_FORMAT_VERSION=1.1
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/dists/
+
+matrix:
+  include:
+    ###
+    ### Linux build is the only platform that builds Android here.
+    ###
+    - os: linux
+      jdk: oraclejdk8
+      sudo: false
+
+      env:
+        - ANDROID_TOOLS_URL="https://dl.google.com/android/repository/tools_r25.2.3-linux.zip"
+        - ANDROID_HOME="$HOME/android-sdk-linux"
+        - ANDROID_NDK_HOME="$ANDROID_HOME/ndk-bundle"
+
+      before_install:
+        - curl -L $ANDROID_TOOLS_URL -o $HOME/tools.zip
+        - unzip -q $HOME/tools.zip -d $ANDROID_HOME
+        - mkdir $ANDROID_HOME/licenses
+        - echo -ne "\n8933bad161af4178b1185d1a37fbf41ea5269c55" >> $ANDROID_HOME/licenses/android-sdk-license
+        - echo -ne "\n84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" >> $ANDROID_HOME/licenses/android-sdk-preview-license
+        - $ANDROID_HOME/tools/bin/sdkmanager tools
+        - $ANDROID_HOME/tools/bin/sdkmanager platform-tools
+        - $ANDROID_HOME/tools/bin/sdkmanager 'build-tools;25.0.0'
+        - $ANDROID_HOME/tools/bin/sdkmanager 'platforms;android-25'
+        - $ANDROID_HOME/tools/bin/sdkmanager 'extras;android;m2repository'
+        - $ANDROID_HOME/tools/bin/sdkmanager --channel=1 ndk-bundle
+        - $ANDROID_HOME/tools/bin/sdkmanager 'cmake;3.6.3155560'
+
+      addons:
+        apt:
+          sources:
+            - kalakris-cmake
+            - llvm-toolchain-precise-3.8  # for clang-format-3.8
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang
+            - clang-format-3.8  # for style checks
+            - cmake
+            - g++-multilib
+            - gcc-multilib
+            - libc6-dev-i386
+            - libc6-dev:i386
+            - ninja-build
+
+    ###
+    ### MacOS build only does x86-64.
+    ###
+    - os: osx
+      osx_image: xcode8
+      before_install:
+        - brew update
+        - brew install ninja
+        - export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+before_cache:
+  - find $HOME/.gradle -name "*.lock" -exec rm {} \;
+  - rm -rf $HOME/.gradle/caches/[1-9]*
+
+before_script:
+  # Get Google Java Format
+  - curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.1/google-java-format-${GOOGLE_JAVA_FORMAT_VERSION}-all-deps.jar -o $HOME/gjf.jar
+
+  # get BoringSSL
+  - mkdir $BORINGSSL_HOME
+  - git clone --depth 1 https://boringssl.googlesource.com/boringssl $BORINGSSL_HOME
+
+  # Build BoringSSL for 64-bit
+  - mkdir $BORINGSSL_HOME/build64 && pushd $BORINGSSL_HOME/build64
+  - cmake -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_FLAGS=-Wa,--noexecstack -GNinja ..
+  - ninja
+  - popd
+
+  # Get git-clang-format
+  - mkdir $HOME/bin
+  - curl -L https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/git-clang-format -o $HOME/bin/git-clang-format
+  - chmod 0755 $HOME/bin/git-clang-format
+  - export PATH="$HOME/bin:$PATH"
+
+  # TODO(nathanmittler): Need to figure out how to make 32-bit builds work
+  # Build BoringSSL for 32-bit
+  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]];
+  #  then
+  #      mkdir $BORINGSSL_HOME/build32;
+  #      pushd $BORINGSSL_HOME/build32;
+  #      cmake -DCMAKE_TOOLCHAIN_FILE=../util/32-bit-toolchain.cmake -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_FLAGS="-Wa,--noexecstack -m32 -msse2" -GNinja ..;
+  #      ninja;
+  #      popd;
+  #  fi
+
+  # We need this to find the merge-base
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" != "false" ]];
+    then
+        git fetch origin +refs/heads/${TRAVIS_BRANCH}:refs/remotes/origin/${TRAVIS_BRANCH};
+    fi
+
+script:
+  # MacOS (BSD) xargs is missing some nice features that make this easy, so skip it.
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" != "false" ]];
+    then
+        git rev-list $(git merge-base HEAD origin/master)..HEAD | xargs -i git clang-format --binary=$(which clang-format-3.8) --style=file --diff {}^ {} | ( git apply; true ) && git diff --exit-code || { git reset --hard; false; }
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" != "false" ]];
+    then
+        git rev-list $(git merge-base HEAD origin/master)..HEAD | xargs -i git diff-tree --no-commit-id --name-only -r {} | grep -E '\.java$' | xargs -r git ls-files | xargs -r java -jar $HOME/gjf.jar -a -i --fix-imports-only && git diff --exit-code || { git reset --hard; false; }
+    fi
+
+  - ./gradlew build
+
+after_script:
+  - "[ -f android/build/outputs/lint-results-debug.xml ] && cat android/build/outputs/lint-results-debug.xml"
