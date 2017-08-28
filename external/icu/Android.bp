@@ -1,0 +1,4 @@
+subdirs = [
+    "android_utils",
+    "icu4c/source",
+]
