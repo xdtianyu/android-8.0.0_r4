@@ -1,0 +1,7 @@
+cc_library_static {
+    name: "webp-headers",
+    export_include_dirs: ["include"],
+    sdk_version: "9",
+}
+
+subdirs = ["*"]

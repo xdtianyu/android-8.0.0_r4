@@ -1,0 +1,22 @@
+cc_library {
+    name: "libtinyxml2",
+    host_supported: true,
+    vendor_available: true,
+
+    srcs: ["tinyxml2.cpp"],
+
+    target: {
+        android: {
+            cflags: [
+                // LOG_TO_ANDROID_LOGCAT
+                "-DDEBUG",
+                "-DANDROID_NDK",
+            ],
+            shared: {
+              shared_libs: ["liblog"],
+            },
+        },
+    },
+
+    export_include_dirs: ["."],
+}
