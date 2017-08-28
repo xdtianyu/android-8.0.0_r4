@@ -1,0 +1,42 @@
+// Build the unit tests.
+
+perfprofd_test_cppflags = [
+    "-Wall",
+    "-Wno-sign-compare",
+    "-Wno-unused-parameter",
+    "-Werror",
+]
+
+//
+// Static library with mockup utilities layer (called by unit test).
+//
+cc_library_static {
+    name: "libperfprofdmockutils",
+    clang: true,
+
+    include_dirs: ["system/extras/perfprofd"],
+    cppflags: perfprofd_test_cppflags,
+    srcs: ["perfprofdmockutils.cc"],
+}
+
+//
+// Unit test for perfprofd
+//
+cc_test {
+    name: "perfprofd_test",
+    clang: true,
+
+    stl: "libc++",
+    static_libs: [
+        "libperfprofdcore",
+        "libperfprofdmockutils",
+        "libbase",
+    ],
+    shared_libs: [
+        "libprotobuf-cpp-lite",
+        "liblog",
+        "libcutils",
+    ],
+    srcs: ["perfprofd_test.cc"],
+    cppflags: perfprofd_test_cppflags,
+}

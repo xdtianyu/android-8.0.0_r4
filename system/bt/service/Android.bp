@@ -1,0 +1,243 @@
+cc_defaults {
+    name: "fluoride_service_defaults",
+    defaults: ["fluoride_defaults"],
+    local_include_dirs: [
+        "common"
+    ],
+    include_dirs: [
+        "system/bt"
+    ],
+    srcs: [
+        "common/bluetooth/adapter_state.cc",
+        "common/bluetooth/advertise_data.cc",
+        "common/bluetooth/advertise_settings.cc",
+        "common/bluetooth/descriptor.cc",
+        "common/bluetooth/characteristic.cc",
+        "common/bluetooth/scan_filter.cc",
+        "common/bluetooth/scan_result.cc",
+        "common/bluetooth/scan_settings.cc",
+        "common/bluetooth/service.cc",
+        "common/bluetooth/util/address_helper.cc",
+        "common/bluetooth/util/atomic_string.cc",
+        "common/bluetooth/uuid.cc",
+    ]
+}
+
+// Source variables
+// ========================================================
+btserviceCommonBinderSrc = [
+    "common/android/bluetooth/IBluetooth.aidl",
+    "common/android/bluetooth/IBluetoothCallback.aidl",
+    "common/android/bluetooth/IBluetoothGattClient.aidl",
+    "common/android/bluetooth/IBluetoothGattClientCallback.aidl",
+    "common/android/bluetooth/IBluetoothGattServer.aidl",
+    "common/android/bluetooth/IBluetoothGattServerCallback.aidl",
+    "common/android/bluetooth/IBluetoothLeAdvertiser.aidl",
+    "common/android/bluetooth/IBluetoothLeAdvertiserCallback.aidl",
+    "common/android/bluetooth/IBluetoothLeScanner.aidl",
+    "common/android/bluetooth/IBluetoothLeScannerCallback.aidl",
+    "common/android/bluetooth/IBluetoothLowEnergy.aidl",
+    "common/android/bluetooth/IBluetoothLowEnergyCallback.aidl",
+    "common/android/bluetooth/advertise_data.cc",
+    "common/android/bluetooth/advertise_settings.cc",
+    "common/android/bluetooth/bluetooth_gatt_characteristic.cc",
+    "common/android/bluetooth/bluetooth_gatt_descriptor.cc",
+    "common/android/bluetooth/bluetooth_gatt_included_service.cc",
+    "common/android/bluetooth/bluetooth_gatt_service.cc",
+    "common/android/bluetooth/scan_filter.cc",
+    "common/android/bluetooth/scan_result.cc",
+    "common/android/bluetooth/scan_settings.cc",
+    "common/android/bluetooth/uuid.cc",
+]
+
+btserviceCommonAidlInclude = [
+    "system/bt/service/common",
+    "frameworks/native/aidl/binder",
+]
+
+btserviceDaemonSrc = [
+    "adapter.cc",
+    "daemon.cc",
+    "gatt_client.cc",
+    "gatt_server.cc",
+    "gatt_server_old.cc",
+    "hal/bluetooth_gatt_interface.cc",
+    "hal/bluetooth_interface.cc",
+    "ipc/ipc_handler.cc",
+    "ipc/ipc_manager.cc",
+    "logging_helpers.cc",
+    "low_energy_advertiser.cc",
+    "low_energy_scanner.cc",
+    "low_energy_client.cc",
+    "settings.cc",
+]
+
+btserviceLinuxSrc = [
+    "ipc/ipc_handler_linux.cc",
+    "ipc/linux_ipc_host.cc",
+]
+
+btserviceBinderDaemonImplSrc = [
+    "ipc/binder/bluetooth_binder_server.cc",
+    "ipc/binder/bluetooth_gatt_client_binder_server.cc",
+    "ipc/binder/bluetooth_gatt_server_binder_server.cc",
+    "ipc/binder/bluetooth_le_advertiser_binder_server.cc",
+    "ipc/binder/bluetooth_le_scanner_binder_server.cc",
+    "ipc/binder/bluetooth_low_energy_binder_server.cc",
+    "ipc/binder/interface_with_instances_base.cc",
+    "ipc/binder/ipc_handler_binder.cc",
+]
+
+btserviceBinderDaemonSrc = btserviceCommonBinderSrc + btserviceBinderDaemonImplSrc
+
+// Main unit test sources. These get built for host and target.
+// ========================================================
+btserviceBaseTestSrc = [
+    "hal/fake_bluetooth_gatt_interface.cc",
+    "hal/fake_bluetooth_interface.cc",
+    "test/adapter_unittest.cc",
+    "test/advertise_data_unittest.cc",
+    "test/fake_hal_util.cc",
+    "test/gatt_client_unittest.cc",
+    "test/gatt_server_unittest.cc",
+    "test/low_energy_advertiser_unittest.cc",
+    "test/low_energy_client_unittest.cc",
+    "test/low_energy_scanner_unittest.cc",
+    "test/settings_unittest.cc",
+    "test/util_unittest.cc",
+    "test/uuid_unittest.cc",
+]
+
+// Native system service for target
+// ========================================================
+cc_binary {
+    name: "bluetoothtbd",
+    defaults: ["fluoride_service_defaults"],
+    srcs: btserviceBinderDaemonSrc
+        + btserviceLinuxSrc
+        + btserviceDaemonSrc
+        + ["main.cc"],
+    aidl: {
+        include_dirs: btserviceCommonAidlInclude
+    },
+    required: ["bluetooth.default"],
+    static_libs: ["libbtcore"],
+    shared_libs: [
+        "libbinder",
+        "libcutils",
+        "libhardware",
+        "liblog",
+        "libutils",
+    ],
+    init_rc: ["bluetoothtbd.rc"],
+}
+
+// Native system service unit tests for target and host
+
+// ========================================================
+cc_test {
+    name: "bluetoothtbd_test",
+    defaults: ["fluoride_service_defaults"],
+    srcs: btserviceBaseTestSrc
+        + btserviceDaemonSrc + [
+        "test/main.cc"
+    ],
+    aidl: {
+        include_dirs: btserviceCommonAidlInclude,
+    },
+    static_libs: [
+        "libgmock",
+        "liblog",
+    ],
+    host_supported: true,
+    target: {
+        // This includes Binder related tests that can only be run
+        // on target.
+        android: {
+            srcs: btserviceBinderDaemonSrc + [
+                "test/parcelable_unittest.cc",
+                "test/ParcelableTest.aidl",
+            ],
+            shared_libs: [
+                "libbinder",
+                "libutils",
+            ],
+        },
+        host: {
+            srcs: [
+                "test/stub_ipc_handler_binder.cc",
+            ],
+        },
+        darwin: {
+            srcs: [
+                "test/stub_ipc_handler_linux.cc",
+            ],
+        },
+        linux: {
+            srcs: btserviceLinuxSrc + [
+                // TODO(bcf): Fix this test.
+                //"test/ipc_linux_unittest.cc",
+            ],
+            host_ldlibs: ["-lrt"],
+        },
+    },
+}
+
+// Client library for interacting with Bluetooth daemon
+// This is a static library for target.
+// ========================================================
+cc_library_static {
+    name: "libbluetooth-client",
+    defaults: ["fluoride_service_defaults"],
+    srcs: btserviceCommonBinderSrc,
+    aidl: {
+        export_aidl_headers: true,
+        include_dirs: btserviceCommonAidlInclude
+    },
+    export_include_dirs: ["common"],
+    shared_libs: [
+        "libbinder",
+        "libutils",
+    ],
+}
+
+// Native system service CLI for target
+// ========================================================
+cc_binary {
+    name: "bluetooth-cli",
+    defaults: ["fluoride_defaults"],
+    srcs: ["client/main.cc"],
+    static_libs: ["libbluetooth-client"],
+    shared_libs: [
+        "libbinder",
+        "libutils",
+    ],
+}
+
+// Heart Rate GATT service example for target
+// ========================================================
+cc_binary {
+    name: "bt-example-hr-server",
+    defaults: ["fluoride_defaults"],
+    local_include_dirs: ["example/heart_rate"],
+    srcs: [
+        "example/heart_rate/heart_rate_server.cc",
+        "example/heart_rate/server_main.cc",
+    ],
+    static_libs: ["libbluetooth-client"],
+    shared_libs: [
+        "libbinder",
+        "libutils",
+    ],
+}
+
+cc_library_static {
+    name: "libbluetoothtbd_hal",
+    defaults: ["fluoride_defaults"],
+    include_dirs: ["system/bt"],
+    srcs = [
+        "hal/bluetooth_gatt_interface.cc",
+        "hal/bluetooth_interface.cc",
+        "logging_helpers.cc",
+    ]
+}

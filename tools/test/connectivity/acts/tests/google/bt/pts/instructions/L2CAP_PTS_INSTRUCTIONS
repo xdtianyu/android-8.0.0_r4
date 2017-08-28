@@ -1,0 +1,169 @@
+# Copyright (C) 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+
+L2CAP
+=================================================================
+TC_L2CAP_COS_CED_BV_01_C
+  bta_start_pairing_helper
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_03_C
+  bta_start_pairing_helper
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_04_C
+  Note: Assumption that devices are paired from previous testcase
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_05_C
+  ble_start_generic_connectable_advertisement
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_07_C
+  rfcomm_connect
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_08_C
+  rfcomm_connect
+  rfcomm_stop
+
+TC_L2CAP_COS_CED_BV_09_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CED_BV_11_C
+  rfcomm_connect
+
+TC_L2CAP_COS_CED_BI_01_C
+  ble_start_generic_connectable_advertisement
+
+TC_L2CAP_COS_CFD_BV_01_C
+  bta_enable
+
+TC_L2CAP_COS_CFD_BV_02_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CFD_BV_03_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CFD_BV_08_C
+  bta_start_pairing_helper
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CFD_BV_09_C
+  bta_start_pairing_helper
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CFD_BV_11_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_CFD_BV_12_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_IEX_BV_01_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_COS_IEX_BV_02_C
+  bta_enable
+
+TC_L2CAP_COS_ECH_BV_01_C
+  bta_enable
+
+TC_L2CAP_EXF_BV_01_C
+  bta_set_scan_mode SCAN_MODE_CONNECTABLE
+
+TC_L2CAP_EXF_BV_02_C
+  bta_set_scan_mode SCAN_MODE_CONNECTABLE
+
+TC_L2CAP_EXF_BV_03_C
+  bta_set_scan_mode SCAN_MODE_CONNECTABLE
+
+TC_L2CAP_EXF_BV_05_C
+  bta_set_scan_mode SCAN_MODE_CONNECTABLE
+
+TC_L2CAP_CMC_BV_09_C
+  bta_set_scan_mode SCAN_MODE_CONNECTABLE
+
+TC_L2CAP_CMC_BV_10_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_CMC_BV_11_C
+  rfcomm_connect
+  rfcomm_stop
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_CMC_BV_12_C
+  Note: The PTS Interaction happens really fast, be ready to click.
+  gattc_connect_over_bredr
+  [PTS Interaction] Yes
+
+TC_L2CAP_CMC_BV_13_C
+  Note: The PTS Interaction happens really fast, be ready to click.
+  Note: Make sure device are not bonded.
+  gattc_connect_over_bredr
+  [PTS Interaction] Yes
+
+TC_L2CAP_CMC_BI_05_C
+  rfcomm_accept
+  [Wait up to 10-15 seconds]
+
+TC_L2CAP_CMC_BI_06_C
+  bta_enable
+
+TC_FIX_BV_01_C
+  rfcomm_connect
+
+TC_LE_CPU_BV_02_C
+  gattc_connect_over_le
+  bta_disable
+  bta_enable
+  gattc_connect_over_le
+
+TC_LE_CPU_BI_01_C
+  gattc_connect_over_le
+  gattc_disconnect
+
+TC_LE_REJ_BI_01_C
+  gattc_connect_over_le
+  gattc_disconnect
+
+TC_L2CAP_LE_CFC_BV_05_C
+  gattc_connect_over_le
+  gattc_disconnect
+  bta_disable
+  bta_enable
+  gattc_connect_over_le

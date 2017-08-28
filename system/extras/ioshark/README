@@ -1,0 +1,30 @@
+IOshark is a repeatable application workload storage benchmark. You
+can find more documentation on IOshark at :
+https://docs.google.com/a/google.com/document/d/1Bhq7iNPVc_JzwRrkmZqcPjMvWgpHX0r3Ncq-ZsRNOBA/edit?usp=sharing
+
+The short summary of what IOshark is : IOshark has 2 components, one
+is a strace+ftrace compiler that takes straces and select ftraces fed
+into it and compiles this into bytecodes (stored in *.wl files). The
+compiler runs on a Linux host. The second component (which runs on the
+device) is the tester that takes as input the bytecode files (*.wl
+files) and executes them on the device.
+
+How to Run :
+----------
+- First collect straces and compile these into bytecodes. The wrapper
+script provided (collect-straces.sh) collects straces, ships them to
+the host where the script runs, compiles and packages up the bytecode
+files into a wl.tar file.
+- Ship the wl.tar file and the iostark_bench binaries to the target
+device (on /data/local/tmp say). Explode the tarfile.
+- Run the tester. "ioshark_bench *.wl" runs the test with default
+options. Supported ioshark_bench options :
+-d : Preserve the delays between successive filesystem syscalls as
+seen in the original straces.
+-n <N> : Run for N iterations
+-t <N> : Limit to N threads. By default (without this option), IOshark
+will launch as many threads as there are input files, so 1 thread/file.
+-v : verbose. Chatty mode.
+-s : One line summary.
+-q : Don't create the files in read-only partitions like /system and
+/vendor. Instead do reads on those files.

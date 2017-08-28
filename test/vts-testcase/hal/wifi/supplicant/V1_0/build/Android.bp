@@ -1,0 +1,168 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+// Generate .vts spec files.
+hal2vts {
+    name: "android.hardware.wifi.supplicant@1.0-vts.spec",
+    srcs: [
+        ":android.hardware.wifi.supplicant@1.0_hal",
+    ],
+    out: [
+        "android/hardware/wifi/supplicant/1.0/Supplicant.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantCallback.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantIface.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantNetwork.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIface.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIfaceCallback.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetwork.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetworkCallback.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIface.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIfaceCallback.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetwork.vts",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetworkCallback.vts",
+        "android/hardware/wifi/supplicant/1.0/types.vts",
+    ],
+}
+
+// Build VTS driver.
+genrule {
+    name: "android.hardware.wifi.supplicant@1.0-vts.driver_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.wifi.supplicant@1.0 && $(location vtsc) -mDRIVER -tSOURCE -b$(genDir) android/hardware/wifi/supplicant/1.0/ $(genDir)/android/hardware/wifi/supplicant/1.0/",
+    srcs: [
+        ":android.hardware.wifi.supplicant@1.0_hal",
+    ],
+    out: [
+        "android/hardware/wifi/supplicant/1.0/Supplicant.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIfaceCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetworkCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIfaceCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetworkCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/types.vts.cpp",
+    ],
+}
+
+genrule {
+    name: "android.hardware.wifi.supplicant@1.0-vts.driver_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.wifi.supplicant@1.0 && $(location vtsc) -mDRIVER -tHEADER -b$(genDir) android/hardware/wifi/supplicant/1.0/ $(genDir)/android/hardware/wifi/supplicant/1.0/",
+    srcs: [
+        ":android.hardware.wifi.supplicant@1.0_hal",
+    ],
+    out: [
+        "android/hardware/wifi/supplicant/1.0/Supplicant.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIfaceCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetworkCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIfaceCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetworkCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/types.vts.h",
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.wifi.supplicant@1.0-vts.driver",
+    generated_sources: ["android.hardware.wifi.supplicant@1.0-vts.driver_genc++"],
+    generated_headers: ["android.hardware.wifi.supplicant@1.0-vts.driver_genc++_headers"],
+    export_generated_headers: ["android.hardware.wifi.supplicant@1.0-vts.driver_genc++_headers"],
+    shared_libs: [
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libvts_common",
+        "libvts_datatype",
+        "libvts_drivercomm",
+        "libvts_measurement",
+        "libvts_multidevice_proto",
+        "libcamera_metadata",
+        "libprotobuf-cpp-full",
+        "android.hardware.wifi.supplicant@1.0",
+        "android.hidl.base@1.0",
+    ],
+    export_shared_lib_headers: [
+        "android.hidl.base@1.0",
+    ],
+}
+
+// Build VTS profiler.
+genrule {
+    name: "android.hardware.wifi.supplicant@1.0-vts.profiler_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.wifi.supplicant@1.0 && $(location vtsc) -mPROFILER -tSOURCE -b$(genDir) android/hardware/wifi/supplicant/1.0/ $(genDir)/android/hardware/wifi/supplicant/1.0/",
+    srcs: [
+        ":android.hardware.wifi.supplicant@1.0_hal",
+    ],
+    out: [
+        "android/hardware/wifi/supplicant/1.0/Supplicant.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIfaceCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetworkCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIface.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIfaceCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetwork.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetworkCallback.vts.cpp",
+        "android/hardware/wifi/supplicant/1.0/types.vts.cpp",
+    ],
+}
+
+genrule {
+    name: "android.hardware.wifi.supplicant@1.0-vts.profiler_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.wifi.supplicant@1.0 && $(location vtsc) -mPROFILER -tHEADER -b$(genDir) android/hardware/wifi/supplicant/1.0/ $(genDir)/android/hardware/wifi/supplicant/1.0/",
+    srcs: [
+        ":android.hardware.wifi.supplicant@1.0_hal",
+    ],
+    out: [
+        "android/hardware/wifi/supplicant/1.0/Supplicant.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pIfaceCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantP2pNetworkCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIface.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaIfaceCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetwork.vts.h",
+        "android/hardware/wifi/supplicant/1.0/SupplicantStaNetworkCallback.vts.h",
+        "android/hardware/wifi/supplicant/1.0/types.vts.h",
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.wifi.supplicant@1.0-vts.profiler",
+    generated_sources: ["android.hardware.wifi.supplicant@1.0-vts.profiler_genc++"],
+    generated_headers: ["android.hardware.wifi.supplicant@1.0-vts.profiler_genc++_headers"],
+    export_generated_headers: ["android.hardware.wifi.supplicant@1.0-vts.profiler_genc++_headers"],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libvts_profiling",
+        "libvts_multidevice_proto",
+        "libprotobuf-cpp-full",
+        "android.hardware.wifi.supplicant@1.0",
+        "android.hidl.base@1.0",
+    ],
+}
+

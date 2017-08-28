@@ -1,0 +1,118 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+// Generate .vts spec files.
+hal2vts {
+    name: "android.hardware.usb@1.0-vts.spec",
+    srcs: [
+        ":android.hardware.usb@1.0_hal",
+    ],
+    out: [
+        "android/hardware/usb/1.0/Usb.vts",
+        "android/hardware/usb/1.0/UsbCallback.vts",
+        "android/hardware/usb/1.0/types.vts",
+    ],
+}
+
+// Build VTS driver.
+genrule {
+    name: "android.hardware.usb@1.0-vts.driver_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.usb@1.0 && $(location vtsc) -mDRIVER -tSOURCE -b$(genDir) android/hardware/usb/1.0/ $(genDir)/android/hardware/usb/1.0/",
+    srcs: [
+        ":android.hardware.usb@1.0_hal",
+    ],
+    out: [
+        "android/hardware/usb/1.0/Usb.vts.cpp",
+        "android/hardware/usb/1.0/UsbCallback.vts.cpp",
+        "android/hardware/usb/1.0/types.vts.cpp",
+    ],
+}
+
+genrule {
+    name: "android.hardware.usb@1.0-vts.driver_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.usb@1.0 && $(location vtsc) -mDRIVER -tHEADER -b$(genDir) android/hardware/usb/1.0/ $(genDir)/android/hardware/usb/1.0/",
+    srcs: [
+        ":android.hardware.usb@1.0_hal",
+    ],
+    out: [
+        "android/hardware/usb/1.0/Usb.vts.h",
+        "android/hardware/usb/1.0/UsbCallback.vts.h",
+        "android/hardware/usb/1.0/types.vts.h",
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.usb@1.0-vts.driver",
+    generated_sources: ["android.hardware.usb@1.0-vts.driver_genc++"],
+    generated_headers: ["android.hardware.usb@1.0-vts.driver_genc++_headers"],
+    export_generated_headers: ["android.hardware.usb@1.0-vts.driver_genc++_headers"],
+    shared_libs: [
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libvts_common",
+        "libvts_datatype",
+        "libvts_drivercomm",
+        "libvts_measurement",
+        "libvts_multidevice_proto",
+        "libcamera_metadata",
+        "libprotobuf-cpp-full",
+        "android.hardware.usb@1.0",
+        "android.hidl.base@1.0",
+    ],
+    export_shared_lib_headers: [
+        "android.hidl.base@1.0",
+    ],
+}
+
+// Build VTS profiler.
+genrule {
+    name: "android.hardware.usb@1.0-vts.profiler_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.usb@1.0 && $(location vtsc) -mPROFILER -tSOURCE -b$(genDir) android/hardware/usb/1.0/ $(genDir)/android/hardware/usb/1.0/",
+    srcs: [
+        ":android.hardware.usb@1.0_hal",
+    ],
+    out: [
+        "android/hardware/usb/1.0/Usb.vts.cpp",
+        "android/hardware/usb/1.0/UsbCallback.vts.cpp",
+        "android/hardware/usb/1.0/types.vts.cpp",
+    ],
+}
+
+genrule {
+    name: "android.hardware.usb@1.0-vts.profiler_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.usb@1.0 && $(location vtsc) -mPROFILER -tHEADER -b$(genDir) android/hardware/usb/1.0/ $(genDir)/android/hardware/usb/1.0/",
+    srcs: [
+        ":android.hardware.usb@1.0_hal",
+    ],
+    out: [
+        "android/hardware/usb/1.0/Usb.vts.h",
+        "android/hardware/usb/1.0/UsbCallback.vts.h",
+        "android/hardware/usb/1.0/types.vts.h",
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.usb@1.0-vts.profiler",
+    generated_sources: ["android.hardware.usb@1.0-vts.profiler_genc++"],
+    generated_headers: ["android.hardware.usb@1.0-vts.profiler_genc++_headers"],
+    export_generated_headers: ["android.hardware.usb@1.0-vts.profiler_genc++_headers"],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libvts_profiling",
+        "libvts_multidevice_proto",
+        "libprotobuf-cpp-full",
+        "android.hardware.usb@1.0",
+        "android.hidl.base@1.0",
+    ],
+}
+

@@ -1,0 +1,114 @@
+timestamp: 6312563123898
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "setCallback"
+  arg {
+    type: TYPE_HIDL_CALLBACK
+  }
+}
+
+timestamp: 6312567167440
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "setCallback"
+}
+
+timestamp: 6312567964732
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 6312570536034
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 6313453202788
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 6313454601539
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 8233848789720
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "setCallback"
+  arg {
+    type: TYPE_HIDL_CALLBACK
+  }
+}
+
+timestamp: 8233849143574
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "setCallback"
+}
+
+timestamp: 8233849328210
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 8233852717846
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 8234888100917
+event: SERVER_API_ENTRY
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+
+timestamp: 8234889871022
+event: SERVER_API_EXIT
+package: "android.hardware.usb"
+version: 1
+interface: "IUsb"
+func_msg {
+  name: "queryPortStatus"
+}
+

@@ -1,0 +1,509 @@
+component_class: HAL_CONVENTIONAL_SUBMODULE
+component_type: CAMERA
+component_type_version: 2.1
+
+original_data_structure_name: "struct camera_device_ops"
+
+header: "<hardware/hardware.h>"
+header: "<hardware/camera_common.h>"
+header: "<hardware/camera.h>"
+
+interface: {
+  api: {
+    name: "set_preview_window"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct preview_stream_ops*"
+    }
+  }
+
+  api: {
+    name: "set_callbacks"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       scalar_type: "pointer"
+       predefined_type: "struct camera_device*"
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       scalar_type: "pointer"
+       predefined_type: "camera_notify_callback"
+       is_callback: true
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       scalar_type: "pointer"
+       predefined_type: "camera_data_callback"
+       is_callback: true
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       scalar_type: "pointer"
+       predefined_type: "camera_data_timestamp_callback"
+       is_callback: true
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       scalar_type: "pointer"
+       predefined_type: "camera_request_memory"
+       is_callback: true
+    }
+    arg: {
+       type: TYPE_SCALAR
+       scalar_type: "void_pointer"
+    }
+  }
+
+  api: {
+    name: "enable_msg_type"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "disable_msg_type"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "msg_type_enabled"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "start_preview"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "stop_preview"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "preview_enabled"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "store_meta_data_in_buffers"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "start_recording"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "stop_recording"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "recording_enabled"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "release_recording_frame"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "void_pointer"
+    }
+  }
+
+  api: {
+    name: "auto_focus"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "cancel_auto_focus"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "take_picture"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "cancel_picture"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "set_parameters"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "char_pointer"
+    }
+  }
+
+  api: {
+    name: "get_parameters"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "char_pointer"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "put_parameters"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "char_pointer"
+    }
+  }
+
+  api: {
+    name: "send_command"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "release"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+  }
+
+  api: {
+    name: "dump"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "struct camera_device*"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  attribute: {
+    name: "camera_notify_callback"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "camera_notify_callback"
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "void_pointer"
+      }
+    }
+
+    is_callback: true
+  }
+
+  attribute: {
+    name: "camera_data_callback"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "camera_data_callback"
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        scalar_type: "pointer"
+        predefined_type: "camera_memory_t*"
+        is_const: true
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        scalar_type: "pointer"
+        predefined_type: "camera_frame_metadata_t*"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "void_pointer"
+      }
+    }
+
+    is_callback: true
+  }
+
+  attribute: {
+    name: "camera_data_timestamp_callback"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "camera_data_timestamp_callback"
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int64_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        scalar_type: "pointer"
+        predefined_type: "camera_memory_t*"
+        is_const: true
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "void_pointer"
+      }
+    }
+
+    is_callback: true
+  }
+
+  attribute: {
+    name: "camera_request_memory"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "camera_request_memory"
+      return_type: {
+        type: TYPE_PREDEFINED
+        scalar_type: "pointer"
+        predefined_type: "camera_memory_t*" 
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "size_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "void_pointer"
+      }
+    }
+
+    is_callback: true
+  }
+}

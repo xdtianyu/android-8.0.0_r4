@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/loganalysis"/>
+	<classpathentry kind="var" path="TRADEFED_ROOT/out/host/common/obj/JAVA_LIBRARIES/junit-host_intermediates/javalib.jar"/>
+	<classpathentry kind="var" path="TRADEFED_ROOT/external/easymock/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

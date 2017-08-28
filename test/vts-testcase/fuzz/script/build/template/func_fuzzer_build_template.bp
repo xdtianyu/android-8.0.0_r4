@@ -1,0 +1,33 @@
+genrule {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.func_fuzzer.{HAL_IFACE_NAME}_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.{HAL_NAME}@{HAL_VERSION} && $(location vtsc) -mFUZZER -tSOURCE -b$(genDir) android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/ $(genDir)/android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        "android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/{HAL_IFACE_NAME}.vts.cpp",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.func_fuzzer.{HAL_IFACE_NAME}",
+    defaults: ["func_fuzzer_defaults"],
+    srcs: [":android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.func_fuzzer.{HAL_IFACE_NAME}_genc++"],
+    shared_libs: [
+        "android.hardware.{HAL_NAME}@{HAL_VERSION}",
+        "libcutils",
+        "liblog",
+        "libutils",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "libhardware",
+        "libvts_func_fuzzer_utils",
+    ],
+    cflags: [
+        "-Wno-unused-parameter",
+        "-fno-omit-frame-pointer",
+    ],
+}
+

@@ -1,0 +1,25 @@
+component_class: HAL_CONVENTIONAL
+component_type: GPS
+component_type_version: 1.0
+
+original_data_structure_name: "struct gps_device_t"
+
+header: "<hardware/hardware.h>"
+header: "<hardware/gps.h>"
+
+interface: {
+  api: {
+    name: "get_gps_interface"
+    return_type: {
+      type: TYPE_PREDEFINED
+      predefined_type: "GpsInterface*"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct gps_device_t*"
+    }
+    callflow: {
+      entry: true
+    }
+  }
+}

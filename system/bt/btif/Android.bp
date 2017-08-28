@@ -1,0 +1,121 @@
+// Common variables
+// ========================================================
+btifCommonIncludes = [
+    "system/bt",
+    "system/bt/bta/include",
+    "system/bt/bta/sys",
+    "system/bt/bta/dm",
+    "system/bt/btcore/include",
+    "system/bt/device/include",
+    "system/bt/include",
+    "system/bt/stack/include",
+    "system/bt/stack/l2cap",
+    "system/bt/stack/a2dp",
+    "system/bt/stack/btm",
+    "system/bt/stack/avdt",
+    "system/bt/udrv/include",
+    "system/bt/btif/include",
+    "system/bt/btif/co",
+    "system/bt/hci/include",
+    "system/bt/vnd/include",
+    "system/bt/embdrv/sbc/encoder/include",
+    "system/bt/embdrv/sbc/decoder/include",
+    "system/bt/utils/include",
+]
+
+// libbtif static library for target
+// ========================================================
+cc_library_static {
+    name: "libbtif",
+    defaults: ["fluoride_defaults"],
+    include_dirs: btifCommonIncludes,
+    srcs: [
+        // HAL layer
+        "src/bluetooth.cc",
+        // BTIF implementation
+        "src/btif_a2dp.cc",
+        "src/btif_a2dp_control.cc",
+        "src/btif_a2dp_sink.cc",
+        "src/btif_a2dp_source.cc",
+        "src/btif_av.cc",
+        "src/btif_avrcp_audio_track.cc",
+        "src/btif_ble_advertiser.cc",
+        "src/btif_ble_scanner.cc",
+        "src/btif_config.cc",
+        "src/btif_config_transcode.cc",
+        "src/btif_core.cc",
+        "src/btif_debug.cc",
+        "src/btif_debug_btsnoop.cc",
+        "src/btif_debug_conn.cc",
+        "src/btif_dm.cc",
+        "src/btif_gatt.cc",
+        "src/btif_gatt_client.cc",
+        "src/btif_gatt_server.cc",
+        "src/btif_gatt_test.cc",
+        "src/btif_gatt_util.cc",
+        "src/btif_hf.cc",
+        "src/btif_hf_client.cc",
+        "src/btif_hh.cc",
+        "src/btif_hd.cc",
+        "src/btif_hl.cc",
+        "src/btif_mce.cc",
+        "src/btif_pan.cc",
+        "src/btif_profile_queue.cc",
+        "src/btif_rc.cc",
+        "src/btif_sdp.cc",
+        "src/btif_sdp_server.cc",
+        "src/btif_sm.cc",
+        "src/btif_sock.cc",
+        "src/btif_sock_rfc.cc",
+        "src/btif_sock_l2cap.cc",
+        "src/btif_sock_sco.cc",
+        "src/btif_sock_sdp.cc",
+        "src/btif_sock_thread.cc",
+        "src/btif_sock_util.cc",
+        "src/btif_storage.cc",
+        "src/btif_uid.cc",
+        "src/btif_util.cc",
+        "src/stack_manager.cc",
+        // Callouts
+        "co/bta_ag_co.cc",
+        "co/bta_dm_co.cc",
+        "co/bta_av_co.cc",
+        "co/bta_hh_co.cc",
+        "co/bta_hl_co.cc",
+        "co/bta_pan_co.cc",
+        "co/bta_gatts_co.cc",
+    ],
+    shared_libs: [
+        "libaudioclient",
+        "libcutils",
+        "liblog",
+        "libz",
+        "libtinyxml2",
+    ],
+    whole_static_libs: [
+        "libaudio-a2dp-hw-utils",
+    ],
+    cflags: ["-DBUILDCFG"],
+
+}
+
+// btif unit tests for target
+// ========================================================
+cc_test {
+    name: "net_test_btif",
+    defaults: ["fluoride_defaults"],
+    include_dirs: btifCommonIncludes,
+    srcs: ["test/btif_storage_test.cc"],
+    shared_libs: [
+        "liblog",
+        "libhardware",
+        "libcutils",
+    ],
+    static_libs: [
+        "libbtcore",
+        "libbtif",
+        "libbt-stack",
+        "libosi",
+    ],
+    cflags: ["-DBUILDCFG"],
+}

@@ -1,0 +1,106 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+bad;
+// semicolon!
+package tests.errors.syntax@1.0
+
+// bad; // can't recover from this yet
+import IBad;
+import IGood
+import 1233;
+// bad; // can't recover from this yet
+import IBad;
+import IGood2;
+import IBad;
+
+enum ForgetASemicolon {
+}
+
+bad;
+interface IEx1 {
+
+    bad;
+    enum SomeBaseEnum : uint8_t {
+        // 3 bad 33, // can't recover from this yet
+        bar = 66,
+        // foo = NonExistentEnum, // can't recover from this yet
+        baz = 77,
+        // good-day obj, // can't recover from this yet
+        boo = 88,
+        errorval = 3 + (4 + ) + 5,
+        good = errorval + 1,
+        // eat struct // can't recover from this yet
+    };
+
+    enum SomeEnum : SomeBaseEnum {
+    };
+
+    struct Fumble {
+        bad;
+        SomeBaseEnum myEnum;
+        8Messy;
+        SomeEnum myEnum2;
+        int32_t missMySemicolon
+        int32_t good;
+        bad;
+    };
+
+    bad;
+    typedef Fumble Gumble;
+
+    struct Goober {
+        bad;
+    };
+
+    typedef float[3] ThreeFloats;
+    typedef float[5] FiveFloats;
+
+    typedef bad;
+
+    typedef ref<IEx1> NotAllowed;
+    typedef mask<ForgetASemicolon> Ok;
+    typedef vec<IEx1> OkToo;
+    typedef mask<IEx1> NotAllowedToo;
+
+    struct Quux {
+        string first;
+        typedef bad;
+        string last;
+    };
+
+    // union bad; // can't recover from this yet
+    // enum bad;  // can't recover from this yet
+
+    struct MultiDimensional {
+        bad;
+    };
+
+    doTheSame(
+        // bad, // can't recover from this yet
+        );
+    doThat(bad bad);
+    shouldPass();
+    missASemicolon()
+    whatAboutThis()
+    struct NotGoodWithoutSemicolon {
+
+    }
+    struct Good {};
+
+    duplicatedArg(int32_t bar, MultiDimensional bar);
+    duplicatedResult() generates (uint32_t baz, bool baz);
+
+} // another semicolon

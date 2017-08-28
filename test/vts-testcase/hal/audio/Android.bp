@@ -1,0 +1,8 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+subdirs = [
+    "V2_0",
+    "common/V2_0",
+    "effect/V2_0",
+]

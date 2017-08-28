@@ -1,0 +1,81 @@
+// simulation library for testing virtual devices
+// ========================================================
+cc_library_static {
+    name: "libbt-rootcanal",
+    proprietary: true,
+    srcs: [
+        "src/async_manager.cc",
+        "src/bt_address.cc",
+        "src/command_packet.cc",
+        "src/dual_mode_controller.cc",
+        "src/event_packet.cc",
+        "src/packet.cc",
+        "src/packet_stream.cc",
+        "src/test_channel_transport.cc",
+    ],
+    cflags: [
+        "-fvisibility=hidden",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DHAS_NO_BDROID_BUILDCFG",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    export_include_dirs: ["include"],
+    include_dirs: [
+        "system/bt",
+        "system/bt/utils/include",
+        "system/bt/hci/include",
+        "system/bt/include",
+        "system/bt/stack/include",
+    ],
+    shared_libs: [
+        "libbase",
+        "libchrome",
+        "liblog",
+    ],
+}
+
+// test-vendor unit tests for host
+// ========================================================
+cc_test_host {
+    name: "test-vendor_test_host",
+    srcs: [
+        "src/async_manager.cc",
+        "src/bt_address.cc",
+        "src/command_packet.cc",
+        "src/event_packet.cc",
+        "src/packet.cc",
+        "src/packet_stream.cc",
+        "test/async_manager_unittest.cc",
+        "test/bt_address_unittest.cc",
+        "test/packet_stream_unittest.cc",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    include_dirs: [
+        "system/bt",
+        "system/bt/utils/include",
+        "system/bt/hci/include",
+        "system/bt/stack/include",
+    ],
+    shared_libs: [
+        "liblog",
+        "libchrome",
+    ],
+    cflags: [
+        "-fvisibility=hidden",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DLOG_NDEBUG=1",
+    ],
+    target: {
+        darwin: {
+            enabled: false,
+        }
+    },
+}

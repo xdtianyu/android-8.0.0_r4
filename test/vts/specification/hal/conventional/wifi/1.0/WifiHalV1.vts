@@ -1,0 +1,22 @@
+component_class: HAL_LEGACY
+component_type: WIFI
+component_type_version: 1.0
+component_name: "wifi"
+
+header: "<hardware/hardware.h>"
+header: "<hardware_legacy/wifi_hal.h>"
+
+interface: {
+  api: {
+    name: "wifi_initialize"
+    return_type: {
+      type: TYPE_PREDEFINED
+      predefined_type: "wifi_error"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "wifi_handle*"
+    }
+  }
+}

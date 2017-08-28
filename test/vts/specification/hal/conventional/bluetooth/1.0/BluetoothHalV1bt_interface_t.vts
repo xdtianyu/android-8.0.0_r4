@@ -1,0 +1,219 @@
+component_class: HAL_CONVENTIONAL_SUBMODULE
+component_type: BLUETOOTH
+component_type_version: 1.0
+
+header: "<hardware/hardware.h>"
+header: "<hardware/bluetooth.h>"
+
+original_data_structure_name: "bt_interface_t"
+
+interface: {
+  api: {
+    name: "init"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "bt_callbacks_t*"
+      is_const: true
+      is_callback: true
+    }
+  }
+
+  attribute: {
+    name: "bt_callbacks_t"
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "adapter_state_changed_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_state_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "adapter_properties_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_status_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_property_t*"
+      }
+    }
+
+    function_pointer: {
+      function_name: "remote_device_properties_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_status_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdaddr_t*"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_property_t*"
+      }
+    }
+
+    function_pointer: {
+      function_name: "device_found_cb"
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_property_t*"
+      }
+    }
+
+    function_pointer: {
+      function_name: "discovery_state_changed_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_discovery_state_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "pin_request_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdaddr_t*"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdname_t*"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "bool_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "ssp_request_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdaddr_t*"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdname_t*"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_ssp_variant_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint32_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "bond_state_changed_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_status_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdaddr_t*"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bond_state_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "acl_state_changed_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_status_t"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_bdaddr_t*"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_acl_state_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "thread_evt_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_cb_thread_evt"
+      }
+    }
+
+    function_pointer: {
+      function_name: "dut_mode_recv_cb"
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint16_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uchar_pointer"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint8_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "le_test_mode_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_status_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "uint16_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "energy_info_cb"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_activity_energy_info*"
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "bt_uid_traffic_t*"
+      }
+    }
+    is_callback: true
+  }
+
+}

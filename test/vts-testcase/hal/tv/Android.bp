@@ -1,0 +1,7 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+subdirs = [
+    "cec/V1_0",
+    "input/V1_0",
+]

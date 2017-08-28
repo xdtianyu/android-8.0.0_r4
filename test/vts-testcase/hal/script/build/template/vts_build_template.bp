@@ -1,0 +1,105 @@
+// Generate .vts spec files.
+hal2vts {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.spec",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        {GENERATED_VTS_SPECS}
+    ],
+}
+
+// Build VTS driver.
+genrule {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.{HAL_NAME}@{HAL_VERSION} && $(location vtsc) -mDRIVER -tSOURCE -b$(genDir) android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/ $(genDir)/android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        {GENERATED_SOURCES}
+    ],
+}
+
+genrule {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.{HAL_NAME}@{HAL_VERSION} && $(location vtsc) -mDRIVER -tHEADER -b$(genDir) android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/ $(genDir)/android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        {GENERATED_HEADERS}
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver",
+    generated_sources: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver_genc++"],
+    generated_headers: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver_genc++_headers"],
+    export_generated_headers: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.driver_genc++_headers"],
+    shared_libs: [
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libvts_common",
+        "libvts_datatype",
+        "libvts_drivercomm",
+        "libvts_measurement",
+        "libvts_multidevice_proto",
+        "libcamera_metadata",
+        "libprotobuf-cpp-full",
+        "android.hardware.{HAL_NAME}@{HAL_VERSION}",
+        {IMPORTED_DRIVER_PACKAGES}
+    ],
+    export_shared_lib_headers: [
+        {IMPORTED_DRIVER_PACKAGES}
+    ],
+}
+
+// Build VTS profiler.
+genrule {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler_genc++",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.{HAL_NAME}@{HAL_VERSION} && $(location vtsc) -mPROFILER -tSOURCE -b$(genDir) android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/ $(genDir)/android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        {GENERATED_SOURCES}
+    ],
+}
+
+genrule {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler_genc++_headers",
+    tools: ["hidl-gen", "vtsc"],
+    cmd: "$(location hidl-gen) -o $(genDir) -Lvts -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport android.hardware.{HAL_NAME}@{HAL_VERSION} && $(location vtsc) -mPROFILER -tHEADER -b$(genDir) android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/ $(genDir)/android/hardware/{HAL_NAME_DIR}/{HAL_VERSION}/",
+    srcs: [
+        ":android.hardware.{HAL_NAME}@{HAL_VERSION}_hal",
+    ],
+    out: [
+        {GENERATED_HEADERS}
+    ],
+}
+
+cc_library_shared {
+    name: "android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler",
+    generated_sources: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler_genc++"],
+    generated_headers: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler_genc++_headers"],
+    export_generated_headers: ["android.hardware.{HAL_NAME}@{HAL_VERSION}-vts.profiler_genc++_headers"],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libvts_profiling",
+        "libvts_multidevice_proto",
+        "libprotobuf-cpp-full",
+        "android.hardware.{HAL_NAME}@{HAL_VERSION}",
+        {IMPORTED_PROFILER_PACKAGES}
+    ],
+}
+

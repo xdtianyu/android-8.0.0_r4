@@ -1,0 +1,10 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+subdirs = [
+    "allocator/V2_0",
+    "bufferqueue/V1_0",
+    "common/V1_0",
+    "composer/V2_1",
+    "mapper/V2_0",
+]

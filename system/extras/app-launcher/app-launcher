@@ -1,0 +1,455 @@
+#!/bin/sh
+
+parseoptions() {
+    verbose=false
+    user_experience=false
+    little_cores_off=false
+    iterations=0
+    pagecached=false
+
+    while [ $# -gt 1 ]
+    do
+	case $1 in
+	    -a)
+		;;
+	    -b)
+		little_cores_off=true
+		;;
+	    -c)
+		pagecached=true
+		;;
+	    -h)
+		usage
+		;;
+	    -u)
+		user_experience=true
+		;;
+	    -v)
+		verbose=true
+		;;
+	    *)
+		usage
+		;;
+	    esac
+	shift
+    done
+
+    iterations=$1
+    if [ $iterations -lt 100 ]; then
+	usage
+    fi
+}
+
+getstats () {
+    infile=$1
+    app=$2
+    echo "Data for $app :"
+
+    # Activity Manager reports ThisTime and TotalTime. TotalTime seems to be
+    # a more measure of the launch from the users perspective. So using TotalTime
+    # as our metric for launch latency
+
+    # From Activity Manager
+    echo "Launch Time (TotalTime) :"
+    fgrep TotalTime $infile | awk '{print $2}' | computestats
+
+    # Data from simpleperf
+    echo "cpu-cycles :"
+    fgrep cpu-cycles $infile | awk '{print $1}' | sed s/,//g | computestats
+
+    # CPU util% Data from /proc/stat
+    echo "cpu-util% :"
+    fgrep 'Total CPU util' $infile | awk '{print $5}' | computestatsf
+    echo "user-cpu-util% :"
+    fgrep 'User CPU util' $infile | awk '{print $5}' | computestatsf
+    echo "sys-cpu-util% (incl hardirq/softirq) :"
+    fgrep 'Sys CPU util' $infile | awk '{print $5}' | computestatsf
+
+    if [ $verbose == true ]; then
+	echo "instructions : "
+	fgrep instructions $infile | awk '{print $1}' | sed s/,//g | computestats
+
+	echo "cycles per instruction : "
+	fgrep instructions $infile | awk '{print $4}' | sed s/,//g | computestatsf
+
+	echo "branch-misses : "
+	fgrep branch-misses $infile | awk '{print $1}' | sed s/,//g | computestats
+
+	echo "context-switches : "
+	fgrep context-switches $infile | awk '{print $1}' | sed s/,//g | computestats
+
+	echo "page-faults : "
+	fgrep page-faults $infile | awk '{print $1}' | sed s/,//g | computestats
+    fi
+
+    if [ $system_bdev_set == true ]; then
+	# (Storage) Data from /proc we've collected
+	echo "KB read for $system_block_device blkdev :"
+	fgrep KB $infile | grep system | awk '{print $5}' | computestats
+
+	echo "iowait% :"
+	fgrep IOwait $infile | awk '{print $3}' | computestatsf
+
+	echo "Device util% for $system_block_device blkdev :"
+	fgrep 'Device util' $infile | awk '{print $4}' | computestatsf
+    fi
+}
+
+cpufreq_volantis() {
+    echo "Setting Governor to performance"
+    if [ $little_cores_off == true ]; then
+        echo "Cannot turn off Little cores on $model"
+        exit 1
+    fi
+    i=0
+    num_cores=2
+    while [ $i -lt  $num_cores ]
+    do
+        adb shell "echo performance  > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_g\
+overnor"
+        adb shell "echo 2499000 > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_fr\
+eq"
+        i=`expr $i + 1`
+    done
+    # Lock the GPU frequencies
+    echo -n 852000000 > /d/clock/override.gbus/rate
+    echo -n 1 > /d/clock/override.gbus/state
+}
+
+cpufreq_fugu() {
+    echo "Setting Governor to performance"
+    if [ $little_cores_off == true ]; then
+	echo "Cannot turn off Little cores on $model"
+	exit 1
+    fi
+    i=0
+    num_cores=4
+    while [ $i -lt  $num_cores ]
+    do
+	adb shell "echo performance  > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor"
+	adb shell "echo 1833000 > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq"
+	i=`expr $i + 1`
+    done
+}
+
+cpufreq_marlin_sailfish () {
+    echo "Setting Governor to performance"
+    # GPU Governor and Frequency
+    adb shell 'echo performance > /sys/class/kgsl/kgsl-3d0/devfreq/governor'
+    adb shell 'echo 624000000 > /sys/class/kgsl/kgsl-3d0/devfreq/max_freq'
+    if [ $little_cores_off == true ]; then
+	# Disable Little Cores, force app to run on big cores
+	echo "Disabling Little Cores"
+	adb shell 'echo 0 > /sys/devices/system/cpu/cpu0/online'
+	adb shell 'echo 0 > /sys/devices/system/cpu/cpu1/online'
+    else
+	echo "Enabling All Cores"
+	adb shell 'echo 1 > /sys/devices/system/cpu/cpu0/online'
+	adb shell 'echo 1 > /sys/devices/system/cpu/cpu1/online'
+	adb shell 'echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor'
+	adb shell 'echo 1996800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq'
+	# cpu1 needed ?
+	adb shell 'echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor'
+	adb shell 'echo 1996800 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq'
+    fi
+    # Set Governor to performance, up scaling_max_frequency to highest
+    adb shell 'echo performance  > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor'
+    # Only necessary to set max_freq on cpu2, cpu3 is in same cluster and will
+    # automatically get the same settings
+    adb shell 'echo 2150400 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq'
+}
+
+cpufreq_angler () {
+    echo "Setting Governor and Frequency"
+    # GPU Governor and Frequency
+    adb shell "echo performance > /sys/class/kgsl/kgsl-3d0/devfreq/governor"
+    adb shell "echo 0 > /sys/class/kgsl/kgsl-3d0/bus_split"
+    adb shell "echo 1 > /sys/class/kgsl/kgsl-3d0/force_clk_on"
+    adb shell "echo 10000 > /sys/class/kgsl/kgsl-3d0/idle_timer"
+    if [ $little_cores_off == true ]; then
+	# Disable Little Cores, force app to run on big cores
+	echo "Disabling Little Cores"
+	i=0
+	num_cores=4
+	while [ $i -lt $num_cores ]
+	do
+	    adb shell "echo 0 > /sys/devices/system/cpu/cpu$i/online"
+	    i=`expr $i + 1`
+	done
+    else
+	echo "Enabling All Cores"
+	# Enable Little cores here, set governor to performance
+	# Lock frequency of little cores
+	i=0
+	num_cores=4
+	while [ $i -lt $num_cores ]
+	do
+	    adb shell "echo 1 > /sys/devices/system/cpu/cpu$i/online"
+	    adb shell "echo performance > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor"
+	    # Lock frequency of little cores
+	    adb shell "echo 1555200 > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq"
+	    i=`expr $i + 1`
+	done
+    fi
+    i=4
+    num_cores=8
+    while [ $i -lt $num_cores ]
+    do
+	adb shell "echo performance > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor"
+	# Lock frequency of big cores
+	adb shell "echo 1958400 > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq"
+	i=`expr $i + 1`
+    done
+}
+
+#
+# This strange bit of logic is needed to get the underlying block devices for /system
+# for Marlin/Sailfish
+#
+get_marlin_sailfish_devnames () {
+    # This bit of code required to get the block dev for /system and /vendor
+    # Suffix can be _a or _b, depending on what the active /system partition is
+#    suffix=`adb shell getprop ro.boot.slot_suffix`
+    # Get the blockdevice using the suffix we got above
+#    system_block_device=`adb shell ls -l /dev/block/platform/soc/*ufs*/by-name/system$suffix | awk '{ print $10 }' `
+    # Vendor is more straightforward, but we don't use it right now
+#    vendor_block_device=`adb shell df /vendor | grep -v Filesystem | awk '{print $1}' `
+    # finally extract the last component of the absolute device pathname we got above
+#    system_block_device=`echo $system_block_device | awk 'BEGIN { FS ="/" } ; { print $4 }' `
+#    vendor_block_device=`echo $vendor_block_device | awk 'BEGIN { FS ="/" } ; { print $4 }' `
+    system_bdev_set=true
+#   For now, hardcode sda for Marlin/Sailfish block device
+#   XXX - We'll get stats for entire device
+    system_block_device=sda
+    echo Block Device $system_block_device
+}
+
+get_angler_devnames () {
+    # Get the underlying bdev from the "by-name" mapping
+    system_block_device=`adb shell 'find /dev/block/platform -name by-name | xargs ls -l' | grep system | awk '{ print $10 }' `
+    # extract the last component of the absolute device pathname we got above
+    system_block_device=`echo $system_block_device | awk 'BEGIN { FS ="/" } ; { print $4 }' `
+    # vendor is unused right now, but get the bdev anyway in case we decide to use it
+    # Get the underlying bdev from the "by-name" mapping
+    vendor_block_device=`adb shell 'find /dev/block/platform -name by-name | xargs ls -l' | grep vendor | awk '{ print $10 }' `
+    # extract the last component of the absolute device pathname we got above
+   vendor_block_device=`echo $vendor_block_device | awk 'BEGIN { FS ="/" } ; { print $4 }' `
+   system_bdev_set=true
+}
+
+get_fugu_devnames () {
+    system_block_device=`adb shell ls -l /dev/block/by-name/system | awk '{ print $10 }' `
+    system_block_device=`echo $system_block_device | awk 'BEGIN { FS ="/" } ; { print $4 }' `
+    system_bdev_set=true
+}
+
+get_volantis_devnames () {
+    # Hardcoding all of the mmcblk0 device for now
+    system_block_device=mmcblk0
+    system_bdev_set=true
+}
+
+system_stats_before() {
+    if [ $system_bdev_set == true ]; then
+	# Get BEFORE read stats for /system
+	adb shell 'cat /proc/diskstats' | grep -w $system_block_device > /tmp/$model-system
+	BEFORE_RD_IOS_SYSTEM=`awk '{ print $4 }' /tmp/$model-system`
+	BEFORE_RD_SECTORS_SYSTEM=`awk '{ print $6 }' /tmp/$model-system`
+	# iowait% computation
+	adb shell 'cat /proc/stat' | grep -w cpu > /tmp/procstat
+	user_ticks_before=`awk '{ print ($2 + $3) }' /tmp/procstat`
+	sys_ticks_before=`awk '{ print ($4 + $7 + $8) }' /tmp/procstat`
+	cpubusy_ticks_before=`awk '{ print ($2 + $3 + $4 + $7 + $8) }' /tmp/procstat`
+	iowait_ticks_before=`awk '{ print $6 }' /tmp/procstat`
+	total_ticks_before=`awk '{ print ($2 + $3 + $4 + $5 + $7 + $8) }' /tmp/procstat`
+	# Device util% computation
+	# Note hz=100, so multiplying uptime (in seconds) by 100, gives us
+	# the uptime in hz.
+	adb shell 'cat /proc/uptime' > /tmp/uptime
+	uptime_before_hz=`awk '{ print ($1 * 100) }' /tmp/uptime`
+	# Note that the device (busy) ticks is in ms. Since hz=100, dividing
+	# device (busy) ticks by 10, gives us this in the correct ticks units
+	device_util_before_hz=`awk '{ print ($13 / 10) }' /tmp/$model-system`
+    fi
+}
+
+system_stats_after() {
+    if [ $system_bdev_set == true ]; then
+	# Get AFTER read stats for /system
+	adb shell 'cat /proc/diskstats' | grep -w $system_block_device > /tmp/$model-system
+	AFTER_RD_IOS_SYSTEM=`awk '{ print $4 }' /tmp/$model-system`
+	AFTER_RD_SECTORS_SYSTEM=`awk '{ print $6 }' /tmp/$model-system`
+	# iowait% computation
+	adb shell 'cat /proc/stat' | grep -w cpu > /tmp/procstat
+	user_ticks_after=`awk '{ print ($2 + $3) }' /tmp/procstat`
+	sys_ticks_after=`awk '{ print ($4 + $7 + $8) }' /tmp/procstat`
+	cpubusy_ticks_after=`awk '{ print ($2 + $3 + $4 + $7 + $8) }' /tmp/procstat`
+	iowait_ticks_after=`awk '{ print $6 }' /tmp/procstat`
+	total_ticks_after=`awk '{ print ($2 + $3 + $4 + $5 + $7 + $8) }' /tmp/procstat`
+	# Device util% computation
+	# Note hz=100, so multiplying uptime (in seconds) by 100, gives us
+	# the uptime in hz.
+	adb shell 'cat /proc/uptime' > /tmp/uptime
+	uptime_after_hz=`awk '{ print ($1 * 100) }' /tmp/uptime`
+	# Note that the device (busy) ticks is in ms. Since hz=100, dividing
+	# device (busy) ticks by 10, gives us this in the correct ticks units
+	device_util_after_hz=`awk '{ print ($13 / 10) }' /tmp/$model-system`
+    fi
+}
+
+system_stats_delta() {
+    if [ $system_bdev_set == true ]; then
+	# Sectors to KB
+	READ_KB_SYSTEM=`expr $AFTER_RD_SECTORS_SYSTEM - $BEFORE_RD_SECTORS_SYSTEM`
+	READ_KB_SYSTEM=`expr $READ_KB_SYSTEM / 2`
+	echo Read IOs /system = `expr $AFTER_RD_IOS_SYSTEM - $BEFORE_RD_IOS_SYSTEM`
+	echo Read KB /system = $READ_KB_SYSTEM
+	echo $iowait_ticks_before $iowait_ticks_after $total_ticks_before $total_ticks_after | awk '{ printf "IOwait = %.2f\n", (($2 - $1) * 100.0) / ($4 - $3) }'
+	echo $device_util_before_hz $device_util_after_hz $uptime_before_hz $uptime_after_hz | awk '{ printf "Device util% = %.2f\n", (($2 - $1) * 100.0) / ($4 - $3) }'
+	echo $user_ticks_after $user_ticks_before $total_ticks_after $total_ticks_before | awk '{ printf "User CPU util% = %.2f\n", (($1 - $2) * 100.0) / ($3 - $4) }'
+	echo $sys_ticks_after $sys_ticks_before $total_ticks_after $total_ticks_before | awk '{ printf "Sys CPU util% = %.2f\n", (($1 - $2) * 100.0) / ($3 - $4) }'
+	echo $cpubusy_ticks_after $cpubusy_ticks_before $total_ticks_after $total_ticks_before | awk '{ printf "Total CPU util% = %.2f\n", (($1 - $2) * 100.0) / ($3 - $4) }'
+    fi
+}
+
+launch_app() {
+    package=$1
+    activity=$2
+    adb shell "am force-stop $package"
+    sleep 1
+
+    i=0
+    while [ $i -lt $iterations ]
+    do
+	if [ $pagecached == false ]; then
+	    adb shell 'echo 3 > /proc/sys/vm/drop_caches'
+	fi
+	# The -W argument to am start forces am start to wait till the launch completes.
+	# The -S argument forces it to kill any existing app that is running first
+	# eg. adb shell 'am start -W -S -n com.android.chrome/com.google.android.apps.chrome.Main'
+	system_stats_before
+	adb shell "simpleperf stat -a am start -W -n $package/$activity"
+	system_stats_after
+	system_stats_delta
+	sleep 1
+	adb shell "am force-stop $package"
+	sleep 1
+	i=`expr $i + 1`
+    done
+}
+
+launch_fugu_apps() {
+    launch_app com.google.android.youtube.tv com.google.android.apps.youtube.tv.activity.TvGuideActivity > youtube-$model
+    getstats youtube-$model YouTube
+    launch_app com.google.android.play.games com.google.android.gms.games.pano.activity.PanoGamesOnboardHostActivity > games-$model
+    getstats games-$model Games
+    launch_app com.google.android.music com.android.music.activitymanagement.TopLevelActivity > music-$model
+    getstats music-$model Music
+}
+
+launch_phone_apps() {
+    launch_app com.android.chrome com.google.android.apps.chrome.Main > chrome-$model
+    getstats chrome-$model Chrome
+    launch_app com.google.android.GoogleCamera com.android.camera.CameraActivity > camera-$model
+    getstats camera-$model Camera
+    launch_app com.google.android.apps.maps com.google.android.maps.MapsActivity > maps-$model
+    getstats maps-$model Maps
+    launch_app com.google.android.youtube com.google.android.apps.youtube.app.WatchWhileActivity > youtube-$model
+    getstats youtube-$model YouTube
+}
+
+usage() {
+    echo 'Usage: app-launcher [-c|-v] -a|-b|-u num-iterations'
+    echo 'where num-iterations >= 100'
+    echo '-v (optional) for verbose stats dump'
+    echo '-a|-b|-u required:'
+    echo '        -a:all cores'
+    echo '        -b:only big cores'
+    echo '        -c:pagecached. Do not drop pagecache before each launch (not default)'
+    echo '        -h:Dump this help menu'
+    echo '        -u:user experience, no change to cpu/gpu frequencies or governors'
+    echo '        -a/-b locks CPU/GPU freqs to max, performance governor, thermal/perfd off'
+    echo '        -u runs with default device configs, as users would see it'
+    exit 1
+}
+
+#
+# The main() part of the script follows :
+#
+
+if [ $# -lt 2 ]; then
+    usage
+fi
+
+which computestats > /dev/null
+if [ $? != 0 ]; then
+    echo "ERROR: Please add computestats utiliy to your PATH"
+    exit 1
+fi
+
+which computestatsf > /dev/null
+if [ $? != 0 ]; then
+    echo "Error: Please add computestatsf utility to your PATH"
+    exit 1
+fi
+
+parseoptions $@
+
+adb root && sleep 2
+
+if [ $user_experience == false ]; then
+    # Important to stop the thermal-engine to prevent throttling while test is running
+    # and stop perfd
+    adb shell 'stop thermal-engine'
+    adb shell 'stop perfd'
+else
+    echo "User Experience: Default Configs. No changes to cpufreq settings"
+fi
+
+model=`adb shell getprop ro.product.name`
+# Releases are inconsistent with various trailing characters, remove them all
+model=`echo $model | sed 's/[ \t\r\n]*$//' `
+
+echo Found $model Device
+
+system_bdev_set=false
+case $model in
+    marlin | sailfish)
+        if [ $user_experience == false ]; then
+            cpufreq_marlin_sailfish
+        fi
+	get_marlin_sailfish_devnames
+        ;;
+    angler)
+        if [ $user_experience == false ]; then
+            cpufreq_angler
+        fi
+        get_angler_devnames
+        ;;
+    fugu)
+        if [ $user_experience == false ]; then
+            cpufreq_fugu
+        fi
+        get_fugu_devnames
+        ;;
+    volantis | volantisg)
+        if [ $user_experience == false ]; then
+            cpufreq_volantis
+        fi
+        get_volantis_devnames
+        ;;
+    *)
+        echo Unknown Device $model
+        exit 1
+        ;;
+esac
+
+
+#
+# launch each app in turn
+#
+if [ $model == "fugu" ]; then
+    launch_fugu_apps
+else # Phone Apps
+    launch_phone_apps
+fi

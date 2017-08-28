@@ -1,0 +1,71 @@
+// Copyright (C) 2016 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+subdirs = [
+    "allocator/1.0",
+    "allocator/1.0/default",
+    "base/1.0",
+    "manager/1.0",
+    "memory/1.0",
+    "memory/1.0/default",
+    "token/1.0",
+    "token/1.0/utils",
+]
+
+cc_library_shared {
+    name: "libhidltransport",
+    vendor_available: true,
+    cflags: libhidl_flags,
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libhidlbase",
+        "libhwbinder",
+        "libcutils",
+    ],
+    export_shared_lib_headers: [
+        "libbase",
+        "libutils",
+        "libhidlbase",
+    ],
+
+    export_include_dirs: ["include"],
+
+    generated_sources: [
+        "android.hidl.manager@1.0_genc++",
+        "android.hidl.base@1.0_genc++"
+    ],
+    generated_headers: [
+        "android.hidl.manager@1.0_genc++_headers",
+        "android.hidl.base@1.0_genc++_headers"
+    ],
+    export_generated_headers: [
+        "android.hidl.manager@1.0_genc++_headers",
+        "android.hidl.base@1.0_genc++_headers"
+    ],
+
+    srcs: [
+        "HidlBinderSupport.cpp",
+        "HidlTransportSupport.cpp",
+        "ServiceManagement.cpp",
+        "Static.cpp"
+    ],
+
+    product_variables: {
+        debuggable: {
+            cflags: ["-DLIBHIDL_TARGET_DEBUGGABLE"],
+        },
+    },
+}

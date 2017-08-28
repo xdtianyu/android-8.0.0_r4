@@ -1,0 +1,2673 @@
+timestamp: 1817438910216
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1817447345060
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1817449196987
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 1817449778185
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1817601456221
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1817602102576
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926003863062
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926005905562
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926008342385
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 1926009329469
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926085683435
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926087073174
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926241875533
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926242827981
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926244987357
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 1926246033711
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926322424135
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926323968875
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926470998733
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926471970192
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926473993525
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 1926474998057
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1926551103637
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1926552064731
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1997637997698
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1997639310927
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1997641023167
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 1997641783740
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 1997793551828
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 1997794394641
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091112047426
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091114142114
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091116238000
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2091117236906
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091194963164
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091196305976
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091336854272
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091338007188
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091340125782
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2091340952293
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091417062978
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091418013811
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091581973463
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091583069296
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091585555755
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2091586691692
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2091664004773
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2091665078159
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2159590378988
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2159591452113
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2159592753623
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2159593454769
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2159744330201
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2159745703326
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253222367586
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253224536753
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253227371545
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2253228344670
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253304631552
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253305992646
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253448134379
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253449079484
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253450902869
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2253451854588
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253530925221
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253532084804
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253678729663
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253679759246
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253681809350
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2253682936538
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2253760865244
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2253762488213
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2322271208579
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2322273725454
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2322275947069
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2322276880611
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2322429467189
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2322430647970
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414510604018
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2414512150737
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414514202560
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2414515163550
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414592270484
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2414593841526
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414735756280
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2414736798780
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414738451488
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2414739272426
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414815100506
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2414816046079
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414952442968
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2414953546145
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2414955328073
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2414956183750
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2415033293445
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2415034061518
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2487151906410
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2487153714640
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2487155591880
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2487156716619
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2487308359291
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2487308918926
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2580796151989
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2580798211469
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2580800747823
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2580801901417
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2580879233820
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2580882132467
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581035330815
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2581036227534
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581038231180
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2581039285763
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581116103584
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2581117881917
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581256908546
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2581258029014
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581260106150
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2581261114483
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2581337462564
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2581338281574
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2653024493403
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2653026257883
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2653028459289
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2653029419393
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2653182017221
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2653183210763
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747272533625
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747274219563
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747276058209
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2747276934563
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747354220509
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747355520040
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747495865523
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747496763387
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747498216200
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2747498973440
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747575696781
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747576673812
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747722300701
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747723700285
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747725731743
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2747726773150
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2747802954199
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2747803590085
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2821311844439
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2821313833085
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2821315934126
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2821317091575
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2821468962892
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2821471564767
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913305761207
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913307361051
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913309149072
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2913310034385
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913387538715
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913388864497
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913528137583
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913528932479
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913530769094
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2913531577271
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913608810456
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913610391654
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913756057814
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913757559898
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913760077554
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 2913761221252
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2913838651625
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2913840180427
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2985806661294
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2985808780409
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2985811463586
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 2985812437909
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 2985963807247
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 2985965509643
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3077756269673
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3077757488787
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3077758841235
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 3077759380663
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3077835925358
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3077836945722
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3077993390321
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3077994595374
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3077996813238
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 3077997836103
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3078075103350
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3078076303611
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3078235439877
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3078236800762
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3078239349877
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 75
+    }
+  }
+}
+
+timestamp: 3078240580086
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3078318062541
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3078319402750
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3151249982671
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3151251866786
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3151254228453
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 150
+    }
+  }
+}
+
+timestamp: 3151255299807
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "on"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+
+timestamp: 3151407940395
+event: SERVER_API_ENTRY
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+}
+
+timestamp: 3151409518364
+event: SERVER_API_EXIT
+package: "android.hardware.vibrator"
+version: 1
+interface: "IVibrator"
+func_msg {
+  name: "off"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      uint32_t: 0
+    }
+    scalar_type: "uint32_t"
+  }
+}
+

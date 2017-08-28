@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2017 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration description="Config for VTS libhwbinder performance benchmarks">
+    <target_preparer class="com.android.compatibility.common.tradefed.targetprep.VtsFilePusher">
+        <option name="abort-on-push-failure" value="false" />
+        <option name="push-group" value="HostDrivenTest.push" />
+        <option name="cleanup" value="true" />
+        <option name="remount-system" value="true" />
+        <option name="push" value="DATA/benchmarktest/libhwbinder_benchmark/libhwbinder_benchmark32->/data/local/tmp/32/libhwbinder_benchmark32" />
+        <option name="push" value="DATA/benchmarktest64/libhwbinder_benchmark/libhwbinder_benchmark64->/data/local/tmp/64/libhwbinder_benchmark64" />
+        <option name="push" value="DATA/lib/android.hardware.tests.libhwbinder@1.0.so->/data/local/tmp/32/android.hardware.tests.libhwbinder@1.0.so" />
+        <option name="push" value="DATA/lib64/android.hardware.tests.libhwbinder@1.0.so->/data/local/tmp/64/android.hardware.tests.libhwbinder@1.0.so" />
+        <option name="push" value="DATA/vendor/lib/hw/android.hardware.tests.libhwbinder@1.0-impl.so->/vendor/lib/hw/android.hardware.tests.libhwbinder@1.0-impl.so" />
+        <option name="push" value="DATA/vendor/lib64/hw/android.hardware.tests.libhwbinder@1.0-impl.so->/vendor/lib64/hw/android.hardware.tests.libhwbinder@1.0-impl.so" />
+    </target_preparer>
+    <target_preparer class="com.android.tradefed.targetprep.VtsPythonVirtualenvPreparer">
+    </target_preparer>
+    <test class="com.android.tradefed.testtype.VtsMultiDeviceTest">
+        <option name="test-module-name" value="HwBinderBinderizePerformanceAdbSystraceTest" />
+        <option name="test-case-path" value="vts/testcases/performance/hwbinder_benchmark_adb/HwBinderPerformanceAdbTest" />
+        <option name="test-config-path" value="vts/testcases/performance/hwbinder_benchmark_adb/binderize/HwBinderBinderizePerformanceAdbTest.config" />
+        <option name="enable-systrace" value="true" />
+    </test>
+</configuration>

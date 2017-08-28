@@ -1,0 +1,62 @@
+timestamp: 24364031382
+event: SERVER_API_ENTRY
+package: "android.hardware.biometrics.fingerprint"
+version: 2.1
+interface: "IBiometricsFingerprint"
+func_msg {
+  name: "setActiveGroup"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint32_t: 10
+    }
+  }
+  arg {
+    type: TYPE_STRING
+    string_value {
+      message: "/data/system/users/10/fpdata"
+      length: 28
+    }
+  }
+}
+
+timestamp: 24379490759
+event: SERVER_API_EXIT
+package: "android.hardware.biometrics.fingerprint"
+version: 2.1
+interface: "IBiometricsFingerprint"
+func_msg {
+  name: "setActiveGroup"
+  return_type_hidl {
+    type: TYPE_ENUM
+    scalar_value {
+      int32_t: 0
+    }
+    scalar_type: "int32_t"
+  }
+}
+
+timestamp: 24394965396
+event: SERVER_API_ENTRY
+package: "android.hardware.biometrics.fingerprint"
+version: 2.1
+interface: "IBiometricsFingerprint"
+func_msg {
+  name: "getAuthenticatorId"
+}
+
+timestamp: 24395181021
+event: SERVER_API_EXIT
+package: "android.hardware.biometrics.fingerprint"
+version: 2.1
+interface: "IBiometricsFingerprint"
+func_msg {
+  name: "getAuthenticatorId"
+  return_type_hidl {
+    type: TYPE_SCALAR
+    scalar_value {
+      uint64_t: 12244417071398099818
+    }
+  }
+}
+

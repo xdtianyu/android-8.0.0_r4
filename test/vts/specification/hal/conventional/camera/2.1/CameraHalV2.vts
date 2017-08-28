@@ -1,0 +1,230 @@
+component_class: HAL_CONVENTIONAL
+component_type: CAMERA
+component_type_version: 2.1
+
+original_data_structure_name: "camera_module_t"
+
+header: "<hardware/hardware.h>"
+header: "<hardware/camera_common.h>"
+header: "<hardware/camera.h>"
+
+interface: {
+  sub_struct: {
+    name: "common"
+    is_pointer: true
+
+    attribute: {
+      name: "module_api_version"
+      type: TYPE_SCALAR
+      scalar_type: "uint16_t"
+    }
+
+    sub_struct: {
+      name: "methods"
+
+      api: {
+        name: "open"
+        return_type: {
+          type: TYPE_SCALAR
+          scalar_type: "int32_t"
+        }
+        arg: {
+          type: TYPE_PREDEFINED
+          predefined_type: "hw_module_t*"
+          is_const: true
+        }
+        arg: {
+          type: TYPE_SCALAR
+          scalar_type: "char_pointer"
+        }
+        arg: {
+          type: TYPE_PREDEFINED
+          predefined_type: "hw_device_t**"
+          is_output: true
+        }
+        callflow: {
+          entry: true
+        }
+      }
+    }
+  }
+
+  api: {
+    name: "get_number_of_cameras"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "get_camera_info"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera_info_t*"
+      is_output: true
+      is_input: false
+    }
+  }
+
+  api: {
+    name: "set_callbacks"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera_module_callbacks_t*"
+      is_const: true
+      is_callback: true
+    }
+  }
+
+  api: {
+    name: "init"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  attribute: {
+    type: TYPE_ENUM
+    enum_value: {
+      scalar_type: "int32_t"
+
+      enumerator: "CAMERA_FACING_BACK"
+      scalar_value: {
+        int32_t: 0
+      }
+
+      enumerator: "CAMERA_FACING_FRONT"
+      scalar_value: {
+        int32_t: 1
+      }
+    }
+  }
+
+  attribute: {
+    type: TYPE_STRUCT
+    name: "camera_info_t"
+
+    struct_value: {
+      name: "facing"
+      type: TYPE_SCALAR
+      scalar_value: {
+        int32_t: 0
+      }
+      scalar_type: "int32_t"
+    }
+
+    struct_value: {
+      name: "orientation"
+      type: TYPE_SCALAR
+      scalar_value: {
+        int32_t: 0
+      }
+      scalar_type: "int32_t"
+    }
+
+    struct_value: {
+      name: "device_version"
+      type: TYPE_SCALAR
+      scalar_value: {
+        uint32_t: 772
+      }
+      scalar_type: "uint32_t"
+    }
+
+    struct_value: {
+      name: "static_camera_characteristics"
+      struct_type: "camera_metadata_t"
+      type: TYPE_STRUCT
+      struct_value: {
+        name: "xyz"
+        scalar_type: "int32_t"
+        scalar_value: {
+          int32_t: 0
+        }
+      }
+    }
+
+    struct_value: {
+      name: "resource_cost"
+      type: TYPE_SCALAR
+      scalar_value: {
+        int32_t: 50
+      }
+      scalar_type: "int32_t"
+    }
+
+    struct_value: {
+      name: "conflicting_devices"
+      type: TYPE_SCALAR
+      scalar_type: "pointer_pointer"
+    }
+
+    struct_value: {
+      name: "conflicting_devices_length"
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+      scalar_value: {
+        int32_t: 0
+      }
+    }
+  }
+
+  attribute: {
+    name: "camera_module_callbacks_t"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "camera_device_status_change"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "const struct camera_module_callbacks*"
+        scalar_type: "pointer"
+        is_const: true
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+    }
+
+    function_pointer: {
+      function_name: "torch_mode_status_change"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "struct camera_module_callbacks*"
+        scalar_type: "pointer"
+        is_const: true
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "char_pointer"
+        is_const: true
+      }
+      arg: {
+        type: TYPE_SCALAR
+        scalar_type: "int32_t"
+      }
+    }
+
+    is_callback: true
+  }
+}

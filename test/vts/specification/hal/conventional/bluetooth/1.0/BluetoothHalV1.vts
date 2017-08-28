@@ -1,0 +1,19 @@
+component_class: HAL_CONVENTIONAL
+component_type: BLUETOOTH
+component_type_version: 1.0
+
+header: "<hardware/hardware.h>"
+header: "<hardware/bluetooth.h>"
+
+original_data_structure_name: "bluetooth_module_t"
+
+interface: {
+  api: {
+    name: "get_bluetooth_interface"
+    return_type: {
+      type: TYPE_SUBMODULE
+      predefined_type: "bt_interface_t*"
+      is_const: true
+    }
+  }
+}

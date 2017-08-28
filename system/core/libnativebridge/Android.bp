@@ -1,0 +1,24 @@
+
+cc_library {
+    name: "libnativebridge",
+
+    host_supported: true,
+    srcs: ["native_bridge.cc"],
+    shared_libs: ["liblog"],
+    clang: true,
+
+    cflags: [
+        "-Werror",
+        "-Wall",
+    ],
+    cppflags: [
+        "-fvisibility=protected",
+    ],
+
+    host_ldlibs: ["-ldl"],
+    target: {
+        android: {
+            shared_libs: ["libdl"],
+        },
+    },
+}

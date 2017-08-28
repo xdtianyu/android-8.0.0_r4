@@ -1,0 +1,5 @@
+Run with
+
+croot
+hidl-gen -Lc++ -r tests:system/tools/hidl/test -r android.hidl:system/libhidl/transport -o ~/temp \
+    tests.errors.syntax@1.0

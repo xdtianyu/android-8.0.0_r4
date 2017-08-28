@@ -1,0 +1,53 @@
+
+
+// ========================================================
+// Static and shared library
+// ========================================================
+cc_library {
+    name: "liblogwrap",
+    srcs: ["logwrap.c"],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+    ],
+    export_include_dirs: ["include"],
+    local_include_dirs: ["include"],
+    cflags: [
+        "-Werror",
+    ],
+}
+
+// ========================================================
+// Executable
+// ========================================================
+cc_binary {
+    name: "logwrapper",
+    srcs: ["logwrapper.c"],
+    static_libs: [
+        "liblog",
+        "liblogwrap",
+        "libcutils",
+    ],
+    cflags: [
+        "-Werror",
+    ],
+}
+
+// ========================================================
+// Benchmark
+// ========================================================
+cc_benchmark {
+    name: "android_fork_execvp_ext_benchmark",
+    srcs: [
+        "android_fork_execvp_ext_benchmark.cpp",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "liblogwrap",
+    ],
+    cflags: [
+        "-Werror",
+    ]
+}

@@ -1,0 +1,75 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+cc_library_static {
+    name: "chre_client",
+    vendor: true,
+    export_include_dirs: [
+        "external/flatbuffers/include",
+        "host/common/include",
+        "platform/shared/include",
+    ],
+    srcs: [
+        "host/common/socket_client.cc",
+        "host/common/host_protocol_host.cc",
+        "platform/shared/host_protocol_common.cc",
+    ],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libutils",
+    ],
+}
+
+cc_test {
+    name: "chre_test_client",
+    vendor: true,
+    local_include_dirs: [
+        "chre_api/include/chre_api",
+        "util/include",
+    ],
+    srcs: [
+        "host/common/test/chre_test_client.cc",
+    ],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libutils",
+    ],
+    static_libs: ["chre_client"],
+    tags: ["optional"],
+    gtest: false,
+}
+
+cc_library_shared {
+    name: "android.hardware.contexthub@1.0-impl.generic",
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: [
+        "host/hal_generic/generic_context_hub.cc",
+    ],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libhidlbase",
+        "libhidltransport",
+        "libutils",
+        "android.hardware.contexthub@1.0",
+        "android.hidl.base@1.0",
+    ],
+    static_libs: ["chre_client"],
+    tags: ["optional"],
+}

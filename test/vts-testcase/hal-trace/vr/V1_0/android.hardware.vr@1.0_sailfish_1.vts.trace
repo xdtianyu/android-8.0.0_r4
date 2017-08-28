@@ -1,0 +1,96 @@
+timestamp: 54029913244
+event: SERVER_API_ENTRY
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      bool_t: 1
+    }
+  }
+}
+
+timestamp: 54109660388
+event: SERVER_API_EXIT
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+}
+
+timestamp: 54200101491
+event: SERVER_API_ENTRY
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      bool_t: 0
+    }
+  }
+}
+
+timestamp: 54253183110
+event: SERVER_API_EXIT
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+}
+
+timestamp: 68397709311
+event: SERVER_API_ENTRY
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      bool_t: 1
+    }
+  }
+}
+
+timestamp: 68491978800
+event: SERVER_API_EXIT
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+}
+
+timestamp: 68503694009
+event: SERVER_API_ENTRY
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+  arg {
+    type: TYPE_SCALAR
+    scalar_value {
+      bool_t: 0
+    }
+  }
+}
+
+timestamp: 68510938281
+event: SERVER_API_EXIT
+package: "android.hardware.vr"
+version: 1
+interface: "IVr"
+func_msg {
+  name: "setVrMode"
+}
+

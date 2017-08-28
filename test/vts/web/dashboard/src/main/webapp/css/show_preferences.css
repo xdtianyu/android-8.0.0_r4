@@ -1,0 +1,75 @@
+/* Copyright (C) 2016 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+.card.option {
+    padding: 10px 30px;
+    margin: 8px;
+    color: #039be5;
+}
+
+#add-button-wrapper {
+    margin-top: 10px;
+    height: 61px;
+}
+
+#save-button-wrapper {
+    bottom: 25px;
+    right: 25px;
+}
+
+.clear-button {
+    position: absolute;
+    right: 0;
+}
+
+.header {
+    cursor: default;
+    color: #ee6e73;
+    margin-bottom: 0;
+}
+
+.caption {
+    cursor: default;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.entry {
+    font-size: 21px;
+    font-weight: 300;
+}
+
+.ui-menu {
+    z-index: 100;
+}
+
+.ui-menu-item {
+    font-size: 16px;
+    padding: 4px 10px;
+    transition: background-color .25s;
+}
+
+.ui-menu-item:hover {
+    background-color: #e0f2f1;
+}
+
+.ui-menu-item:active {
+    background-color: #b2dfdb;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}

@@ -1,0 +1,184 @@
+component_class: HAL_CONVENTIONAL_SUBMODULE
+component_type: CAMERA
+component_type_version: 3.4
+
+original_data_structure_name: "camera3_device_ops_t"
+
+header: "<hardware/hardware.h>"
+header: "<hardware/camera_common.h>"
+header: "<hardware/camera3.h>"
+
+interface: {
+  api: {
+    name: "initialize"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       predefined_type: "struct camera3_device*"
+       is_const: true
+    }
+    arg: {
+       type: TYPE_PREDEFINED
+       predefined_type: "camera3_callback_ops_t*"
+       is_const: true
+       is_callback: true
+    }
+  }
+
+  api: {
+    name: "configure_streams"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera3_stream_configuration_t*"
+    }
+  }
+
+  api: {
+    name: "register_stream_buffers"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera3_stream_buffer_set_t*"
+      is_const: true
+    }
+  }
+
+  api: {
+    name: "construct_default_request_settings"
+    return_type: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera_metadata_t*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "process_capture_request"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "camera3_capture_request_t*"
+      is_const: true
+    }
+  }
+
+  api: {
+    name: "get_metadata_vendor_tag_ops"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "vendor_tag_query_ops_t*"
+    }
+  }
+
+  api: {
+    name: "dump"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "flush"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      predefined_type: "struct camera3_device*"
+      is_const: true
+    }
+  }
+
+  attribute: {
+    name: "camera3_callback_ops_t"
+
+    type: TYPE_FUNCTION_POINTER
+
+    function_pointer: {
+      function_name: "process_capture_result"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "struct camera3_callback_ops*"
+        is_const: true
+        is_callback: true
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "camera3_capture_result_t*"
+        is_const: true
+      }
+    }
+
+    function_pointer: {
+      function_name: "notify"
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "struct camera3_callback_ops*"
+        is_const: true
+        is_callback: true
+      }
+      arg: {
+        type: TYPE_PREDEFINED
+        predefined_type: "camera3_notify_msg_t*"
+        is_const: true
+      }
+    }
+
+    is_callback: true
+  }
+}

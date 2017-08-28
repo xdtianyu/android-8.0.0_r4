@@ -1,0 +1,6 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+subdirs = [
+    "fingerprint/V2_1",
+]

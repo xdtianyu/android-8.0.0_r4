@@ -1,0 +1,10 @@
+// This file was auto-generated. Do not edit manually.
+// Use test/vts-testcase/hal/update_makefiles.py to generate this file.
+
+subdirs = [
+    "common/V1_0",
+    "device/V1_0",
+    "device/V3_2",
+    "metadata/V3_2",
+    "provider/V2_4",
+]

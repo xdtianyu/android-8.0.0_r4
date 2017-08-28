@@ -1,0 +1,7 @@
+# Do not change this file except to add new interfaces. Changing
+# pre-existing interfaces will fail VTS and break framework-only OTAs
+
+# Frameworks HALs released in Android O
+
+
+b0ff0dc756845dd132f998e8c55f1a0d7e3efd8aa85f6253776fb7012814524b android.system.wifi.keystore@1.0::IKeystore

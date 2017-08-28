@@ -1,0 +1,76 @@
+perfprofd_cppflags = [
+    "-Wall",
+    "-Wno-sign-compare",
+    "-Wno-unused-parameter",
+    "-Werror",
+]
+
+//
+// Static library containing guts of AWP daemon.
+//
+
+cc_library_static {
+    name: "libperfprofdcore",
+    clang: true,
+
+    local_include_dirs: ["quipper/kernel-headers"],
+    export_include_dirs: ["."],
+    static_libs: ["libbase"],
+    srcs: [
+        "perf_profile.proto",
+        "quipper/perf_utils.cc",
+        "quipper/base/logging.cc",
+        "quipper/address_mapper.cc",
+        "quipper/perf_reader.cc",
+        "quipper/perf_parser.cc",
+        "perf_data_converter.cc",
+        "configreader.cc",
+        "cpuconfig.cc",
+        "perfprofdcore.cc",
+    ],
+
+    cppflags: perfprofd_cppflags,
+
+    proto: {
+        export_proto_headers: true,
+    },
+}
+
+//
+// Static library with primary utilities layer (called by perfprofd core)
+//
+cc_library_static {
+    name: "libperfprofdutils",
+    clang: true,
+
+        cppflags: perfprofd_cppflags,
+    srcs: ["perfprofdutils.cc"],
+}
+
+//
+// Main daemon
+//
+cc_binary {
+    name: "perfprofd",
+    clang: true,
+
+    srcs: ["perfprofdmain.cc"],
+    static_libs: [
+        "libperfprofdcore",
+        "libperfprofdutils",
+    ],
+    shared_libs: [
+        "liblog",
+        "libprotobuf-cpp-lite",
+        "libbase",
+        "libcutils"
+    ],
+    system_shared_libs: [
+        "libc",
+    ],
+    cppflags: perfprofd_cppflags,
+
+    init_rc: ["perfprofd.rc"],
+}
+
+subdirs = ["tests"]

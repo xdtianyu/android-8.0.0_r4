@@ -1,0 +1,138 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+namespace chre.fbs;
+
+/// Represents a message sent to/from a nanoapp from/to a client on the host
+table NanoappMessage {
+  app_id:ulong = 0;
+  message_type:uint = 0;
+
+  /// Identifies the host-side endpoint on the host that sent or should receive
+  /// this message. The default value is a special value defined in the HAL and
+  /// elsewhere that indicates that the endpoint is unspecified.
+  host_endpoint:ushort = 0xfffe;
+
+  /// Vector containing arbitrary application-specific message data
+  message:[ubyte] (required);
+}
+
+table HubInfoRequest {}
+table HubInfoResponse {
+  /// The name of the hub. Nominally a UTF-8 string, but note that we're not
+  /// using the built-in "string" data type from FlatBuffers here, because the
+  /// generated C++ uses std::string which is not well-supported in CHRE. This
+  /// applies for vendor and toolchain as well.
+  name:[byte];
+  vendor:[byte];
+  toolchain:[byte];
+
+  /// Legacy platform version reported in the HAL; semantics not strictly
+  /// defined
+  platform_version:uint;
+
+  /// Toolchain version reported in the HAL; semantics not strictly defined
+  toolchain_version:uint;
+
+  peak_mips:float;
+  stopped_power:float;
+  sleep_power:float;
+  peak_power:float;
+
+  /// Maximum size message that can be sent to a nanoapp
+  max_msg_len:uint;
+
+  /// @see chreGetPlatformId()
+  platform_id:ulong;
+
+  /// @see chreGetVersion()
+  chre_platform_version:uint;
+
+  // TODO: list of connected sensors
+}
+
+table NanoappListRequest {}
+
+table NanoappListEntry {
+  app_id:ulong;
+  version:uint;
+  enabled:bool = true;
+
+  /// Whether the nanoapp is a pre-loaded "system" nanoapp, i.e. one that should
+  /// not show up in the list of nanoapps in the context hub HAL. System
+  /// nanoapps are typically used to leverage CHRE for some device functionality
+  /// and do not interact via the context hub HAL.
+  is_system:bool = false;
+
+  // TODO: memory usage
+}
+
+table NanoappListResponse {
+  nanoapps:[NanoappListEntry] (required);
+}
+
+table LoadNanoappRequest {
+  transaction_id:uint;
+
+  app_id:ulong;
+  app_version:uint;
+  target_api_version:uint;
+
+  app_binary:[ubyte] (required);
+}
+
+table LoadNanoappResponse {
+  transaction_id:uint;
+  success:bool;
+
+  // TODO: detailed error code?
+}
+
+/// A union that joins together all possible messages. Note that in FlatBuffers,
+/// unions have an implicit type
+union ChreMessage {
+  NanoappMessage,
+
+  HubInfoRequest,
+  HubInfoResponse,
+
+  NanoappListRequest,
+  NanoappListResponse,
+
+  LoadNanoappRequest,
+  LoadNanoappResponse,
+
+  // TODO: extend with system-specific messages, e.g. load app command, etc.
+}
+
+struct HostAddress {
+  client_id:ushort;
+}
+
+/// The top-level container that encapsulates all possible messages. Note that
+/// per FlatBuffers requirements, we can't use a union as the top-level structure
+/// (root type), so we must wrap it in a table.
+table MessageContainer {
+  message:ChreMessage (required);
+
+  /// The originating or destination client ID on the host side, used to direct
+  /// responses only to the client that sent the request. Although initially
+  /// populated by the requesting client, this is enforced to be the correct
+  /// value by the entity guarding access to CHRE.
+  /// This is wrapped in a struct to ensure that it is always included when
+  /// encoding the message, so it can be mutated by the host daemon.
+  host_addr:HostAddress (required);
+}
+
+root_type MessageContainer;

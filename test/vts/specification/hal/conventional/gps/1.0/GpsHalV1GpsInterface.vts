@@ -1,0 +1,162 @@
+component_class: HAL_CONVENTIONAL_SUBMODULE
+component_type: GPS
+component_type_version: 1.0
+
+original_data_structure_name: "GpsInterface"
+
+header: "<hardware/hardware.h>"
+header: "<hardware/gps.h>"
+
+interface: {
+  api: {
+    name: "init"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "pointer"
+      predefined_type: "GpsCallbacks*"
+    }
+    callflow: {
+      entry: true
+      next: "start"
+    }
+  }
+
+  api: {
+    name: "start"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    callflow: {
+      next: "stop"
+    }
+  }
+
+  api: {
+    name: "stop"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    callflow: {
+      next: "cleanup"
+    }
+  }
+
+  api: {
+    name: "cleanup"
+    return_type: {
+      type: TYPE_VOID
+    }
+    callflow: {
+      exit: true
+      next: "cleanup"
+    }
+  }
+
+  api: {
+    name: "inject_time"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "int64_t"
+      predefined_type: "GpsUtcTime"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "int64_t"
+      predefined_type: "GpsUtcTime"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+  }
+
+  api: {
+    name: "inject_location"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "double_t"
+      predefined_type: "vts_gps_latitude"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "double_t"
+      predefined_type: "vts_gps_longitude"
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "float_t"
+      predefined_type: "vts_gps_accuracy"
+    }
+  }
+
+  api: {
+    name: "delete_aiding_data"
+    return_type: {
+      type: TYPE_VOID
+    }
+    arg: {
+      type: TYPE_PREDEFINED
+      scalar_type: "uint16_t"
+      predefined_type: "vts_gps_flags_uint16"
+    }
+  }
+
+  api: {
+    name: "set_position_mode"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "int32_t"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "uint32_t"
+      predefined_type: "GpsPositionMode"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "uint32_t"
+      predefined_type: "GpsPositionRecurrence"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "uint32_t"
+      predefined_type: "min_interval"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "uint32_t"
+      predefined_type: "preferred_accuracy"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "uint32_t"
+      predefined_type: "preferred_time"
+    }
+  }
+
+  api: {
+    name: "get_extension"
+    return_type: {
+      type: TYPE_SCALAR
+      scalar_type: "void_pointer"
+    }
+    arg: {
+      type: TYPE_SCALAR
+      scalar_type: "char_pointer"
+    }
+  }
+}
