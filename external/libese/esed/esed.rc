@@ -1,0 +1,4 @@
+service esed /vendor/bin/esed
+    class hal
+    user ese
+    group ese
