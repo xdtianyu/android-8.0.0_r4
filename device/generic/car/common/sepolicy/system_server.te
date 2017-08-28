@@ -1,0 +1,3 @@
+# For gss
+allow system_server gss_device:chr_file rw_file_perms;
+

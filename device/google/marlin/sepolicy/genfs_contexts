@@ -1,0 +1,20 @@
+genfscon proc /sys/kernel/sched_boost                 u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_downmigrate           u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_freq_dec_notify       u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_freq_inc_notify       u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_init_task_load        u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_migration_cost_ns     u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_migration_fixup       u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_small_task            u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_spill_nr_run          u:object_r:proc_kernel_sched:s0
+genfscon proc /sys/kernel/sched_upmigrate             u:object_r:proc_kernel_sched:s0
+genfscon proc /irq                                    u:object_r:proc_irq:s0
+genfscon proc /debug/fwdump                           u:object_r:proc_wifi_dbg:s0
+genfscon proc /debugdriver/driverdump                 u:object_r:proc_wifi_dbg:s0
+
+genfscon debugfs /kgsl/proc                           u:object_r:debugfs_kgsl:s0
+
+# debugfs
+genfscon debugfs /cnss_runtime_pm          u:object_r:debugfs_runtime_pm:s0
+genfscon debugfs /cnss-prealloc/status     u:object_r:debugfs_cnss:s0
+genfscon debugfs /wlan_wcnss               u:object_r:debugfs_wlan:s0

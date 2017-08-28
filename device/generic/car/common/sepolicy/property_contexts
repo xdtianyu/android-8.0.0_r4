@@ -1,0 +1,4 @@
+
+qemu.                   u:object_r:qemu_prop:s0
+ro.emu.                 u:object_r:qemu_prop:s0
+ro.emulator.            u:object_r:qemu_prop:s0

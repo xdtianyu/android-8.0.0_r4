@@ -1,0 +1,77 @@
+LSM6DSM device driver for Google nanohub.
+Driver is by default configured to work on STMicroelectronics nucleo board using SPI.
+
+
+---------- Default driver configuration ----------
+SPI bus ID : 1 (PB12: SPI_NSS, PB13: SPI_CLK, PB14: SPI_MISO, PB15: SPI_MOSI)
+SPI frequency: 10MHz
+Interrupts: INT1 (PB6), INT2 (unused)
+
+
+---------- Compiling FLAGS ----------
+LSM6DSM driver supports FLAGS at compile time to enable/disable features.
+It is necessary to modify variant Makefile to include directive to compile the
+driver itself and enable flags.
+
+Supported flags:
+* LSM6DSM_DBG_ENABLED: enable debug messages
+* LSM6DSM_ACCEL_CALIB_ENABLED: enable accelerometer bias calibration library
+* LSM6DSM_GYRO_CALIB_ENABLED: enable gyroscope bias calibration library
+* LSM6DSM_MAGN_CALIB_ENABLED: enable magnetometer calibration library (if magnetometer is enabled)
+* LSM6DSM_I2C_MASTER_USE_INTERNAL_PULLUP: enable internal pull-up resistors for I2C master (if at least one I2C sensor is enabled)
+
+Supported I2C master flags:
+
+-> Magnetometer sensor (only one per time can be used):
+* LSM6DSM_I2C_MASTER_LIS3MDL: enable support for STMicroelectronics LIS3MDL magnetometer sensor
+* LSM6DSM_I2C_MASTER_LSM303AGR: enable support for STMicroelectronics LSM303AGR magnetometer sensor
+* LSM6DSM_I2C_MASTER_AK09916: enable support for AKM AK09916 magnetometer sensor
+
+-> Barometer sensor (only one per time can be used):
+* LSM6DSM_I2C_MASTER_LPS22HB: enable support for STMicroelectronics LPS22HB pressure sensor
+
+Example: firmware/variant/nucleo/nucleo.mk
+
+FLAGS += -DLSM6DSM_DBG_ENABLED -DLSM6DSM_ACCEL_CALIB_ENABLED -DLSM6DSM_GYRO_CALIB_ENABLED
+FLAGS += -DLSM6DSM_I2C_MASTER_LSM303AGR -DLSM6DSM_I2C_MASTER_USE_INTERNAL_PULLUP -DLSM6DSM_MAGN_CALIB_ENABLED
+SRCS_os += os/drivers/st_lsm6dsm/st_lsm6dsm.c
+
+
+---------- Driver porting ----------
+If sensor is used in different HW setup, here few modifications to apply into driver:
+
+Regarding SPI:
+#define LSM6DSM_SPI_SLAVE_BUS_ID                            1              /* SPI bus ID, on STM32F4xx indicate SPI2 */
+#define LSM6DSM_SPI_SLAVE_FREQUENCY_HZ                      10000000       /* SPI frequency in Hz */
+#define LSM6DSM_SPI_SLAVE_CS_GPIO                           GPIO_PB(12)    /* SPI NSS pin, on STM32F4xx indicate NSS of SPI2 */
+
+Regarding interrupts:
+#define LSM6DSM_INT_IRQ                                     EXTI9_5_IRQn
+#define LSM6DSM_INT1_GPIO                                   GPIO_PB(6)     /* LSM6DSM INT1 is required, here connected to STM32F4xx PB6 */
+
+Sensors Orientation:
+Sensors orientation can be modified through rotation matrices. Accelerometer and gyroscope are sharing same
+configuration (LSM6DSM_ROT_MATRIX), magnetometer sensor different one (LSM6DSM_MAGN_ROT_MATRIX).
+It is following standard rule of matrices moltiplications.
+Here an example:
+
+                       [r11 r12 r13]
+[x" y" z"] = [x y z] * [r21 r22 r23] = [(x*r11 + y*r21 + z*r31) (x*r12 + y*r22 + z*r32) (x*r13 + y*r23 + z*r33)]
+                       [r31 r32 r33]
+
+where x,y,z are sensors output and x",y",z" are android coordinate system data.
+Matrix is so defined:
+#define LSM6DSM_ROT_MATRIX             r11,r12,r13,r21,r22,r23,r31,r32,r33
+
+r** can only be: 0 or 1 or -1.
+
+
+- Supported features:
+> Accel & Gyro data;
+> Accel bias calibration through accel_cal lib;
+> Gyro bias calibration through gyro_cal & gyro_stillnes_detect libs;
+> Step detector & counter;
+> Significant motion;
+> Magnetometer sensor connected through I2C master interface (LIS3MDL, LSM303AGR, AK09916);
+> Magnetometer calibration though mag_cal lib;
+> Pressure sensor connected through I2C master interface (LPS22HB);

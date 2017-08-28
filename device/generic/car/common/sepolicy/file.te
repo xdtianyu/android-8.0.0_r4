@@ -1,0 +1,2 @@
+type sysfs_qemu_trace, fs_type, sysfs_type, mlstrustedobject;
+type qemud_socket, file_type;

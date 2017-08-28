@@ -1,0 +1,10 @@
+# Ignore personality-8 denials.
+dontaudit domain kernel:system module_request;
+
+# For /sys/qemu_trace files in the emulator.
+allow domain sysfs_qemu_trace:dir search;
+allow domain sysfs_qemu_trace:file rw_file_perms;
+allow domain qemu_device:chr_file rw_file_perms;
+
+get_prop(domain, qemu_prop)
+

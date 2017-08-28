@@ -1,0 +1,1 @@
+set_prop(surfaceflinger, qemu_prop)

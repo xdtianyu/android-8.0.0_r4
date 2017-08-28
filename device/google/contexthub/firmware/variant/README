@@ -1,0 +1,2 @@
+for ease of source browsing this directory may contain soft links to variant directories located elsewhere;
+build scripts fully support such layout, however this is not necessary in order to build such variants.

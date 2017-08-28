@@ -1,0 +1,6 @@
+type qemu_device, dev_type, mlstrustedobject;
+
+#device type for gss device nodes, ie /dev/gss
+type gss_device, dev_type;
+type persist_block_device, dev_type;
+type sw_sync_device, dev_type;
