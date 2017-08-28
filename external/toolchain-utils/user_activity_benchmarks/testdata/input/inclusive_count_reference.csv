@@ -1,0 +1,8 @@
+function,file,dso,inclusive_count,inclusive_count_fraction
+func_f,/a/b/file_f,f,1,1
+func_g,/a/b/file_g,g,2,2
+func_g,/a/b/../../a/b/file_g,g,3,2.4
+func_h,/c/d/file_h,h,4,3
+func_i,/c/d/file_i,i,5,4
+func_j,/e/file_j,j,6,5
+func_l,/e/file_l,l,7,6

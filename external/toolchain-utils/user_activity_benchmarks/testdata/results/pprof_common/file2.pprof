@@ -1,0 +1,2 @@
+function,file,dso,inclusive_count,flat,flat%,sum%,cum,cum%
+blink::InvalidationSet::invalidatesElement,/home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/InvalidationSet.cpp,debug/opt/google/chrome/chrome,42293369,4585860529,3.95%,3.95%,13583834527,11.70%

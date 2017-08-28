@@ -1,0 +1,15 @@
+function,file,flat,flat_p,sum_p,cum,cum_p
+v8::internal::Bitmap::MarkBitFromIndex,/home/chrome-bot/chrome_root/src/v8/src/heap/spaces.h,3139339048,0.0084,0.4135,3144663928,0.0085
+v8::base::NoBarrier_Load,/home/chrome-bot/chrome_root/src/v8/src/base/atomicops_internals_x86_gcc.h,2907238921,0.0078,0.4294,2930031660,0.0079
+v8::Object::GetAlignedPointerFromInternalField,/home/chrome-bot/chrome_root/src/v8/include/v8.h,6054608957,0.0163,0.3538,8069380147,0.0217
+[anon],,115734836217,0.3111,0.3111,329503350629,0.8856
+base::RunLoop::Run,/home/chrome-bot/chrome_root/src/base/run_loop.cc,2725201614,0.0073,0.4517,3511333688,0.0094
+WTF::hashInt,/home/chrome-bot/chrome_root/src/third_party/WebKit/Source/wtf/HashFunctions.h,2786321388,0.0075,0.4444,2794002850,0.0075
+blink::ElementV8Internal::idAttributeGetterCallback,/var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Element.cpp,4651723038,0.0125,0.3663,8205985387,0.0221
+v8::internal::Internals::ReadField,/home/chrome-bot/chrome_root/src/v8/include/v8.h,3354819815,0.009,0.3876,3361796139,0.009
+blink::v8StringToWebCoreString,/home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8StringResource.cpp,9839378797,0.0264,0.3375,14384869492,0.0387
+blink::NodeV8Internal::firstChildAttributeGetterCallbackForMainWorld,/var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Node.cpp,4569044106,0.0123,0.3786,6408862507,0.0172
+blink::DocumentV8Internal::getElementByIdMethodCallbackForMainWorld,/var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Document.cpp,3277220829,0.0088,0.3964,14077115947,0.0378
+v8::internal::MarkCompactMarkingVisitor::VisitUnmarkedObjects,/home/chrome-bot/chrome_root/src/v8/src/heap/mark-compact.cc,2791274646,0.0075,0.4369,11058283504,0.0297
+blink::ElementV8Internal::getAttributeMethodCallback,/var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Element.cpp,3007599556,0.0081,0.4216,13057167098,0.0351
+v8::internal::Internals::HasHeapObjectTag,/home/chrome-bot/chrome_root/src/v8/include/v8.h,3225711531,0.0087,0.4051,3228415743,0.0087

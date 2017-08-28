@@ -1,0 +1,20 @@
+File: perf
+Build ID: 1000000000
+Type: instructions_event
+Showing nodes accounting for 239632475284, 64.41% of 372058624378 total
+Dropped 33979 nodes (cum <= 1860293121)
+      flat  flat%   sum%        cum   cum%
+      115734836217 31.11% 31.11% 329503350629 88.56%  [anon]
+      9839378797  2.64% 33.75% 14384869492  3.87%  blink::v8StringToWebCoreString /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8StringResource.cpp
+      6054608957  1.63% 35.38% 8069380147  2.17%  v8::Object::GetAlignedPointerFromInternalField /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+      4651723038  1.25% 36.63% 8205985387  2.21%  blink::ElementV8Internal::idAttributeGetterCallback /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Element.cpp
+      4569044106  1.23% 37.86% 6408862507  1.72%  blink::NodeV8Internal::firstChildAttributeGetterCallbackForMainWorld /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Node.cpp
+      3354819815   0.9% 38.76% 3361796139   0.9%  v8::internal::Internals::ReadField /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+      3277220829  0.88% 39.64% 14077115947  3.78%  blink::DocumentV8Internal::getElementByIdMethodCallbackForMainWorld /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Document.cpp
+      3225711531  0.87% 40.51% 3228415743  0.87%  v8::internal::Internals::HasHeapObjectTag /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+      3139339048  0.84% 41.35% 3144663928  0.85%  v8::internal::Bitmap::MarkBitFromIndex /home/chrome-bot/chrome_root/src/v8/src/heap/spaces.h (inline)
+      3007599556  0.81% 42.16% 13057167098  3.51%  blink::ElementV8Internal::getAttributeMethodCallback /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Element.cpp
+      2907238921  0.78% 42.94% 2930031660  0.79%  v8::base::NoBarrier_Load /home/chrome-bot/chrome_root/src/v8/src/base/atomicops_internals_x86_gcc.h (inline)
+      2791274646  0.75% 43.69% 11058283504  2.97%  v8::internal::MarkCompactMarkingVisitor::VisitUnmarkedObjects /home/chrome-bot/chrome_root/src/v8/src/heap/mark-compact.cc (inline)
+      2786321388  0.75% 44.44% 2794002850  0.75%  WTF::hashInt /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/wtf/HashFunctions.h (inline)
+      2725201614  0.73% 45.17% 3511333688  0.94%  base::RunLoop::Run /home/chrome-bot/chrome_root/src/base/run_loop.cc

@@ -1,0 +1,4 @@
+function,file,dso,inclusive_count,flat,flat%,sum%,cum,cum%
+SkPackARGB32,/home/chrome-bot/chrome_root/src/third_party/skia/include/core/SkColorPriv.h,/opt/google/chrome/chrome,15535764,1628614163,1.64%,27.31%,1633246854,1.64%
+MOZ_Z_adler32,/home/chrome-bot/chrome_root/src/third_party/pdfium/third_party/zlib_v128/adler32.c,/opt/google/chrome/chrome,17825054,1455734663,1.46%,31.79%,1456692596,1.46%
+unpack_ubyte_b8g8r8a8_unorm,/build/gnawty/tmp/portage/media-libs/mesa-11.3.0-r14/work/Mesa-11.3.0/src/mesa/main/format_unpack.c,debug/opt/google/chrome/chrome,19183960,1137455802,1.14%,34.21%,1150209506,1.16%

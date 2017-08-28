@@ -1,0 +1,6 @@
+parent_child_functions,child_function_file,inclusive_count
+func_f;;func_g,/a/b/file_g2,0.01
+func_f;;func_h,/c/../c/d/file_h,0.02
+func_f;;func_i,/c/../c/d/file_i,0.03
+func_g;;func_j,/e/file_j,0.4
+func_g;;func_m,/e/file_m,0.6

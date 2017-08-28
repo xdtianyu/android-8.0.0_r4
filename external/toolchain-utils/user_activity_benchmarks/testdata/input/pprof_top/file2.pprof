@@ -1,0 +1,17 @@
+File: perf
+Build ID: 1000000000
+Type: instructions_event
+Showing nodes accounting for 48939666671, 42.14% of 116136877744 total
+Dropped 35196 nodes (cum <= 580684388)
+      flat  flat%   sum%        cum   cum%
+      4585860529  3.95%  3.95% 13583834527 11.70%  blink::InvalidationSet::invalidatesElement /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/a/b/../../InvalidationSet.cpp
+      3791928512  3.27%  7.21% 35145646088 30.26%  blink::StyleInvalidator::invalidate /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/StyleInvalidator.cpp
+      2871318565  2.47%  9.69% 2979878602  2.57%  blink::StyleInvalidator::RecursionCheckpoint::~RecursionCheckpoint /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/StyleInvalidator.h (inline)
+      1914657964  1.65% 11.33% 2164475253  1.86%  WTF::StringImpl::lower /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/wtf/text/StringImpl.cpp
+      1841071698  1.59% 12.92% 13112332809 11.29%  blink::StyleInvalidator::RecursionData::matchesCurrentInvalidationSets /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/StyleInvalidator.cpp (inline)
+      1825142681  1.57% 14.49% 1828134467  1.57%  blink::StyleInvalidator::RecursionCheckpoint::RecursionCheckpoint /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/StyleInvalidator.h (inline)
+      1727655605  1.49% 15.98% 1925839708  1.66%  blink::Element::hasID /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/dom/Element.h (inline)
+      1548329435  1.33% 17.31% 14927333582 12.85%  blink::StyleInvalidator::checkInvalidationSetsAgainstElement /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/invalidation/StyleInvalidator.cpp (inline)
+      1429307046  1.23% 18.54% 1931177544  1.66%  WTF::HashTableConstIterator::skipEmptyBuckets /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/wtf/HashTable.h
+      1298665649  1.12% 19.66% 4872203383  4.20%  blink::SelectorChecker::matchSelector /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/core/css/SelectorChecker.cpp
+      1241347773  1.07% 20.73% 88048746121 75.81%  [anon]

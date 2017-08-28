@@ -1,0 +1,6 @@
+function,file,dso,inclusive_count
+dummy_method1,dummy_file1/a/b/../../,dummy_object1,1
+dummy_method2,dummy_file2//,dummy_object2,2
+,,321223321,1
+dummy_method3,dummy_file3/a/../,dummy_object3,3
+dummy_method4,dummy_file4/./,dummy_object4,4

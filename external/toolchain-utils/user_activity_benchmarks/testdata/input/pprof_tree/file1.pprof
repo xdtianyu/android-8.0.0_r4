@@ -1,0 +1,29 @@
+File: perf
+Build ID: 37750b32016528ac896fc238e0d00513e218fd9e
+Type: instructions_event
+Showing nodes accounting for 234768811461, 63.10% of 372058624378 total
+Dropped 33979 nodes (cum <= 1860293121)
+Showing top 80 nodes out of 271
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                       13412390629 93.24% |   blink::V8StringResource::toString /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8StringResource.h
+                                         437497332  3.04% |   [anon]
+                                         378465996  2.63% |   blink::V8StringResource::operator WTF::AtomicString /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8StringResource.h
+9839378797  2.64% 33.75% 14384869492  3.87%                | blink::v8StringToWebCoreString /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8StringResource.cpp
+                                        3180428647 22.11% |   v8::String::GetExternalStringResourceBase /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+                                         514301458  3.58% |   WTF::RefPtr::RefPtr /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/wtf/RefPtr.h (inline)
+----------------------------------------------------------+-------------
+                                        8205985387   100% |   [anon]
+4651723038  1.25% 36.63% 8205985387  2.21%                | blink::ElementV8Internal::idAttributeGetterCallback /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Element.cpp
+                                         717786059  8.75% |   v8::Object::GetAlignedPointerFromInternalField /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+----------------------------------------------------------+-------------
+                                        6408862507   100% |   [anon]
+4569044106  1.23% 37.86% 6408862507  1.72%                | blink::NodeV8Internal::firstChildAttributeGetterCallbackForMainWorld /var/cache/chromeos-chrome/chrome-src-internal/src/out_gnawty/Release/gen/blink/bindings/core/v8/V8Node.cpp
+                                         773479621 12.07% |   v8::Object::GetAlignedPointerFromInternalField /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+                                         690710254 10.78% |   blink::v8SetReturnValueForMainWorld /home/chrome-bot/chrome_root/src/third_party/WebKit/Source/bindings/core/v8/V8Binding.h (inline)
+----------------------------------------------------------+-------------
+                                        2005371070 59.65% |   v8::Object::GetAlignedPointerFromInternalField /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+                                         954968101 28.41% |   v8::String::GetExternalStringResourceBase /home/chrome-bot/chrome_root/src/v8/include/v8.h (inline)
+3354819815   0.9% 38.76% 3361796139   0.9%                | v8::internal::Internals::ReadField /home/chrome-bot/chrome_root/src/v8/include/v8.h
+----------------------------------------------------------+-------------
