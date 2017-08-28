@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Title of the application. Used as a fallback for TalkBack when activity label is not specified (an accessibility service). [CHAR LIMIT=NONE] -->
+    <string name="retail_demo_title">Retail demo</string>
+
+    <!-- File name of the demo video in the preloads/demo folder. [DO NOT TRANSLATE] -->
+    <string name="retail_demo_video_file_name">retail_demo.mp4</string>
+
+    <!-- URL where the retail demo video can be downloaded from. [DO NOT TRANSLATE] -->
+    <string name="retail_demo_video_download_url"></string>
+
+    <!-- The component name for the demo overlay app. [DO NOT TRANSLATE] -->
+    <string name="demo_overlay_app_component" translatable="false"></string>
+
+    <!-- Message displayed to the user when downloading the video. [CHAR LIMIT=NONE] -->
+    <string name="downloading_video_msg">Downloading video\u2026</string>
+
+    <!-- Message displayed to let the user know that the screen needs to be touched to start a new demo session. [CHAR LIMIT=NONE] -->
+    <string name="touch_to_continue">Tap to continue</string>
+
+</resources>

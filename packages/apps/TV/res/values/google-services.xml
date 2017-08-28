@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://live-channels-1237.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">399597460505</string>
+  <string name="google_api_key" translatable="false">AIzaSyDK2BtNulo2ltWIogD64y1hBWKrdg9Sa7k</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDK2BtNulo2ltWIogD64y1hBWKrdg9Sa7k</string>
+  <string name="google_app_id" translatable="false">1:399597460505:android:6c699100869b1467</string>
+</resources>

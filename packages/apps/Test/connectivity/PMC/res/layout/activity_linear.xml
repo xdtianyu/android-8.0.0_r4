@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:text="@string/choose_pm_activity" />
+
+    <RadioGroup
+        android:id="@+id/rb_dataselect"
+        android:layout_below="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/rb_connscan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/conn_scan"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rb_kb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kbfile"/>
+
+        <RadioButton
+            android:id="@+id/rb_tenkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tenkbfile" />
+
+        <RadioButton
+            android:id="@+id/rb_hundredkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hundredkbfile" />
+
+        <RadioButton
+            android:id="@+id/rb_mb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mbfile" />
+
+        <RadioButton
+            android:id="@+id/rb_gscan2g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gscan_2g" />
+
+        <RadioButton
+            android:id="@+id/rb_gscan_without_dfs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gscan_without_dfs" />
+
+        <RadioButton
+            android:id="@+id/rb_iperf_client"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/iperf_client" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnstart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnstop"
+        android:layout_alignBottom="@+id/btnstop"
+        android:layout_alignStart="@+id/rb_dataselect"
+        android:text="@string/btn_start" />
+
+    <Button
+        android:id="@+id/btnstop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rb_dataselect"
+        android:layout_toEndOf="@+id/text_content"
+        android:text="@string/btn_stop" />
+
+    <TextView
+        android:id="@+id/text_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/text_title"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnstart" />
+
+</RelativeLayout>

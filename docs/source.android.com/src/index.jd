@@ -1,0 +1,141 @@
+fullpage=true
+no_footer_links=true
+landing.page=true
+page.metaDescription=The official site for the Android Open Source Project.
+header.hide=1
+@jd:body
+
+<!--
+    Copyright 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<div class="wrap">
+
+<div class="landing-banner">
+<h1 itemprop="name" style="margin-bottom:0;">Welcome to the Android Open Source Project!</h1>
+
+<p>Android is an open source software stack for a wide range of mobile devices
+and a corresponding open source project led by Google. This site and the Android
+Open Source Project (AOSP) repository offer the information and source code you
+need to create custom variants of the Android stack, port devices and
+accessories to the Android platform, and ensure your devices meet compatibility
+requirements.</p>
+
+<h2 align="center">Android 7.1 Updates Available</h2>
+
+</div>
+
+</div>
+
+<div class="wrap">
+
+<div class="landing-docs">
+  <div class="col-8">
+  <h3>What's New</h3>
+
+<h4>March Android Security Bulletin</h4>
+<p>The <strong><a href="{@docRoot}security/bulletin/2017-03-01.html">March
+2017 Android Security Bulletin</a></strong> has been published along with links
+to associated fixes. In addition, new
+<strong><a href="{@docRoot}source/build-numbers.html#source-code-tags-and-builds">build
+numbers</a></strong> have been published for Nexus 6 running Android 7.0 and
+7.1.1 and also Pixel, Pixel XL, Pixel C, Nexus 5X, Nexus 6P, Nexus 9, and Nexus
+Player running Android 7.1.1 to support the March Android security release.</p>
+
+<h4>Systems Testing With VTS</h4>
+<p>The Vendor Test Suite (VTS) automates HAL and OS kernel testing.
+<strong><a href="{@docRoot}devices/tech/test_infra/tradefed/fundamentals/vts.html">New
+documentation</a></strong> covers how to use VTS to test an Android native
+system implementation, set up a testing environment then test a patch using
+a VTS plan.</p>
+
+<h4>New Dalvik Bytecodes and Formats</h4>
+<p>Dalvik now offers new <strong><a
+href="{@docRoot}devices/tech/dalvik/dalvik-bytecode.html">bytecode formats 45cc
+and 4rcc</a></strong> and placeholder opcodes for <strong><a
+href="{@docRoot}devices/tech/dalvik/instruction-formats.html">invoke-polymorphic
+and invoke-polymorphic/range</a></strong>, which are the first dex instructions
+that use these new formats. In addition to a method_idx that gives the invoked
+method, these instructions also provide a proto_idx that gives the (static)
+type signature of the call site.</p>
+
+<h4>Background App Compilation in A/B System Updates</h4>
+<p>Examples for
+<strong><a href="{@docRoot}devices/tech/dalvik/configure.html#other_odex">installing</a></strong> and
+<strong><a href="{@docRoot}devices/tech/ota/ab_updates.html#configuration">configuring</a></strong>
+<code>otapreopt_script</code> have been added to explain how to use this tool
+for optimizing user apps so they are ready to run after the device reboots
+during an A/B system update.</p>
+
+<h4>Android 7.1 CDD</h4>
+<p>The <strong><a href="{@docRoot}compatibility/7.1/android-7.1-cdd.html">7.1
+version</a></strong> of the <strong><a
+href="{@docRoot}compatibility/cdd.html">Android Compatibility Definition
+Document</a></strong> (CDD) has been published. See its <strong><a
+href="https://android.googlesource.com/platform/compatibility/cdd/+log/nougat-mr1-dev/?pretty=full&no-merges">change
+log</a></strong> for a summary of updates.</p>
+
+<h4>Diagnosing Native Crashes</h4>
+<p><strong><a
+href="{@docRoot}devices/tech/debug/native-crash.html">Native crashes</a></strong>
+are now described in detail, fully explaining the <strong><a
+href="{@docRoot}devices/tech/debug/native-crash.html#crashtypes">types of
+crashes</a></strong> expected and including the clues for finding them in
+<code>debuggerd</code> output.</p>
+
+</div>
+
+<div class="col-8">
+
+<h3>Getting Started</h3>
+<a href="{@docRoot}source/index.html"><h4>Explore the Source</h4></a>
+<p>Get the complete Android platform and modify and build it to suit your needs.
+You can also
+<strong><a href="https://android-review.googlesource.com/#/q/status:open">contribute
+to</a></strong> the <strong><a href="https://android.googlesource.com/">AOSP
+repository</a></strong> to make your changes available to everyone else in the
+Android ecosystem.</p>
+
+<a href="{@docRoot}source/index.html"><img border="0"
+src="images/android_framework_small.png" alt="Android framework summary"
+style="display:inline;float:right;margin:5px 10px;width:42%;height:42%"></a>
+
+<a href="{@docRoot}devices/index.html"><h4>Port Android to Devices</h4></a>
+<p>Get help porting the latest Android platform to create compelling devices for
+your customers. Includes documentation for HAL interfaces and details on core
+technologies such as Android runtime (ART) and over-the-air (OTA) updates.</p>
+
+<a href="{@docRoot}security/index.html"><h4>Make Secure</h4></a>
+<p>Follow these examples and instructions to harden your Android devices against
+malicious attacks. Find out how the Android security program works and learn how
+to implement the latest features.</p>
+
+<a href="{@docRoot}compatibility/index.html"><h4>Get Compatible</h4></a>
+<p>Being Android-compatible lets you offer custom features but still give users
+and developers a consistent and standard experience across all Android-powered
+devices. Android provides guidance and a test suite to verify your Android
+compatibility.</p>
+
+<a href="https://android.googlesource.com/platform/docs/source.android.com/">
+<h4>Help this Site</h4></a>
+<p>Use the <strong>Site Feedback</strong> button at the bottom of any page to
+request content improvements or let us know about errors. To contribute your
+own updates to the site or to view a complete list of site changes, use the AOSP
+project
+<strong><a href="https://android.googlesource.com/platform/docs/source.android.com/+log/master?no-merges">docs/source.android.com.</a></strong></p>
+</div>
+
+</div>
+
+</div>

@@ -1,0 +1,9 @@
+// Build the unit tests.
+
+cc_test {
+    name: "JniInvocation_test",
+    host_supported: true,
+    clang: true,
+    srcs: ["JniInvocation_test.cpp"],
+    shared_libs: ["libnativehelper"],
+}

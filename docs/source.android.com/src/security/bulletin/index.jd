@@ -1,0 +1,343 @@
+page.title=Android Security Bulletins
+@jd:body
+
+<!--
+    Copyright 2015 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<div id="qv-wrapper">
+  <div id="qv">
+    <h2>In this document</h2>
+    <ol id="auto-toc">
+   </ol>
+  </div>
+</div>
+
+<p>Security has always been a major focus for Android and Google Play: Android was
+built from day one with security in mind. Monthly device updates are an
+important tool to make and keep Android users safe. This page contains the
+available Android Security Bulletins. These security bulletins also include
+information users can follow to ensure their device has the latest security
+updates. Android device and chipset manufacturers may also publish security
+vulnerability details specific to their products, such as:</p>
+<ul>
+  <li><a href="https://lgsecurity.lge.com/security_updates.html">LG</a></li>
+  <li><a href="https://motorola-global-portal.custhelp.com/app/software-upgrade-security/g_id/5593">Motorola</a></li>
+  <li><a href="http://security.samsungmobile.com/smrupdate.html">Samsung</a></li>
+</ul>
+
+<h3 id="notification">Notifications</h3>
+<p>To get notifications when a new Android bulletin is published, join the
+<a href="https://groups.google.com/forum/#!forum/android-security-updates">Android
+Security Updates group</a>, and set your email delivery preference to receive
+all updates. To learn how to check if a device is up to date using the security
+patch level, read the instructions on the
+<a href="https://support.google.com/nexus/answer/4457705">Pixel and Nexus
+update schedule</a>. In general, it takes about one and a half calendar
+weeks for the OTA to reach every Nexus device. The Nexus firmware images are
+also released each month to the
+<a href="https://developers.google.com/android/nexus/images">Google Developer
+site</a>.
+</p>
+<h3 id="sources">Sources</h3>
+
+<p>Fixes listed in the public bulletin come from various different sources: the
+Android Open Source Project (AOSP), the upstream Linux kernel, and system-on-chip
+(SOC) manufacturers. For device manufacturers:</p>
+<ul>
+  <li>Android platform fixes are merged into AOSP 24-48 hours after the security
+      bulletin is released and can be picked up directly from there.</li>
+  <li>Upstream linux kernel fixes are linked to directly from the bulletin on
+      release and can be picked up from there.</li>
+  <li>Fixes from SOC manfacturers are available directly from the manufacturers.</li>
+</ul>
+<h3 id="bulletins">Bulletins</h3>
+
+<table>
+  <col width="19%">
+  <col width="35%">
+  <col width="23%">
+  <col width="23%">
+ <tr>
+    <th>Bulletin</th>
+    <th>Languages</th>
+    <th>Published Date</th>
+    <th>Security Patch Level</th>
+ </tr>
+ <tr>
+    <td><a href="2017-03-01.html">March 2017</a></td>
+    <td>Coming soon
+    </td>
+    <td>March 6, 2017</td>
+    <td>2017-03-01<br>
+        2017-03-05</td>
+ </tr>
+ <tr>
+    <td><a href="2017-02-01.html">February 2017</a></td>
+    <td><a href="2017-02-01.html">English</a>&nbsp;/
+      <a href="/intl/ja_ALL/security/bulletin/2017-02-01.html">日本語</a>&nbsp;/
+      <a href="/intl/ko_ALL/security/bulletin/2017-02-01.html">한국어</a>&nbsp;/
+      <a href="/intl/ru_ALL/security/bulletin/2017-02-01.html">ру́сский</a>&nbsp;/
+      <a href="/intl/zh-CN_ALL/security/bulletin/2017-02-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="/intl/zh-TW_ALL/security/bulletin/2017-02-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>February 6, 2017</td>
+    <td>2017-02-01<br>
+        2017-02-05</td>
+ </tr>
+ <tr>
+    <td><a href="2017-01-01.html">January 2017</a></td>
+    <td><a href="2017-01-01.html">English</a>&nbsp;/
+      <a href="/intl/ja_ALL/security/bulletin/2017-01-01.html">日本語</a>&nbsp;/
+      <a href="/intl/ko_ALL/security/bulletin/2017-01-01.html">한국어</a>&nbsp;/
+      <a href="/intl/ru_ALL/security/bulletin/2017-01-01.html">ру́сский</a>&nbsp;/
+      <a href="/intl/zh-CN_ALL/security/bulletin/2017-01-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="/intl/zh-TW_ALL/security/bulletin/2017-01-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>January 3, 2017</td>
+    <td>2017-01-01<br>
+        2017-01-05</td>
+ </tr>
+ <tr>
+    <td><a href="2016-12-01.html">December 2016</a></td>
+    <td>
+      <a href="2016-12-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-12-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-12-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-12-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-12-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-12-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>December 5, 2016</td>
+    <td>2016-12-01<br>
+        2016-12-05</td>
+ </tr>
+ <tr>
+    <td><a href="2016-11-01.html">November 2016</a></td>
+    <td>
+      <a href="2016-11-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-11-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-11-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-11-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-11-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-11-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>November 7, 2016</td>
+    <td>2016-11-01<br>
+        2016-11-05<br>
+        2016-11-06</td>
+ </tr>
+ <tr>
+    <td><a href="2016-10-01.html">October 2016</a></td>
+    <td>
+      <a href="2016-10-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-10-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-10-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-10-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-10-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-10-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>October 3, 2016</td>
+    <td>2016-10-01<br>
+        2016-10-05</td>
+ </tr>
+ <tr>
+    <td><a href="2016-09-01.html">September 2016</a></td>
+    <td>
+      <a href="2016-09-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-09-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-09-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-09-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-09-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-09-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>September 6, 2016</td>
+    <td>2016-09-01<br>
+        2016-09-05<br>
+        2016-09-06</td>
+ </tr>
+ <tr>
+    <td><a href="2016-08-01.html">August 2016</a></td>
+    <td>
+      <a href="2016-08-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-08-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-08-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-08-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-08-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-08-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>August 1, 2016</td>
+    <td>2016-08-01<br>
+        2016-08-05</td>
+ </tr>
+ <tr>
+    <td><a href="2016-07-01.html">July 2016</a></td>
+    <td>
+      <a href="2016-07-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-07-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-07-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-07-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-07-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-07-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>July 6, 2016</td>
+    <td>2016-07-01<br>
+        2016-07-05</td>
+ </tr>
+ <tr>
+    <td><a href="2016-06-01.html">June 2016</a></td>
+    <td>
+      <a href="2016-06-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-06-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-06-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-06-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-06-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-06-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>June 6, 2016</td>
+    <td>2016-06-01</td>
+ </tr>
+ <tr>
+    <td><a href="2016-05-01.html">May 2016</a></td>
+    <td>
+      <a href="2016-05-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-05-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-05-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-05-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-05-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-05-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>May 2, 2016</td>
+    <td>2016-05-01</td>
+ </tr>
+ <tr>
+    <td><a href="2016-04-02.html">April 2016</a></td>
+    <td>
+      <a href="2016-04-02.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-04-02.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-04-02.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-04-02.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-04-02.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-04-02.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>April 4, 2016</td>
+    <td>2016-04-02</td>
+ </tr>
+ <tr>
+    <td><a href="2016-03-01.html">March 2016</a></td>
+    <td>
+      <a href="2016-03-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-03-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-03-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-03-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-03-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-03-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>March 7, 2016</td>
+    <td>2016-03-01</td>
+ </tr>
+ <tr>
+    <td><a href="2016-02-01.html">February 2016</a></td>
+    <td>
+      <a href="2016-02-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-02-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-02-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-02-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-02-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-02-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>February 1, 2016</td>
+    <td>2016-02-01</td>
+ </tr>
+ <tr>
+    <td><a href="2016-01-01.html">January 2016</a></td>
+    <td>
+      <a href="2016-01-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2016-01-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2016-01-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2016-01-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2016-01-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2016-01-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>January 4, 2016</td>
+    <td>2016-01-01</td>
+ </tr>
+ <tr>
+    <td><a href="2015-12-01.html">December 2015</a></td>
+    <td>
+      <a href="2015-12-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2015-12-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2015-12-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2015-12-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2015-12-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2015-12-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>December 7, 2015</td>
+    <td>2015-12-01</td>
+</tr>
+<tr>
+    <td><a href="2015-11-01.html">November 2015</a></td>
+    <td>
+      <a href="2015-11-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2015-11-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2015-11-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2015-11-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2015-11-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2015-11-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>November 2, 2015</td>
+    <td>2015-11-01</td>
+ </tr>
+ <tr>
+    <td><a href="2015-10-01.html">October 2015</a></td>
+    <td>
+      <a href="2015-10-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2015-10-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2015-10-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2015-10-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2015-10-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2015-10-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>October 5, 2015</td>
+    <td>2015-10-01</td>
+ </tr>
+ <tr>
+    <td><a href="2015-09-01.html">September 2015</a></td>
+    <td>
+      <a href="2015-09-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2015-09-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2015-09-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2015-09-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2015-09-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2015-09-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>September 9, 2015</td>
+    <td>N/A</td>
+ </tr>
+ <tr>
+    <td><a href="2015-08-01.html">August 2015</a></td>
+    <td>
+      <a href="2015-08-01.html">English</a>&nbsp;/
+      <a href="{@docRoot}intl/ja_ALL/security/bulletin/2015-08-01.html">日本語</a>&nbsp;/
+      <a href="{@docRoot}intl/ko_ALL/security/bulletin/2015-08-01.html">한국어</a>&nbsp;/
+      <a href="{@docRoot}intl/ru_ALL/security/bulletin/2015-08-01.html">ру́сский</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-CN_ALL/security/bulletin/2015-08-01.html">中文&nbsp;(中国)</a>&nbsp;/
+      <a href="{@docRoot}intl/zh-TW_ALL/security/bulletin/2015-08-01.html">中文&nbsp;(台灣)</a>
+    </td>
+    <td>August 13, 2015</td>
+    <td>N/A</td>
+ </tr>
+</table>
+
+

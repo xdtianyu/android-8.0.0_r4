@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <string-array name="carrier_additional_cbs_channels_strings" num="1">
+            <item value="0xA003:type=other, emergency=true" />
+        </string-array>
+        <boolean name="allow_emergency_numbers_in_call_log_bool" value="true" />
+    </carrier_config>
+</carrier_config_list>

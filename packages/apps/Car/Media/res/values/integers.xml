@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Media -->
+    <integer name="media_scrim_duration_ms">400</integer>
+    <integer name="new_album_art_fade_in_offset">250</integer>
+</resources>

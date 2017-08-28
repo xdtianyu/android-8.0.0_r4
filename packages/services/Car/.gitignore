@@ -1,0 +1,5 @@
+*~
+.project
+.classpath
+*.iml
+gen/

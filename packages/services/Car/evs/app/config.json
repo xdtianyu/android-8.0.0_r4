@@ -1,0 +1,73 @@
+{
+  "car" : {
+    "width"  : 76.7,
+    "wheelBase" : 117.9,
+    "frontExtent" : 44.7,
+    "rearExtent" : 40
+  },
+  "display" : {
+    "width" : 640,
+    "height" : 480,
+    "frontRange" : 100,
+    "rearRange" : 100
+  },
+  "graphic" : {
+    "frontPixel" : 23,
+    "rearPixel" : 223
+  },
+  "cameras" : [
+    {
+      "name" : "rightFront",
+      "x" : 36.0,
+      "y" : 90.0,
+      "z" : 36,
+      "yaw" : -45,
+      "pitch" : -25,
+      "hfov" : 60,
+      "vfov" : 40
+    },
+    {
+      "name" : "rightRear",
+      "function" : "right",
+      "x" : 36.0,
+      "y" : -10,
+      "z" : 36,
+      "yaw" : -135,
+      "pitch" : -25,
+      "hfov" : 60,
+      "vfov" : 40
+    },
+    {
+      "name" : "left",
+      "function" : "left",
+      "x" : -36.0,
+      "y" : 80,
+      "z" : 30,
+      "yaw" : 90,
+      "pitch" : -45,
+      "hfov" : 90,
+      "vfov" : 90
+    },
+    {
+      "name" : "front",
+      "x" : 0.0,
+      "y" : 100.0,
+      "z" : 48,
+      "yaw" : 0,
+      "pitch" : -10,
+      "hfov" : 60,
+      "vfov" : 42
+    },
+    {
+      "name" : "rear",
+      "function" : "rear",
+      "x" : 0.0,
+      "y" : -40,
+      "z" : 30,
+      "yaw" : 180,
+      "pitch" : -45,
+      "hfov" : 90,
+      "vfov" : 60
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2017 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- The service label for network recommendation service. [CHAR LIMIT=40] -->
+    <string name="network_recommendation_service_label">System default</string>
+
+    <!-- Notification title when there is a high quality open wireless network nearby.-->
+    <string name="wifi_available_title">Connect to open Wi\u2011Fi network</string>
+    <!-- Notification title when the system is connecting to a high quality open network. -->
+    <string name="wifi_available_title_connecting">Connecting to open Wi\u2011Fi network</string>
+    <!-- Notification title when the system has connected to the high quality open network. -->
+    <string name="wifi_available_title_connected">Connected to Wi\u2011Fi network</string>
+    <!-- Notification title when the system failed to connect to the high quality open network. -->
+    <string name="wifi_available_title_failed">Couldn\u0027t connect to Wi\u2011Fi network</string>
+    <!-- Notification content informing the user that tapping on this notification will open the wifi picker. -->
+    <string name="wifi_available_content_failed">Tap to see all networks</string>
+
+    <!-- Notification action name for connecting to the network specified in the notification body. -->
+    <string name="wifi_available_action_connect">Connect</string>
+    <!-- Notification action name for opening the wifi picker, showing the user all the nearby networks. -->
+    <string name="wifi_available_action_all_networks">All Networks</string>
+
+    <!-- A notification is shown when Wi-Fi Wakeup enables Wi-Fi. -->
+    <string name="wifi_wakeup_enabled_notification_title">Wi\u2011Fi turned on automatically</string>
+    <string name="wifi_wakeup_enabled_notification_context">You\u0027re near a saved network: %1$s</string>
+
+    <!-- Text used to indicate that a connection attempt is ongoing [CHAR LIMIT=20] -->
+    <string name="common_connecting">Connecting&#8230;</string>
+
+    <!-- Name of the notification channel group of our Wi-Fi messages -->
+    <string name="notification_channel_group_name">Wi\u2011Fi messages</string>
+    <!-- Name of the notification channel for a notification shown when there is a high quality open wireless network nearby. -->
+    <string name="notification_channel_wakeup_name">Wi\u2011Fi turned on</string>
+    <!-- Name of the notification channel for a notification shown when Wi-Fi Wakeup enables Wi-Fi.. -->
+    <string name="notification_channel_network_available">Network available</string>
+</resources>

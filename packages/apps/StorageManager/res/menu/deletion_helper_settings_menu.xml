@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/no_threshold"
+        android:title="@string/deletion_helper_no_threshold" />
+    <item android:id="@+id/default_threshold"
+        android:title="@string/deletion_helper_default_threshold" />
+</menu>

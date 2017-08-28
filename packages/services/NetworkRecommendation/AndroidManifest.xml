@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1"
+          android:versionName="1.0.0"
+          package="com.android.networkrecommendation">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.REQUEST_NETWORK_SCORES"/>
+    <uses-permission android:name="android.permission.SCORE_NETWORKS"/>
+    <uses-permission android:name="android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+
+    <application android:name=".NetworkRecommendationApp"
+                 android:allowBackup="false"
+                 android:directBootAware="true">
+
+        <!-- Only the platform can bind to this service -->
+        <service android:name=".NetworkRecommendationService"
+                 android:permission="android.permission.BIND_NETWORK_RECOMMENDATION_SERVICE">
+            <meta-data android:name="android.net.scoring.recommendation_service_label"
+                       android:value="@string/network_recommendation_service_label"/>
+            <meta-data android:name="android.net.wifi.notification_channel_id_network_available"
+                       android:value="com.android.networkrecommendation.Notifications.WifiMessageGroup.NetworkAvailableChannel" />
+            <intent-filter>
+                <action android:name="android.net.action.RECOMMEND_NETWORKS" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

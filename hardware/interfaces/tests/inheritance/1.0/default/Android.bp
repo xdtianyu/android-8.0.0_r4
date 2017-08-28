@@ -1,0 +1,23 @@
+
+
+cc_library_shared {
+    name: "android.hardware.tests.inheritance@1.0-impl",
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    proprietary: true,
+    srcs: [
+        "Fetcher.cpp",
+        "Parent.cpp",
+        "Child.cpp",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "liblog",
+        "libutils",
+        "android.hardware.tests.inheritance@1.0",
+    ],
+
+}

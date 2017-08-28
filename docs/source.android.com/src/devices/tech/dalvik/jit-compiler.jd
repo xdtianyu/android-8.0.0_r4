@@ -1,0 +1,399 @@
+page.title=Implementing ART Just-In-Time (JIT) Compiler
+@jd:body
+
+<!--
+    Copyright 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+
+<div id="qv-wrapper">
+<div id="qv">
+  <h2 id="Contents">In this document</h2>
+  <ol id="auto-toc">
+  </ol>
+</div>
+</div>
+
+<p>
+Android 7.0 adds a just-in-time (JIT) compiler with code profiling to Android
+runtime (ART) that constantly improves the performance of Android apps as they
+run. The JIT compiler complements ART's current ahead-of-time (AOT) compiler and
+improves runtime performance, saves storage space, and speeds app updates and
+system updates.
+</p>
+
+<p>
+The JIT compiler also improves upon the AOT compiler by avoiding system slowdown
+during automatic application updates or recompilation of applications during
+OTAs. This feature should require minimal device integration on the part of
+manufacturers.
+</p>
+
+<p>
+JIT and AOT use the same compiler with an almost identical set of optimizations.
+The generated code might not be the same but it depends. JIT makes uses of
+runtime type information and can do better inlining. Also, with JIT we sometimes
+do OSR compilation (on stack replacement) which will again generate a bit
+different code.
+</p>
+
+<p>
+See <a
+href="https://developer.android.com/preview/api-overview.html#jit_aot">Profile-guided
+JIT/AOT Compilation</a> on developer.android.com for a more thorough overview.
+</p>
+
+<h2 id="architectural-overview">Architectural Overview</h2>
+
+<img src="images/jit-arch.png" alt="JIT architecture" width="633" id="JIT-architecture" />
+<p class="img-caption">
+  <strong>Figure 1.</strong> JIT architecture - how it works
+</p>
+
+<h2 id="flow">Flow</h2>
+
+<p>
+JIT compilation works in this manner:
+</p>
+
+<ol>
+<li>The user runs the app, which then triggers ART to load the .dex file.
+<li>If the .oat file (the AOT binary for the .dex file) is available, ART uses
+them directly. Note that .oat files are generated regularly. However, that does
+not imply they contain compiled code (AOT binary).
+<li>If no .oat file is available, ART runs through either JIT or an interpreter
+to execute the .dex file. ART will always use the .oat files if available.
+Otherwise, it will use the APK and extract it in memory to get to the .dex
+incurring a big memory overhead (equal to the size of the dex files).
+<li>JIT is enabled for any application that is not compiled according to the
+"speed" compilation filter (which says, compile as much as you can from the
+app).
+<li>The JIT profile data is dumped to a file in a system directory. Only the
+application has access to the directory.
+<li>The AOT compilation (dex2oat) daemon parses that file to drive its
+compilation.</li>
+</ol>
+
+<img src="images/jit-profile-comp.png" alt="Profile-guided comp" width="452" id="JIT-profile-comp" />
+<p class="img-caption">
+  <strong>Figure 2.</strong> Profile-guided compilation
+</p>
+
+<img src="images/jit-daemon.png" alt="JIT daemon" width="718" id="JIT-daemon" />
+<p class="img-caption">
+  <strong>Figure 3.</strong> How the daemon works
+</p>
+
+<p>
+The Google Play service is an example used by other apps. These application tend
+to behave more like shared libraries.
+</p>
+
+<h2 id="jit-workflow">JIT Workflow</h2>
+<p>
+See the following high-level overview of how JIT works in the next diagram.
+</p>
+
+<img src="images/jit-workflow.png" alt="JIT architecture" width="707" id="JIT-workflow" />
+<p class="img-caption">
+  <strong>Figure 4.</strong> JIT data flow
+</p>
+
+<p>
+This means:
+</p>
+
+<ul>
+<li>Profiling information is stored in the code cache and subjected to garbage
+collection under memory pressure.
+<li>As a result, there’s no guarantee the snapshot taken when the application is
+in the background will contain the complete data (i.e. everything that was
+JITed).
+<li>There is no attempt to make sure we record everything as that will impact
+runtime performance.
+<li>Methods can be in three different states: <ul>
+ <li>interpreted (dex code)
+ <li>JIT compiled
+ <li>AOT compiled
+<li>If both, JIT and AOT code exists (e.g. due to repeated de-optimizations),
+the JITed code will be preferred.
+<li>The memory requirement to run JIT without impacting foreground app
+performance depends upon the app in question. Large apps will require more
+memory than small apps. In general, big apps stabilize around 4 MB.</li></ul>
+</li>
+</ul>
+
+<h2 id="system-properties">System Properties</h2>
+
+<p>
+These system properties control JIT behavior:
+</p><ul>
+<li><code>dalvik.vm.usejit <true|false></code> - Whether or not the JIT is
+enabled.
+<li><code>dalvik.vm.jitinitialsize</code> (default 64K) - The initial capacity
+of the code cache. The code cache will regularly GC and increase if needed. It
+is possible to view the size of the code cache for your app with:<br>
+<code> $ adb shell dumpsys meminfo -d &LT;pid&GT;</code>
+<li><code>dalvik.vm.jitmaxsize</code> (default 64M) - The maximum capacity of
+the code cache.
+<li><code>dalvik.vm.jitthreshold &LT;integer&GT;</code> (default 10000) - This
+is the threshold that the "hotness" counter of a method needs to pass in order
+for the method to be JIT compiled. The "hotness" counter is a metric internal
+to the runtime. It includes the number of calls, backward branches & other
+factors.
+<li><code>dalvik.vm.usejitprofiles &LT;true|false&GT;</code> - Whether or not
+JIT profiles are enabled;  this may be used even if usejit is false.
+<li><code>dalvik.vm.jitprithreadweight &LT;integer&GT;</code> (default to
+<code>dalvik.vm.jitthreshold</code> / 20) - The weight of the JIT "samples"
+(see jitthreshold) for the application UI thread. Use to speed up compilation
+of methods that directly affect users experience when interacting with the
+app.
+<li><code>dalvik.vm.jittransitionweight &LT;integer&GT;</code>
+(<code>dalvik.vm.jitthreshold</code> / 10) - The weight of the method
+invocation that transitions between compile code and interpreter. This helps
+make sure the methods involved are compiled to minimize transitions (which are
+expensive).
+</li>
+</ul>
+
+<h2 id="tuning">Tuning</h2>
+
+<p>
+Device implementers may precompile (some of) the system apps if they want so.
+Initial JIT performance vs pre-compiled depends on the the app, but in general
+they are quite close. It might be worth noting that precompiled apps will not
+be profiled and as such will take more space and may miss on other
+optimizations.
+</p>
+
+<p>
+In Android 7.0, there's a generic way to specify the level of
+compilation/verification based on the different use cases. For example, the
+default option for install time is to do only verification (and postpone
+compilation to a later stage). The compilation levels can be configured via
+system properties with the defaults being:
+</p>
+
+<pre>
+pm.dexopt.install=interpret-only
+pm.dexopt.bg-dexopt=speed-profile
+pm.dexopt.ab-ota=speed-profile
+pm.dexopt.nsys-library=speed
+pm.dexopt.shared-apk=speed
+pm.dexopt.forced-dexopt=speed
+pm.dexopt.core-app=speed
+pm.dexopt.first-boot=interpret-only
+pm.dexopt.boot=verify-profile
+</pre>
+
+<p>
+See the <a href="#recommendation">Recommendation</a> section for use.
+</p>
+
+<p>
+Note the reference to A/B over-the-air (OTA) updates here.
+</p>
+
+<p>
+Check <code>$ adb shell cmd package compile</code> for usage. Note all commands
+in this document are preceded by a dollar ($) sign that should be excluded when
+copying and pasting. A few common use cases:
+</p>
+
+<h3 id="turn-on-jit-logging">Turn on JIT logging</h3>
+
+<pre>
+$ adb root
+$ adb shell stop
+$ adb shell setprop dalvik.vm.extra-opts -verbose:jit
+$ adb shell start
+</pre>
+
+<h3 id="disable-jit-and-run-applications-in-interpreter">Disable JIT</h3>
+
+<pre>
+$ adb root
+$ adb shell stop
+$ adb shell setprop dalvik.vm.usejit false
+$ adb shell start
+</pre>
+
+<h3 id="force-compilation-of-a-specific-package">Force compilation of a specific
+package</h3>
+
+<ul>
+<li>Profile-based:
+<code>$ adb shell cmd package compile -m speed-profile -f
+my-package</code>
+<li>Full:
+<code>$ adb shell cmd package compile -m speed -f
+my-package</code></li>
+</ul>
+
+<h3 id="force-compilation-of-all-packages">Force compilation of all
+packages</h3>
+
+<ul>
+<li>Profile-based:
+<code>$ adb shell cmd package compile -m speed-profile -f
+-a</code>
+<li>Full:
+<code>$ adb shell cmd package compile -m speed -f -a</code></li></ul>
+
+<h3 id="clear-profile-data-and-remove-compiled-code">Clear profile data and
+remove compiled code</h3>
+
+<ul>
+<li>One package:
+<code>$ adb shell cmd package compile --reset my-package</code>
+<li>All packages
+<code>$ adb shell cmd package compile --reset
+-a</code></li>
+</ul>
+
+<h2 id="recommendation">Recommendation</h2>
+
+<h3 id="runtime_compilation_level">Level of compilation/verification</h3>
+
+<p>
+Note that it is strongly recommended to use the default following
+<code>pm.dexopt</code> settings and it is the only path we have tested and will
+support.
+</p>
+
+<pre>
+pm.dexopt.install=interpret-only
+pm.dexopt.bg-dexopt=speed-profile
+pm.dexopt.boot=verify-profile (or interpret-only)
+</pre>
+
+<p>
+Here’s a detailed explanation about the <code>pm.dexopt</code> options, and the
+reasoning for our recommendations:
+</p>
+
+<pre>
+pm.dexopt.install
+</pre>
+
+<p>
+This is the compilation filter used when installing application through the
+Play Store. For faster installs we recommend <code>interpret-only</code>.
+</p>
+
+<pre>
+pm.dexopt.bg-dexopt
+</pre>
+
+<p>
+This is the compilation filter used when the device is idle and charging and
+fully charged.  We recommend using <code>speed-profile</code> to take advantage
+of profile guided compilation and save on storage.
+</p>
+
+<pre>
+pm.dexopt.ab-ota
+</pre>
+
+<p>
+This is the compilation filter used when doing an A/B over-the-air (OTA)
+update. If the device supports A/B OTA,  we recommend using
+<code>speed-profile</code> to take advantage of profile guided compilation and
+save on storage.
+</p>
+
+<pre>
+pm.dexopt.nsys-library
+pm.dexopt.shared-apk
+pm.dexopt.core-app
+</pre>
+
+<p>
+You can use these different options to control how to compile essentially
+applications used by other applications. For such applications, we recommend
+the <code>speed</code> filter, as the platform does not support efficient
+profiling of them.
+</p>
+
+<pre>
+pm.dexopt.first-boot
+</pre>
+
+<p>
+The compilation filter for the first time the device ever boots. The filter
+used here will only affect the boot time after factory. We recommend the filter
+<code>interpret-only</code> for it, to avoid long times before a user gets to
+use the phone for the very first time. Note that if all applications in /system
+are already speed compiled, <code>pm.dexopt.first-boot</code> has no effect.
+</p>
+
+<pre>
+pm.dexopt.boot
+</pre>
+
+<p>
+The compilation filter used after an over-the-air update. We
+<strong>strongly</strong> recommend <code>verify-profile</code> for this
+option, to avoid very long updates.
+</p>
+
+<h3 id="system_image_compilation_level">System image</h3>
+
+<p>
+This section gives recommendations on how to minimize the system image size
+while retaining the highest possible level of performance.
+Note these complement the above guidelines on the
+<a href="#runtime_compilation_level">level of compilation/verification</a>.
+</p>
+
+<p>
+System image size can be reduced by opting for a lower level of compilation for
+prebuilts. To achieve the best compromise between app performance and image size,
+we strongly recommend compiling prebuilts with the <code>interpret-only</code>
+filter. To do this, edit the following files to include these entries.
+</p>
+
+<p>Add the following entry to <code>BoardConfig.mk</code>:</p>
+
+<pre>WITH_DEXPREOPT := true</pre>
+
+<p>Add the following entry to <code>device.mk</code>:</p>
+
+<pre>
+PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := --compiler-filter=interpret-only
+</pre>
+
+<p>
+Using the <code>interpret-only</code> filter will reduce the optimized code
+size for prebuilts by roughly half (depending on the the application) when
+compared with the <code>speed</code> filter. It also allows the runtime to
+profile the prebuilts and perform profile-guided compilation to further
+save on data partition storage.
+</p>
+
+<p>
+We advise against using a lower compilation/verification level
+(e.g. <code>verify-none</code>) or disabling the optimization for prebuilts
+as an effort to further save space on the system image. That will lead to slower
+application startup and increased memory consumption.
+</p>
+
+<h2 id="validation">Validation</h2>
+
+<p>
+To ensure their version of the feature works as intended, device implementers
+should run the ART test in <code>android/art/test</code>. Also, see the CTS
+test <code>hostsidetests/compilation</code> for userdedug builds.
+</p>

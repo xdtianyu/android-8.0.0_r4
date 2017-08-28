@@ -1,0 +1,7 @@
+Network Recommentation Service App
+==========================
+
+This app works as part of com.android.net to score networks for the platform.
+
+Provides a simple network recommendation service for use with the
+RecommendedNetworkEvaluator (platform/frameworks/opt/net/wifi).

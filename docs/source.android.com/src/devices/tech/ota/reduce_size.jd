@@ -1,0 +1,227 @@
+page.title=Reducing OTA Size
+@jd:body
+
+<!--
+    Copyright 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<div id="qv-wrapper">
+  <div id="qv">
+    <h2>In this document</h2>
+    <ol id="auto-toc">
+    </ol>
+  </div>
+</div>
+
+<p>A common problem with Android over-the-air updates (OTAs) is that they contain
+changed files that do not correspond to code changes, but instead are artifacts
+of the build system. This happens whenever the same code, built at different
+times, from different directories, or on different machines, produces a large
+number of changed files.  The excess files not only increase the size of an
+OTA, but make it difficult to determine which code is changed in the OTA.</p>
+
+<p>To make the contents of an OTA more transparent, we have added a number of
+build system changes that reduce the size of an OTA by eliminating unnecessary
+file changes between builds. The aim is to reduce the size of OTAs to include
+only the files that relate to the patches contained in the OTA.  We have also
+introduced a build diff tool that filters out common build-related file changes
+and provides a cleaner build file diff (see below).</p>
+
+<p>This document provides an explanation of some of the build changes that have
+been added to AOSP to reduce unnecessary file changes between builds.  For
+device implementers who maintain their own build system,  it provides a guide
+to some of the changes that need to be made to reduce OTA size.</p>
+
+<h3 id=the_build_diff_tool>The build diff tool</h3>
+
+
+<p>Since there are cases where it is not possible to eliminate build-related file
+changes, we have supplied a build diff tool, <code><a href="https://android.googlesource.com/platform/build/+/master/tools/releasetools/target_files_diff.py">target_files_diff.py</a></code>, that can be used to compare two target file packages. </p>
+
+<p>The build diff  tool does a recursive diff between two builds, excluding common
+build-related file changes.  Excluded changes include the following:</p>
+
+<ul>
+  <li> Expected changes in the build output (for example, due to build number
+changing).
+  <li> Changes due to known issues in the current build system.
+</ul>
+
+<p>To use the build diff tool, run the following command:</p>
+
+<pre class=prettyprint>
+$ target_files_diff.py dir1 dir2
+</pre>
+
+
+<p>where <code>dir1</code> and <code>dir2</code> are base directories that contain the extracted target files for each build.</p>
+
+<h2 id=changes_to_reduce_ota_size>Changes to reduce OTA size</h2>
+
+
+<p>There are several ways that the build system can create unnecessary file diffs.
+ In the following sections, we discuss some of these issues, discuss solutions,
+ and, where possible,  show examples of the fixes in AOSP.</p>
+
+<h3 id=file_order>File Order</h3>
+
+
+<p><strong>Problem</strong>: Filesystems don’t guarantee a file order when asked for a list of files in a
+directory, though it’s commonly the same for the same checkout. Tools such as <code>ls </code>sort the results by default, but the wildcard function used by commands such as <code>find</code> and <code>make </code>do not. So when any of these tools are used, you need to sort the outputs
+before using them.</p>
+
+<p><strong>Solution</strong>: Users of tools such as <code>find</code> and <code>make</code> with wildcard need to sort the output of these commands before using them.  In
+fact, any uses of $(wildcard ) or $(shell find ) in Android.mk files should be
+sorted. (Some tools (like java) will sort their inputs, so in some cases it may
+not actually necessary.)</p>
+
+<p><strong>Examples:</strong> Many instances of this were fixed in the core build system, especially when
+you use the builtin <code>all-*-files-under</code> macros (and <code>all-cpp-files-under</code> was added, since there were several definitions spread out in other
+makefiles):</p>
+
+<ul>
+  <li> <a href="https://android.googlesource.com/platform/build/+/4d66adfd0e6d599d8502007e4ea9aaf82e95569f">https://android.googlesource.com/platform/build/+/4d66adfd0e6d599d8502007e4ea9aaf82e95569f</a>
+  <li> <a href="https://android.googlesource.com/platform/build/+/379f9f9cec4fe1c66b6d60a6c19fecb81b9eb410">https://android.googlesource.com/platform/build/+/379f9f9cec4fe1c66b6d60a6c19fecb81b9eb410</a>
+  <li> <a href="https://android.googlesource.com/platform/build/+/7c3e3f8314eec2c053012dd97d2ae649ebeb5653">https://android.googlesource.com/platform/build/+/7c3e3f8314eec2c053012dd97d2ae649ebeb5653</a>
+  <li> <a href="https://android.googlesource.com/platform/build/+/5c64b4e81c1331cab56d8a8c201f26bb263b630c">https://android.googlesource.com/platform/build/+/5c64b4e81c1331cab56d8a8c201f26bb263b630c</a>
+</ul>
+
+<h3 id=build_directory>Build Directory</h3>
+
+
+<p><strong>Problem: </strong>Changing the directory in which things are built can cause the binaries to be
+different. Most paths in the android build are relative paths, so <code>__FILE__</code> in C/C++ isn’t a problem. </p>
+
+<p>But the debug symbols encode the full pathname by default. Then the <code>.note.gnu.build-id</code> is generated from hashing the pre-stripped binary, so it will change if the
+debug symbols change. </p>
+
+<p><strong>Solution:  </strong>To fix this, AOSP master has been changed to make the debug paths relative, as
+shown here: </p>
+
+<ul>
+  <li> <a href="https://android.googlesource.com/platform/build/+/6a66a887baadc9eb3d0d60e26f748b8453e27a02">https://android.googlesource.com/platform/build/+/6a66a887baadc9eb3d0d60e26f748b8453e27a02</a>
+</ul>
+
+<h3 id=timestamps>Timestamps</h3>
+
+
+<p><strong>Problem:  </strong>Timestamps in the build output result in unnecessary file changes.  Two places
+this is likely to happen are the following:</p>
+
+<ul>
+  <li> <code> __DATE__/__TIME__/__TIMESTAMP__ </code> macros in  C or C++ code.
+  <li> Timestamps embedded in zip-based archives.
+</ul>
+
+<p><strong>Solutions/Examples:</strong></p>
+
+<p>To remove timestamps from the build output in each of these instances, see the
+instructions in the sections below.</p>
+
+<h4 id=date_time_timestamp_in_c_c>__DATE__/__TIME__/__TIMESTAMP__ in C/C++</h4>
+
+
+<p>These macros always produce different outputs for different builds, so they
+shouldn’t be used. </p>
+
+<p>Here are a few options on how to eliminate these macros:</p>
+
+<ul>
+  <li> Just remove them, they often aren’t necessary.<br>
+Example:<br><a href="https://android.googlesource.com/platform/system/core/+/30622bbb209db187f6851e4cf0cdaa147c2fca9f">https://android.googlesource.com/platform/system/core/+/30622bbb209db187f6851e4cf0cdaa147c2fca9f</a>
+  <li> If you just need to be able to uniquely identify the running binary, read the
+build-id from the ELF header. (No example, we didn’t run into this problem.)
+  <li> If you just want to know when the OS was built, you can read the ro.build.date
+-- this should work for everything except incremental builds, which may not
+update this date.<br>
+Example:<br><a href="https://android.googlesource.com/platform/external/libchrome/+/8b7977eccc94f6b3a3896cd13b4aeacbfa1e0f84">https://android.googlesource.com/platform/external/libchrome/+/8b7977eccc94f6b3a3896cd13b4aeacbfa1e0f84</a>
+</ul>
+
+<p>We have turned on <code>-Werror=date-time</code>, so that using timestamps is a build error.</p>
+
+<h4 id=embedded_timestamps_in_zip-based_archives_zip_jar>Embedded Timestamps in Zip-based archives (zip, jar)</h4>
+
+
+<p>We fixed the problem of embedded timestamps in zip archives by adding <code>-X</code> to all uses of the <code>zip</code> command, so that the UID/GID of the builder, and the extended Unix timestamp
+weren’t embedded in the zip file. </p>
+
+<p>A new tool, <code>ziptime</code>, resets the normal timestamps in the zip headers:</p>
+
+<ul>
+  <li> <a href="https://android.googlesource.com/platform/build/+/master/tools/ziptime/">https://android.googlesource.com/platform/build/+/master/tools/ziptime/</a>
+</ul>
+
+<p>For more information, see the <a href="https://android.googlesource.com/platform/build/+/master/tools/ziptime/README.txt">README file</a>.</p>
+
+<p>The <code>signapk</code> tool sets timestamps for the APK files that may vary depending on the server
+timezone.  This problems was fixed in the following CL:</p>
+
+<ul>
+  <li> <a href="https://android.googlesource.com/platform/build/+/6c41036bcf35fe39162b50d27533f0f3bfab3028">https://android.googlesource.com/platform/build/+/6c41036bcf35fe39162b50d27533f0f3bfab3028</a>
+</ul>
+
+<h3 id=version_strings>Version Strings</h3>
+
+
+<p><strong>Problem:</strong> APK version strings often had the BUILD_NUMBER appended to the hardcoded
+version. So even if nothing else changed in the APK, the APK would still be
+different. </p>
+
+<p><strong>Solution:</strong> Remove the build number from the APK version string.</p>
+
+<p><strong>Examples: </strong></p>
+
+<ul>
+  <li> <a href="https://android.googlesource.com/platform/packages/apps/Camera2/+/5e0f4cf699a4c7c95e2c38ae3babe6f20c258d27">https://android.googlesource.com/platform/packages/apps/Camera2/+/5e0f4cf699a4c7c95e2c38ae3babe6f20c258d27</a>
+  <li> <a href="https://android.googlesource.com/platform/build/+/d75d893da8f97a5c7781142aaa7a16cf1dbb669c">https://android.googlesource.com/platform/build/+/d75d893da8f97a5c7781142aaa7a16cf1dbb669c</a>
+</ul>
+
+<h3 id=consistent_build_tools>Consistent build tools</h3>
+
+
+<p><strong>Problem:</strong> Any tools that generate installed files need to be consistent, that is, the
+same input should always produce the same output. </p>
+
+<p><strong>Solutions/Examples: </strong>Changes were required in the following build tools:</p>
+
+<ul>
+  <li> <strong>NOTICE file creator </strong><br>
+The NOTICE file creator needed the following changes:
+  <ul>
+    <li> <a href="https://android.googlesource.com/platform/build/+/8ae4984c2c8009e7a08e2a76b1762c2837ad4f64">https://android.googlesource.com/platform/build/+/8ae4984c2c8009e7a08e2a76b1762c2837ad4f64</a>
+  </ul>
+  <li> <strong>Java Android Compiler Kit (Jack) </strong><br>
+The Jack toolchain required an update to handle an occasional change in
+generated constructor ordering:
+  <ul>
+    <li> <a href="https://android.googlesource.com/toolchain/jack/+/056a5425b3ef57935206c19ecb198a89221ca64b">https://android.googlesource.com/toolchain/jack/+/056a5425b3ef57935206c19ecb198a89221ca64b</a>
+  </ul>
+  <li><strong>ART AOT compiler (dex2oat)</strong><br>The ART compiler binary required an update to create a deterministic image:
+  <ul>
+    <li> <a href="https://android.googlesource.com/platform/art/+/ace0dc1dd5480ad458e622085e51583653853fb9">https://android.googlesource.com/platform/art/+/ace0dc1dd5480ad458e622085e51583653853fb9</a>
+  </ul>
+  <li> <strong>The libpac.so file (V8)</strong><br>
+Every build creates a different /system/lib/libpac.so file, because the V8
+snapshot changes for each build. The solution is to remove the snapshot:</p>
+  <ul>
+    <li> <a href="https://android.googlesource.com/platform/external/v8/+/e537f38c36600fd0f3026adba6b3f4cbcee1fb29">https://android.googlesource.com/platform/external/v8/+/e537f38c36600fd0f3026adba6b3f4cbcee1fb29</a>
+  </ul>
+  <li> <strong>Application pre-dexopt’d (.odex) files
+</strong><br>The pre-dexopt’d (.odex) files contained uninitialized padding on 64-bit
+systems, requiring the following fix:</p>
+  <ul>
+    <li> <a href="https://android.googlesource.com/platform/art/+/34ed3afc41820c72a3c0ab9770be66b6668aa029">https://android.googlesource.com/platform/art/+/34ed3afc41820c72a3c0ab9770be66b6668aa029</a>
+  </ul>
+</ul>
