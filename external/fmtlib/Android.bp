@@ -1,0 +1,13 @@
+cc_library {
+    name: "fmtlib",
+    srcs: ["fmt/format.cc"],
+    cflags: [
+        "-std=c++11",
+        "-fno-exceptions",
+    ],
+    sanitize: {
+        misc_undefined: ["integer"],
+    },
+    local_include_dirs: ["."],
+    export_include_dirs: ["."],
+}
