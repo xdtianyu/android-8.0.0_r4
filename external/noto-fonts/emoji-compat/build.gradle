@@ -1,0 +1,78 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'java'
+apply plugin: 'org.anarres.jarjar'
+apply plugin: 'maven'
+
+ext {
+    flatbuffersDir = '../../flatbuffers'
+    noDocs = true
+}
+
+buildscript {
+    repositories {
+        maven { url '../../../prebuilts/tools/common/m2/repository' }
+    }
+
+    dependencies {
+        classpath 'org.anarres.jarjar:jarjar-gradle:1.0.0'
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/java', "${flatbuffersDir}/java"]
+    }
+}
+
+def tmpJarDir = new File(buildDir, "tmpjar")
+def jarName = "noto-emoji-compat-java"
+
+task createFatJar(type: Jar) {
+    // create a fat jar that includes FlatBuffers classes
+    archiveName = "${jarName}-all.jar"
+    destinationDir = tmpJarDir
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar {
+        archiveName = "${jarName}-base.jar"
+        destinationDir = tmpJarDir
+    }
+}
+
+task repackage(type: Copy, dependsOn: createFatJar) {
+    from jarjar.repackage {
+        from files("${tmpJarDir}/${jarName}-all.jar")
+        classRename 'com.google.flatbuffers.**', 'android.support.text.emoji.flatbuffer.@1'
+        destinationName "${jarName}-repacked.jar"
+    }
+    into tmpJarDir
+}
+
+task repackageJar(type: Jar, dependsOn: repackage) {
+    archiveName = "${jarName}.jar"
+    from zipTree("${tmpJarDir}/${jarName}-repacked.jar")
+}
+
+configurations {
+    parser
+}
+
+artifacts {
+    archives repackageJar
+    parser repackageJar
+}
+
