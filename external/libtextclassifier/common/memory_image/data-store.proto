@@ -1,0 +1,44 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Protos for a data store: a barebone in-memory file system.
+//
+// A DataStore maintains an association between names and chunks of bytes.  It
+// can be serialized into a string.  Of course, it can be deserialized from a
+// string, with minimal parsing; after deserialization, all chunks of bytes
+// start at aligned addresses (aligned = multiple of an address specified at
+// build time).
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+package libtextclassifier.nlp_core.memory_image;
+
+// Bytes for a data store entry.  They can be stored either directly in the
+// "data" field, or in the DataBlob with the 0-based index "blob_index".
+message DataStoreEntryBytes {
+  oneof data {
+    // Bytes for this data store entry, stored in this message.
+    string in_place_data = 1;
+
+    // 0-based index of the data blob with bytes for this data store entry.  In
+    // this case, the actual bytes are stored outside this message; the
+    // DataStore code handles the association.
+    int32 blob_index = 2 [default = -1];
+  }
+}
+
+message DataStoreProto {
+  map<string, DataStoreEntryBytes> entries = 1;
+}

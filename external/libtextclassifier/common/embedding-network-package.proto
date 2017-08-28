@@ -1,0 +1,29 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// This file defines TaskSpec as an extension to EmbeddingNetworkProto. The
+// definition is done here rather than directly in the imported protos to keep
+// the different messages as independent as possible.
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+import "external/libtextclassifier/common/task-spec.proto";
+import "external/libtextclassifier/common/embedding-network.proto";
+
+package libtextclassifier.nlp_core;
+
+extend EmbeddingNetworkProto {
+  optional TaskSpec task_spec_in_embedding_network_proto = 129692954;
+}

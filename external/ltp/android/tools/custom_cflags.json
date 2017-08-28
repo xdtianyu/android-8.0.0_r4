@@ -1,0 +1,3 @@
+{
+  "testcases/kernel/syscalls/getcwd/getcwd02": ["-U_FORTIFY_SOURCE"]
+}

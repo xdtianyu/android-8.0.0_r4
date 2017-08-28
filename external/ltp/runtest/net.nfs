@@ -1,0 +1,33 @@
+#DESCRIPTION:Network filesystem stress
+#
+# PLEASE READ THE README FILE IN /nfs BEFORE RUNNING THESE.
+#
+nfs3_01 export VERSION=3 SOCKET_TYPE=udp; nfs01
+nfs4_01 export VERSION=4 SOCKET_TYPE=tcp; nfs01
+nfs3_ipv6_01 export VERSION=3 SOCKET_TYPE=udp; nfs01 -6
+nfs4_ipv6_01 export VERSION=4 SOCKET_TYPE=tcp; nfs01 -6
+
+nfs3_02 export VERSION=3 SOCKET_TYPE=udp; nfs02
+nfs4_02 export VERSION=4 SOCKET_TYPE=tcp; nfs02
+nfs3_ipv6_02 export VERSION=3 SOCKET_TYPE=udp; nfs02 -6
+nfs4_ipv6_02 export VERSION=4 SOCKET_TYPE=tcp; nfs02 -6
+
+nfs3_03 export VERSION=3 SOCKET_TYPE=udp; nfs03
+nfs4_03 export VERSION=4 SOCKET_TYPE=tcp; nfs03
+nfs3_ipv6_03 export VERSION=3 SOCKET_TYPE=udp; nfs03 -6
+nfs4_ipv6_03 export VERSION=4 SOCKET_TYPE=tcp; nfs03 -6
+
+nfs3_04 export VERSION=3 SOCKET_TYPE=udp; nfs04
+nfs4_04 export VERSION=4 SOCKET_TYPE=tcp; nfs04
+nfs3_ipv6_04 export VERSION=3 SOCKET_TYPE=udp; nfs04 -6
+nfs4_ipv6_04 export VERSION=4 SOCKET_TYPE=tcp; nfs04 -6
+
+nfs3_05 export VERSION=3 SOCKET_TYPE=udp; nfs05
+nfs4_05 export VERSION=4 SOCKET_TYPE=tcp; nfs05
+nfs3_ipv6_05 export VERSION=3 SOCKET_TYPE=udp; nfs05 -6
+nfs4_ipv6_05 export VERSION=4 SOCKET_TYPE=tcp; nfs05 -6
+
+nfslock01 export VERSION; TCbin=$LTPROOT/testcases/bin nfslock01
+
+nfsstat01 export VERSION; TCbin=$LTPROOT/testcases/bin nfsstat01
+nfsx-linux export VERSION SOCKET_TYPE; TCbin=$LTPROOT/testcases/bin fsx.sh

@@ -1,0 +1,112 @@
+#!/bin/sh
+#******************************************************************************
+#
+#   Copyright (c) International Business Machines  Corp., 2000
+#
+#   This program is free software;  you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+#   the GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program;  if not, write to the Free Software
+#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+#
+#
+#
+#  FILE   : arp
+#
+#  PURPOSE: To test the basic functionality of `arp`.
+#
+#  SETUP: The "RHOST" setting should be exported to be the hostname of
+#         another machine on the same subnet.  Otherwise, the hostname
+#         of the tested machine will be used.
+#
+#  HISTORY:
+#    06/05/03 Manoj Iyer - manjo@mail.utexas.edu
+#      - Ported to use LTP test harness API
+#    03/01 Robbie Williamson (robbiew@us.ibm.com)
+#      -Ported
+#
+#-----------------------------------------------------------------------
+
+#-----------------------------------------------------------------------
+#
+# FUNCTION:  do_setup
+#
+#-----------------------------------------------------------------------
+
+do_setup()
+{
+
+    NUMLOOPS=${NUMLOOPS:-20}
+    TST_TOTAL=$(( $NUMLOOPS * 2 ))
+
+    tst_setup
+    exists arp grep hostname ping sleep whoami
+
+    RHOST=${RHOST:-$(hostname)}
+    SLEEPTIME=${SLEEPTIME:-1}
+    LUSER=$(whoami)
+
+    [ "$LUSER" = "root" ] || end_testcase "Must be root to run this test!"
+
+}
+
+#-----------------------------------------------------------------------
+#
+# FUNCTION:  do_test
+#
+#-----------------------------------------------------------------------
+
+do_test()
+{
+    while [ $TST_COUNT -le $NUMLOOPS ]; do
+        arp -a 2>&1 1>/dev/null || end_testcase "arp -a failed"
+        incr_tst_count
+    done
+
+    sleep $SLEEPTIME
+
+    # PURPOSE:  stress the automatic creation of arp entries by pinging a host
+    #           and deleting the arp entry again.
+
+    while [ $TST_COUNT -le $TST_TOTAL ]; do
+
+        ping -c1 $RHOST 2>&1 1>/dev/null || end_testcase "ping $RHOST failed"
+
+        if ! arp -a | grep "$RHOST\>" 2>&1 1>/dev/null; then
+            end_testcase "arp -a failed"
+        fi
+
+        if ! arp -d $RHOST 2>&1 1>/dev/null; then
+            end_testcase "arp -d $RHOST failed"
+        fi
+
+        incr_tst_count
+
+        sleep $SLEEPTIME
+
+    done
+
+}
+
+#-----------------------------------------------------------------------
+# FUNCTION: MAIN
+# PURPOSE:  To invoke the functions to perform the tasks outlined in the
+#           prologue.
+# INPUT:    None.
+# OUTPUT:   None.
+#-----------------------------------------------------------------------
+
+. net_cmdlib.sh
+
+read_opts $*
+do_setup
+do_test
+end_testcase

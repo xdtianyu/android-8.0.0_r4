@@ -1,0 +1,207 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Text classification model configuration.
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+import "external/libtextclassifier/common/embedding-network.proto";
+import "external/libtextclassifier/smartselect/tokenizer.proto";
+
+package libtextclassifier;
+
+// Generic options of a model, non-specific to selection or sharing.
+message ModelOptions {
+  // If true, will use embeddings from a different model. This is mainly useful
+  // for the Sharing model using the embeddings from the Selection model.
+  optional bool use_shared_embeddings = 1;
+
+  // Language of the model.
+  optional string language = 2;
+
+  // Version of the model.
+  optional int32 version = 3;
+}
+
+message SelectionModelOptions {
+  // A list of Unicode codepoints to strip from predicted selections.
+  repeated int32 punctuation_to_strip = 1;
+
+  // Whether to strip punctuation after the selection is made.
+  optional bool strip_punctuation = 2;
+
+  // Enforce symmetrical selections.
+  optional bool enforce_symmetry = 3;
+
+  // Number of inferences made around the click position (to one side), for
+  // enforcing symmetry.
+  optional int32 symmetry_context_size = 4;
+}
+
+message SharingModelOptions {
+  // If true, will always return "url" when the url hint is passed in.
+  optional bool always_accept_url_hint = 1;
+
+  // If true, will always return "email" when the e-mail hint is passed in.
+  optional bool always_accept_email_hint = 2;
+
+  // Limits for phone numbers.
+  optional int32 phone_min_num_digits = 3 [default = 7];
+  optional int32 phone_max_num_digits = 4 [default = 15];
+}
+
+message FeatureProcessorOptions {
+  // Number of buckets used for hashing charactergrams.
+  optional int32 num_buckets = 1 [default = -1];
+
+  // Context size defines the number of words to the left and to the right of
+  // the selected word to be used as context. For example, if context size is
+  // N, then we take N words to the left and N words to the right of the
+  // selected word as its context.
+  optional int32 context_size = 2 [default = -1];
+
+  // Maximum number of words of the context to select in total.
+  optional int32 max_selection_span = 3 [default = -1];
+
+  // Orders of charactergrams to extract. E.g., 2 means character bigrams, 3
+  // character trigrams etc.
+  repeated int32 chargram_orders = 4;
+
+  // Maximum length of a word, in codepoints.
+  optional int32 max_word_length = 21 [default = 20];
+
+  // If true, will use the unicode-aware functionality for extracting features.
+  optional bool unicode_aware_features = 19 [default = false];
+
+  // Whether to extract the token case feature.
+  optional bool extract_case_feature = 5 [default = false];
+
+  // Whether to extract the selection mask feature.
+  optional bool extract_selection_mask_feature = 6 [default = false];
+
+  // List of regexps to run over each token. For each regexp, if there is a
+  // match, a dense feature of 1.0 is emitted. Otherwise -1.0 is used.
+  repeated string regexp_feature = 22;
+
+  // Whether to remap all digits to a single number.
+  optional bool remap_digits = 20 [default = false];
+
+  // Whether to lower-case each token before generating hashgrams.
+  optional bool lowercase_tokens = 33;
+
+  // If true, the selection classifier output will contain only the selections
+  // that are feasible (e.g., those that are shorter than max_selection_span),
+  // if false, the output will be a complete cross-product of possible
+  // selections to the left and posible selections to the right, including the
+  // infeasible ones.
+  // NOTE: Exists mainly for compatibility with older models that were trained
+  // with the non-reduced output space.
+  optional bool selection_reduced_output_space = 8 [default = true];
+
+  // Collection names.
+  repeated string collections = 9;
+
+  // An index of collection in collections to be used if a collection name can't
+  // be mapped to an id.
+  optional int32 default_collection = 10 [default = -1];
+
+  // If true, will split the input by lines, and only use the line that contains
+  // the clicked token.
+  optional bool only_use_line_with_click = 13 [default = false];
+
+  // If true, will split tokens that contain the selection boundary, at the
+  // position of the boundary.
+  // E.g. "foo{bar}@google.com" -> "foo", "bar", "@google.com"
+  optional bool split_tokens_on_selection_boundaries = 14 [default = false];
+
+  // Codepoint ranges that determine how different codepoints are tokenized.
+  // The ranges must not overlap.
+  repeated TokenizationCodepointRange tokenization_codepoint_config = 15;
+
+  // Method for selecting the center token.
+  enum CenterTokenSelectionMethod {
+    DEFAULT_CENTER_TOKEN_METHOD = 0;  // Invalid option.
+
+    // Use click indices to determine the center token.
+    CENTER_TOKEN_FROM_CLICK = 1;
+
+    // Use selection indices to get a token range, and select the middle of it
+    // as the center token.
+    CENTER_TOKEN_MIDDLE_OF_SELECTION = 2;
+  }
+  optional CenterTokenSelectionMethod center_token_selection_method = 16;
+
+  // If true, span boundaries will be snapped to containing tokens and not
+  // required to exactly match token boundaries.
+  optional bool snap_label_span_boundaries_to_containing_tokens = 18;
+
+  // Range of codepoints start - end, where end is exclusive.
+  message CodepointRange {
+    optional int32 start = 1;
+    optional int32 end = 2;
+  }
+
+  // A set of codepoint ranges supported by the model.
+  repeated CodepointRange supported_codepoint_ranges = 23;
+
+  // A set of codepoint ranges to use in the mixed tokenization mode to identify
+  // stretches of tokens to re-tokenize using the internal tokenizer.
+  repeated CodepointRange internal_tokenizer_codepoint_ranges = 34;
+
+  // Minimum ratio of supported codepoints in the input context. If the ratio
+  // is lower than this, the feature computation will fail.
+  optional float min_supported_codepoint_ratio = 24 [default = 0.0];
+
+  // Used for versioning the format of features the model expects.
+  //  - feature_version == 0:
+  //      For each token the features consist of:
+  //       - chargram embeddings
+  //       - dense features
+  //      Chargram embeddings for tokens are concatenated first together,
+  //      and at the end, the dense features for the tokens are concatenated
+  //      to it. So the resulting feature vector has two regions.
+  optional int32 feature_version = 25 [default = 0];
+
+  // Controls the type of tokenization the model will use for the input text.
+  enum TokenizationType {
+    INVALID_TOKENIZATION_TYPE = 0;
+
+    // Use the internal tokenizer for tokenization.
+    INTERNAL_TOKENIZER = 1;
+
+    // Use ICU for tokenization.
+    ICU = 2;
+
+    // First apply ICU tokenization. Then identify stretches of tokens
+    // consisting only of codepoints in internal_tokenizer_codepoint_ranges
+    // and re-tokenize them using the internal tokenizer.
+    MIXED = 3;
+  }
+  optional TokenizationType tokenization_type = 30
+      [default = INTERNAL_TOKENIZER];
+  optional bool icu_preserve_whitespace_tokens = 31 [default = false];
+
+  reserved 7, 11, 12, 17, 26, 27, 28, 29, 32;
+};
+
+extend nlp_core.EmbeddingNetworkProto {
+  optional ModelOptions model_options_in_embedding_network_proto = 150063045;
+  optional FeatureProcessorOptions
+      feature_processor_options_in_embedding_network_proto = 146230910;
+  optional SelectionModelOptions
+      selection_model_options_in_embedding_network_proto = 148190899;
+  optional SharingModelOptions
+      sharing_model_options_in_embedding_network_proto = 151445439;
+}

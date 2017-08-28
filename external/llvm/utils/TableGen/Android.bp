@@ -1,0 +1,34 @@
+cc_binary_host {
+    name: "llvm-tblgen",
+    defaults: ["llvm-defaults-no-generated-headers"],
+    srcs: ["*.cpp"],
+
+    static_libs: [
+        "libLLVMTableGen",
+        "libLLVMSupport",
+    ],
+
+    host_ldlibs: ["-lm"],
+    target: {
+        windows: {
+            enabled: false,
+        },
+        // llvm-defaults turns off host builds by default, turn it back on for
+        // modules that are used to build llvm-tblgen
+        host: {
+            enabled: true,
+        },
+        darwin: {
+            host_ldlibs: [
+                "-lpthread",
+                "-ldl",
+            ],
+        },
+        linux: {
+            host_ldlibs: [
+                "-lpthread",
+                "-ldl",
+            ],
+        },
+    },
+}

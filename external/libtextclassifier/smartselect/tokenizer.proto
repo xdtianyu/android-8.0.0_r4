@@ -1,0 +1,48 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+package libtextclassifier;
+
+// Represents a codepoint range [start, end) with its role for tokenization.
+message TokenizationCodepointRange {
+  optional int32 start = 1;
+  optional int32 end = 2;
+
+  // Role of the codepoints in the range.
+  enum Role {
+    // Concatenates the codepoint to the current run of codepoints.
+    DEFAULT_ROLE = 0;
+
+    // Splits a run of codepoints before the current codepoint.
+    SPLIT_BEFORE = 0x1;
+
+    // Splits a run of codepoints after the current codepoint.
+    SPLIT_AFTER = 0x2;
+
+    // Discards the codepoint.
+    DISCARD_CODEPOINT = 0x4;
+
+    // Common values:
+    // Splits on the characters and discards them. Good e.g. for the space
+    // character.
+    WHITESPACE_SEPARATOR = 0x7;
+    // Each codepoint will be a separate token. Good e.g. for Chinese
+    // characters.
+    TOKEN_SEPARATOR = 0x3;
+  }
+  optional Role role = 3;
+}

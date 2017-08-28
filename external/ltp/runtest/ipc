@@ -1,0 +1,60 @@
+#DESCRIPTION:Interprocess communication stress
+# These tests use tests/pipeio to put pipes (named or unnamed) through a workout
+#
+pipeio_1 pipeio -T pipeio_1 -c 5 -s 4090 -i 100 -b -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to a named pipe
+# using blocking I/O
+#pipeio_2 pipeio -T pipeio_2 -c 5 -s 4090 -i 100 -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to a named pipe
+# using non-blocking I/O
+# This test hits EAGAIN, which pipeio doesn't handle at the moment
+pipeio_3 pipeio -T pipeio_3 -c 5 -s 4090 -i 100 -u -b -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to an unnamed pipe
+# using blocking I/O
+pipeio_4 pipeio -T pipeio_4 -c 5 -s 4090 -i 100 -u -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to an unnamed pipe
+# using non-blocking I/O
+pipeio_5 pipeio -T pipeio_5 -c 5 -s 5000 -i 10 -b -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to a named pipe
+# using blocking I/O
+pipeio_6 pipeio -T pipeio_6 -c 5 -s 5000 -i 10 -b -u -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to an unnamed pipe
+# using blocking I/O
+#pipeio_7 pipeio -T pipeio_7 -c 5 -s 5000 -i 10 -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to a named pipe
+# using non-blocking I/O
+# This test hits EAGAIN, which pipeio doesn't handle at the moment
+pipeio_8 pipeio -T pipeio_8 -c 5 -s 5000 -i 10 -u -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to an unnamed pipe
+# using non-blocking I/O
+
+sem01 sem01
+sem02 sem02
+
+message_queue_test_01		message_queue_test_01
+message_queue_test_02_get	message_queue_test_02_get
+message_queue_test_02_snd	message_queue_test_02_snd
+message_queue_test_02_rcv	message_queue_test_02_rcv
+message_queue_test_02_ctl	message_queue_test_02_ctl -r
+message_queue_test_04		message_queue_test_04
+message_queue_test_05		message_queue_test_05
+pipe_test_01			pipe_test_01
+pipe_test_02			pipe_test_02
+semaphore_test_01		run_semaphore_test_01.sh
+semaphore_test_02		semaphore_test_02
+semaphore_test_03		semaphore_test_03
+shmem_test_01			shmem_test_01
+shmem_test_02			shmem_test_02
+shmem_test_03			shmem_test_03
+shmem_test_04			shmem_test_04
+shmem_test_05			shmem_test_05
+shmem_test_06			shmem_test_06
+shmem_test_07			shmem_test_07
+signal_test_01			signal_test_01
+signal_test_02			signal_test_02
+signal_test_03			signal_test_03
+signal_test_04			signal_test_04
+signal_test_05			signal_test_05
+signal_test_06			signal_test_06
+signal_test_07			signal_test_07
+

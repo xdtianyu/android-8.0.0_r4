@@ -1,0 +1,63 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Protos for "memory images".
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+package libtextclassifier.nlp_core;
+
+message MemoryImageDataBlobInfo {
+  // Size (in bytes) of this data blob.
+  optional uint64 num_bytes = 1;
+
+  // Indicates whether this data blob corresponds to an array.
+  optional bool is_array = 2 [default = true];
+
+  // Size (in bytes) of each array element.  Useful for little <-> big endian
+  // conversions.  -1 means unknown: no endianness conversion in that case.
+  optional int32 element_size = 3 [default = -1];
+}
+
+message MemoryImageHeader {
+  // Version of the algorithm used to produce the memory image.  We should
+  // increase the value used here every time we perform an incompatible change.
+  // Algorithm version v should handle only memory images of the same version,
+  // and crash otherwise.
+  optional int32 version = 1 [default = -1];
+
+  // True if the info stored in the data blobs uses the little endian
+  // convention.  Almost all machines today are little-endian but we want to be
+  // able to crash with an informative message or perform a (costly) conversion
+  // in the rare cases when that's not true.
+  optional bool is_little_endian = 2 [default = true];
+
+  // Alignment (in bytes) for all data blobs.  E.g., if this field is 16, then
+  // each data blob starts at an offset that's a multiple of 16, where the
+  // offset is measured from the beginning of the memory image.  On the client
+  // side, allocating the entire memory image at an aligned address (by same
+  // alignment) makes sure all data blobs are properly aligned.
+  //
+  // NOTE: I (salcianu) explored the idea of a different alignment for each data
+  // blob: e.g., float[] should be fine with 4-byte alignment (alignment = 4)
+  // but char[] are fine with no alignment (alignment = 1).  As we expect only a
+  // few (but large) data blobs, the space benefit is not worth the extra code
+  // complexity.
+  optional int32 alignment = 3 [default = 8];
+
+  // One MemoryImageDataBlobInfo for each data blob, in order.  There is one
+  // data blob for each large field we handle specially.
+  repeated MemoryImageDataBlobInfo blob_info = 4;
+}

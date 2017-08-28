@@ -1,0 +1,10 @@
+(1) checkout updated LTP tree under external/ltp
+(2) configure LTP tree:
+	cd external/ltp; make autotools; ./configure; cd -
+(3) regenerate Android.ltp.mk from configured LTP tree:
+	tools/regen_android_mk.sh
+(4) perform a build with -k flag to keep building
+    regardless of failure
+(5) filter Android.mk modules (example with bullhead):
+    python tools/filter_success_build.py --android_build_top=../../../../master/ --ltp_dir=../ --target_product=bullhead
+

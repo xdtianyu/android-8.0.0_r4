@@ -1,0 +1,61 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// LINT: ALLOW_GROUPS
+// Protocol buffer specifications for task configuration.
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+package libtextclassifier.nlp_core;
+
+// Task input descriptor.
+message TaskInput {
+  // Name of input resource.
+  required string name = 1;
+
+  // File format for resource.
+  repeated string file_format = 3;
+
+  // Record format for resource.
+  repeated string record_format = 4;
+
+  // An input can consist of multiple file sets.
+  repeated group Part = 6 {
+    // File pattern for file set.
+    optional string file_pattern = 7;
+
+    // File format for file set.
+    optional string file_format = 8;
+
+    // Record format for file set.
+    optional string record_format = 9;
+  }
+
+  reserved 2, 5;
+}
+
+// A task specification is used for describing executing parameters.
+message TaskSpec {
+  // Task parameters.
+  repeated group Parameter = 3 {
+    required string name = 4;
+    optional string value = 5;
+  }
+
+  // Task inputs.
+  repeated TaskInput input = 6;
+
+  reserved 1, 2, 7;
+}

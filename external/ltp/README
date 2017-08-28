@@ -1,0 +1,48 @@
+Linux Test Project
+------------------
+
+Linux Test Project is a joint project started by SGI, OSDL and Bull developed
+and maintained by IBM, Cisco, Fujitsu, SUSE, Red Hat, Oracle and others. The
+project goal is to deliver tests to the open source community that validate the
+reliability, robustness, and stability of Linux.
+
+The LTP testsuite contains a collection of tools for testing the Linux kernel
+and related features. Our goal is to improve the Linux kernel and system
+libraries by bringing test automation to the testing effort. Interested open
+source contributors are encouraged to join.
+
+Project pages are located at: http://linux-test-project.github.io/
+
+The latest image is always available at:
+https://github.com/linux-test-project/ltp/releases
+
+The discussion about the project happens at ltp mailing list:
+http://lists.linux.it/listinfo/ltp
+
+The git repository is located at GitHub at:
+https://github.com/linux-test-project/ltp
+
+Warning!
+--------
+Be careful with these tests!
+
+Don't run them on production systems. Growfiles, doio, and iogen in particular
+stress the I/O capabilities of systems and while they should not cause problems
+on properly functioning systems, they are intended to find (or cause) problems.
+
+Developers corner
+-----------------
+
+Before you start you should read following documents:
+
+* doc/test-writing-guidelines.txt
+* doc/build-system-guide.txt
+
+these two should contain all information needed for modifying or creating LTP
+testcases. If something is not covered there don't hesitate to ask on the LTP
+mailing list.
+
+Also note that these documents are available online at:
+
+https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines
+https://github.com/linux-test-project/ltp/wiki/BuildSystem

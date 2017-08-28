@@ -1,0 +1,89 @@
+cc_library {
+    name: "libusb",
+    host_supported: true,
+
+    srcs: [
+        "libusb/core.c",
+        "libusb/descriptor.c",
+        "libusb/hotplug.c",
+        "libusb/io.c",
+        "libusb/sync.c",
+        "libusb/strerror.c",
+    ],
+
+    local_include_dirs: [
+        "libusb",
+        "libusb/os",
+    ],
+
+    target: {
+        android: {
+            srcs: [
+                "libusb/os/linux_usbfs.c",
+                "libusb/os/poll_posix.c",
+                "libusb/os/threads_posix.c",
+                "libusb/os/linux_netlink.c",
+            ],
+
+            local_include_dirs: [
+                "android",
+            ],
+        },
+
+        darwin: {
+            srcs: [
+                "libusb/os/darwin_usb.c",
+                "libusb/os/poll_posix.c",
+                "libusb/os/threads_posix.c",
+            ],
+
+            local_include_dirs: [
+                "darwin",
+            ],
+
+            host_ldlibs: [
+                "-framework CoreFoundation",
+                "-framework IOKit",
+                "-lobjc"
+            ],
+        },
+
+        linux: {
+            srcs: [
+                "libusb/os/linux_usbfs.c",
+                "libusb/os/poll_posix.c",
+                "libusb/os/threads_posix.c",
+                "libusb/os/linux_netlink.c",
+            ],
+
+            local_include_dirs: [
+                "linux",
+            ],
+
+            host_ldlibs: [
+                "-lrt",
+            ],
+        },
+
+        windows: {
+            srcs: [
+                "libusb/os/poll_windows.c",
+                "libusb/os/threads_windows.c",
+                "libusb/os/windows_nt_common.c",
+                "libusb/os/windows_usbdk.c",
+                "libusb/os/windows_winusb.c",
+            ],
+
+            local_include_dirs: [
+                "windows",
+            ],
+
+            // Not working yet.
+            enabled: false,
+        },
+    },
+
+    shared_libs: ["liblog"],
+    export_include_dirs: ["include"],
+}
+

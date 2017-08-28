@@ -1,0 +1,14 @@
+//===---------------------------------------------------------------===
+// llvm-ar command line tool
+//===---------------------------------------------------------------===
+
+cc_binary_host {
+    name: "llvm-ar",
+    defaults: ["llvm-defaults"],
+    srcs: ["llvm-ar.cpp"],
+    shared_libs: ["libLLVM"],
+    symlinks: [
+        "llvm-lib",
+        "llvm-ranlib",
+    ],
+}

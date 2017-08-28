@@ -1,0 +1,11 @@
+cc_defaults {
+    name: "llvm-lib-defaults",
+    defaults: ["llvm-defaults"],
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
+
+subdirs = ["*"]
