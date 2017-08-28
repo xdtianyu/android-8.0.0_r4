@@ -1,0 +1,27 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = "skau@chromium.org"
+NAME = "platform_DebugDaemonCupsAddPrinters"
+PURPOSE = "Verify that debugd's Cups* functions behave properly."
+
+ATTRIBUTES = "suite:bvt-perbuild"
+TIME = "SHORT"
+TEST_CATEGORY = "Functional"
+TEST_CLASS = "platform"
+TEST_TYPE = "client"
+JOB_RETRIES = 2
+
+CRITERIA = """
+This test fails if we cannot reject invalid PPDs.
+"""
+
+DOC = """
+Exercises the debugd CupsAddManuallyConfigured Printer operation.
+
+Verifies that invalid PPDs are rejected with the correct error code.
+"""
+
+job.run_test('platform_DebugDaemonCupsAddPrinters',
+             situation='ppd_error', tag='ppd_error')

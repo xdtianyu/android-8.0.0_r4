@@ -1,0 +1,25 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'bettyzhou, krisr'
+NAME = 'android_ACTS.Telephony_Australia_Telstra_Roaming_Basic'
+TIME = 'MEDIUM'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_telephony_international_roaming'
+DEPENDENCIES = 'carrier:australia_telstra'
+
+DOC = """
+This test runs telephony sanity against phones with Australia Telstra SIMs
+roaming in US.
+"""
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-telephony-test-station.config',
+                 test_file='telephony_international_roaming',
+                 additional_configs=['simcard_list.json'],
+                 acts_timeout=18000)
+
+parallel_simple(run, machines)

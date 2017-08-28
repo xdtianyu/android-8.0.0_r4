@@ -1,0 +1,23 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'krisr, bmahadev, gmoturu'
+NAME = 'android_ACTS.WiFi_scanner'
+TIME = 'MEDIUM'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_wifi_scanner'
+
+DOC = """
+This test runs WiFi scanner tests against a WiFi test bed.
+
+"""
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='wifi_scanner.config',
+                 test_file='wifi_scanner',
+                 acts_timeout=18000)
+
+parallel_simple(run, machines)

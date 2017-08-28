@@ -1,0 +1,24 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'bettyzhou, krisr'
+NAME = 'android_ACTS.Telephony_SPT_Long_Voice'
+TIME = 'LONG'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_telephony_nightly_spt'
+DEPENDENCIES = 'carrier:sprint'
+
+DOC = """
+This test runs telephony long voice call test against phone with Sprint SIMs.
+"""
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-telephony-test-station.config',
+                 test_file='telephony_long_voice_spt',
+                 additional_configs=['simcard_list.json'],
+                 acts_timeout=36000)
+
+parallel_simple(run, machines)

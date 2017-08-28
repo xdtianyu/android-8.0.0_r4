@@ -1,0 +1,37 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'scunningham'
+NAME = 'policy_SearchSuggestEnabled'
+TIME = 'SHORT'
+TEST_CATEGORY = 'General'
+TEST_CLASS = 'enterprise'
+TEST_TYPE = 'client'
+
+DOC = '''
+Verify effects of SearchSuggestEnabled policy on client behavior & appearance.
+
+This test verifies the effect of the SearchSuggestEnabled user policy on
+Chrome OS client behavior and appearance. It exercises all valid policy
+values across three test cases: True_Enable, False_Disable, and
+NotSet_Enable.
+
+The test shall pass if the chrome://settings page:
+1) The Search Suggestion check box is checked (or unchecked) when policy is
+true (or false).
+2) The Search Suggestion check box is editable (or is not editable) when the
+policy is not set (or is set true or false).
+The test shall fail if the above behaviors are not enforced.
+
+Note: The Search Suggestion setting check box is labeled, "Use a prediction
+service to help complete searches and URLs typed in the address bar...".
+
+This control file allows CloudDPC E2E tests to run any test case defined in
+this test via command-line.
+
+'''
+
+args_dict = utils.args_to_dict(args)
+
+job.run_test('policy_SearchSuggestEnabled', **args_dict)

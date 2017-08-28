@@ -1,0 +1,28 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'jimtan'
+NAME = 'android_ACTS.BluetoothPowerTest_AAC_aptX_HD_SBC'
+TIME = 'LONG'
+TEST_TYPE = 'Server'
+
+DOC = """
+This test runs power tests for AAC, aptX, aptX-HD and SBC codecs
+against a Bluetooth Power Test Beds.
+
+"""
+import common
+from autotest_lib.server import utils
+
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-power-test-station-codecs.config',
+                 test_file='bt_power_test_aac_aptx_hd_sbc',
+                 additional_apks=[{'apk':'PMC.apk', 'package':'com.android.pmc', 'artifacts':'tests.zip'}],
+                 acts_timeout=86400)
+
+
+parallel_simple(run, machines)

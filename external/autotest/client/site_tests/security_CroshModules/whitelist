@@ -1,0 +1,12 @@
+# Files here are permitted, but not required, to be in the image.
+# Paths are relative to /usr/share/crosh/.
+
+# Do *not* add modules to this list until they've been reviewed by security
+# or someone in the crosh/OWNERS list.  Insecure code here can easily cause
+# compromise of CrOS system security in verified mode.  It has happened.
+
+dev.d/50-crosh.sh
+
+extra.d/30-cups.sh
+
+removable.d/50-crosh.sh

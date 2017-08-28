@@ -1,0 +1,28 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = "skau@chromium.org"
+NAME = "platform_DebugDaemonCupsAddPrinters"
+PURPOSE = "Verify that debugd's Cups* functions behave properly."
+
+ATTRIBUTES = "suite:bvt-perbuild"
+TIME = "SHORT"
+TEST_CATEGORY = "Functional"
+TEST_CLASS = "platform"
+TEST_TYPE = "client"
+JOB_RETRIES = 2
+
+CRITERIA = """
+This test will fail if debugd stops reporting lpadmin failures.
+"""
+
+DOC = """
+Exercises the debugd CupsAddManuallyConfigured Printer operation.
+
+Verifies that failures of the lpadmin tool are correctly reported
+back to the caller of the Debug Daemon.
+"""
+
+job.run_test('platform_DebugDaemonCupsAddPrinters',
+             situation='lpadmin', tag='lpadmin')

@@ -1,0 +1,23 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'krisr, bmahadev, gmoturu'
+NAME = 'android_ACTS.WiFi_IOT_ENT'
+TIME = 'MEDIUM'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_wifi_iot_ent'
+
+DOC = """
+This test runs WiFi interop and enterprise tests against a WiFi test bed.
+
+"""
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-test-station-chamber-wifi-1.config',
+                 test_file='wifi_iot_ent',
+                 acts_timeout=18000)
+
+parallel_simple(run, machines)

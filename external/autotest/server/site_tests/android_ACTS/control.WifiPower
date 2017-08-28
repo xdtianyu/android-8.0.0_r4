@@ -1,0 +1,24 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'gmoturu, bmahadev, krisr'
+NAME = 'android_ACTS.WifiPower'
+TIME = 'MEDIUM'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_wifi_power'
+DEPENDENCIES = 'wifi_power_cell'
+
+DOC = """
+This test runs WiFiPower against a WiFi power test bed.
+
+"""
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-row3-rack6-wifi-power.config',
+                 test_file='wifi_power',
+                 acts_timeout=18000)
+
+parallel_simple(run, machines)

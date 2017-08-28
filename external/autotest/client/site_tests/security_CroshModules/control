@@ -1,0 +1,28 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+TIME = "SHORT"
+AUTHOR = "The Chromium OS Authors"
+DOC = """
+Enforces a whitelist of known, allowed crosh modules on the system
+"""
+NAME = "security_CroshModules"
+PURPOSE = "To maintain a minimal set of reviewed crosh modules on the system"
+CRITERIA = """
+Fail if the list of crosh modules don't match the whitelist.
+"""
+ATTRIBUTES = "suite:bvt-inline, suite:smoke"
+TEST_CLASS = "security"
+TEST_CATEGORY = "Functional"
+TEST_TYPE = "client"
+JOB_RETRIES = 2
+
+BUG_TEMPLATE = {
+    'labels': ['OS-Chrome'],
+    'components': ['OS>Systems'],
+    'owner': 'vapier@chromium.org',
+    'cc': ['vapier@chromium.org'],
+}
+
+job.run_test("security_CroshModules")

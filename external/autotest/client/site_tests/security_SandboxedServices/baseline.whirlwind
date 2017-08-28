@@ -1,0 +1,16 @@
+exe,euser,egroup,pidns,caps,filter
+
+ap-av,root,root,No,No,No
+ap-ecm-manager,root,root,No,No,No
+ap-pipe-reader,root,root,No,No,No
+ap-ui-server,root,root,No,No,No
+ap-wifiblaster-,root,root,No,No,No
+dev_debug_vboot,root,root,No,No,No
+feedback_daemon,root,root,No,No,No
+flashrom,root,root,No,No,No
+hciattach,root,root,No,No,No
+speed-test,root,root,No,No,No
+
+# dhclient and sadc are used during testing
+dhclient,root,root,No,No,No
+sadc,root,root,No,No,No

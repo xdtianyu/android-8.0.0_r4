@@ -1,0 +1,25 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'scunningham'
+NAME = 'policy_SearchSuggestEnabled.true_enable'
+ATTRIBUTES = 'suite:regression'
+TIME = 'SHORT'
+TEST_CATEGORY = 'General'
+TEST_CLASS = 'enterprise'
+TEST_TYPE = 'client'
+
+DOC = '''
+Verify effects of SearchSuggestEnabled policy on client behavior & appearance.
+
+This test case verifies the behavior and appearance of Chrome OS when the
+SearchSuggestEnabled user policy is set true.
+
+The test case shall pass if chrome://settings page shows the Search Suggest
+check box checked, and does not allow the user to edit the setting. It
+shall fail if check box is unchecked, or is editable.
+
+'''
+
+job.run_test('policy_SearchSuggestEnabled', case='True_Enable')

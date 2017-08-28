@@ -1,0 +1,31 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'tturney'
+NAME = 'android_ACTS.BluetoothAutoTest'
+TIME = 'LONG'
+TEST_TYPE = 'Server'
+ATTRIBUTES = 'suite:android_bluetooth_auto'
+DEPENDENCIES = 'bluetoothauto'
+
+DOC = """
+This test runs Bluetooth Audio Quality tests
+against a Bluetooth Funhaus test beds.
+
+"""
+import common
+from autotest_lib.server import utils
+
+
+def run(machine):
+    job.run_test('android_ACTS',
+                 testbed=hosts.create_testbed(machine),
+                 config_file='android1758-bluetooth.config',
+                 test_file='bt_auto_test',
+                 acts_timeout=18000,
+                 additional_configs=['audio_tones', 'simcard_list.json']
+                 )
+
+
+parallel_simple(run, machines)

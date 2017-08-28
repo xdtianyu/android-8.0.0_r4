@@ -1,0 +1,5 @@
+{
+    "run_oci_args": "--cgroup_parent=user_containers",
+    "program_argv": "\"/bin/bash\", \"-c\", \"grep sysfs /proc/mounts > /dev/null && echo PASS\"",
+    "expected_result": "PASS"
+}

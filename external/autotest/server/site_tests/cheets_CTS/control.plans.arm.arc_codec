@@ -1,0 +1,28 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'ARC Team'
+NAME = 'cheets_CTS.plans.arm.arc_codec'
+ATTRIBUTES = 'suite:video'
+DEPENDENCIES = 'arc'
+JOB_RETRIES = 2
+TEST_TYPE = 'server'
+TIME = 'LENGTHY'
+
+DOC = ('Run a local plan arc_codec which runs those test cases using ArcCodec '
+       'of Android 6.0_r12 Compatibility Test Suite (CTS), build 3426263,'
+       'using arm ABI in the ARC container.')
+
+def run_CTS(machine):
+    host = hosts.create_host(machine)
+    job.run_test(
+        'cheets_CTS',
+        host=host,
+        iterations=1,
+        tag='plans.arc_codec',
+        target_plan='arc_codec',
+        bundle='arm',
+        timeout=14400)
+
+parallel_simple(run_CTS, machines)

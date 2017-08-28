@@ -1,0 +1,25 @@
+# Copyright 2016 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+AUTHOR = 'scunningham'
+NAME = 'policy_SpellCheckServiceEnabled.false_disable'
+ATTRIBUTES = 'suite:regression'
+TIME = 'SHORT'
+TEST_CATEGORY = 'Functional'
+TEST_CLASS = 'enterprise'
+TEST_TYPE = 'client'
+
+DOC = '''
+Verify effects of SpellCheckServiceEnabled policy on client behavior.
+
+This test case verifies the behavior and appearance of Chrome OS when the
+SpellCheckServiceEnabled user policy is set false.
+
+The test case shall pass if chrome://settings page shows the Spelling
+Suggestions check box unchecked, and does not allow the user to edit the
+setting. It shall fail if check box is checked, or is editable.
+
+'''
+
+job.run_test('policy_SpellCheckServiceEnabled', case='False_Disable')

@@ -1,0 +1,24 @@
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+NAME = 'graphics_dEQP.vk-master'
+AUTHOR = 'chromeos-gfx'
+PURPOSE = 'Run the drawElements Quality Program test suite.'
+CRITERIA = 'All of the individual tests must pass.'
+# It is too slow to run this suite one test at a time. Instead run it in hasty
+# mode. This hould not be a problem as upstream VK is supposed to pass running
+# in a single process.
+#ATTRIBUTES = 'suite:deqp, suite:graphics_per-day, suite:graphics_system'
+TIME = 'LENGTHY'
+TEST_CATEGORY = 'Functional'
+TEST_CLASS = 'graphics'
+TEST_TYPE = 'client'
+DOC = """
+This test runs the drawElements Quality Program test suite.
+"""
+
+job.run_test('graphics_dEQP',
+             tag = 'vk-master',
+             opts = args +
+             ['test_names_file=/usr/local/deqp/master/vk-master.txt'])

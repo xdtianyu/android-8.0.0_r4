@@ -1,0 +1,60 @@
+exe,euser,egroup,pidns,caps,filter
+
+# Since udev creates device nodes and changes owners/perms, it needs to run as
+# root.  TODO: We should namespace it.
+udevd,root,root,No,No,No
+
+# Frecon needs to run as root and in the original namespace because it might
+# launch new shells via login.  Would be nice if it integrated things.
+frecon,root,root,No,No,No
+
+session_manager,root,root,No,No,No
+rsyslogd,syslog,syslog,No,No,No
+dbus-daemon,messagebus,messagebus,No,No,No
+wpa_supplicant,wpa,wpa,No,No,No
+shill,root,root,No,No,No
+X,xorg,xorg,No,No,No
+chapsd,chaps,chronos-access,No,No,No
+cryptohomed,root,root,No,No,No
+powerd,power,power,No,No,No
+ModemManager,modem,modem,No,No,No
+dhcpcd,dhcp,dhcp,No,No,No
+metrics_daemon,root,root,No,No,No
+disks,root,root,No,No,No
+update_engine,root,root,No,No,No
+bluetoothd,bluetooth,bluetooth,No,Yes,No
+debugd,root,root,No,No,No
+cras,cras,cras,No,No,No
+tcsd,tss,root,No,No,No
+cromo,cromo,cromo,No,No,No
+wimax-manager,root,root,No,No,No
+mtpd,mtp,mtp,No,No,Yes
+tlsdated,tlsdate,tlsdate,No,No,No
+lid_touchpad_he,root,root,No,No,No
+thermal.sh,root,root,No,No,No
+daisydog,watchdog,watchdog,No,No,No
+permission_brok,devbroker,root,No,Yes,No
+netfilter-queue,nfqueue,nfqueue,No,Yes,Yes
+warn_collector,root,root,No,No,No
+tlsdated-setter,root,root,No,No,No
+attestationd,attestation,attestation,No,No,No
+periodic_schedu,root,root,No,No,No
+esif_ufd,root,root,No,No,No
+easy_unlock,easy-unlock,easy-unlock,No,No,No
+sslh-fork,sslh,sslh,Yes,No,No
+arc-networkd,root,root,Yes,No,No
+arc-obb-mounter,root,root,Yes,No,No
+upstart-socket-,root,root,No,No,No
+timberslide,root,root,No,No,No
+
+# We need to run as root due to caps not preserving across execs.
+# firewalld will fork+exec iptables to handle requests, and it
+# takes care of dropping root/caps for those commands.
+# TODO: We can fix this when minijail supports ambient caps.  http://b/32066154
+firewalld,root,root,No,No,No
+
+# Broadcomm bluetooth firmware patch downloader runs on some veyron boards.
+brcm_patchram_p,root,root,No,No,No
+
+# tpm_manager runs on all TPM2 boards, such as reef.
+tpm_managerd,root,root,No,No,No

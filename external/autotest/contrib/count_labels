@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Copyright 2014 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+#
+# count_labels:  Print a summary of how many times a particular label
+# value occurs in the output of an `atest host list` command.
+#
+# To find the sizes of the pools assigned to a board:
+#     atest host list -b board:$BOARD | count_labels -p
+#
+# To find how many of each board is assigned to a pool:
+#     atest host list -b pool:$POOL | count_labels -b
+
+while getopts 'pbv' flag
+do
+    case $flag in
+        p) LABEL=pool ;;
+        b) LABEL=board ;;
+        v) LABEL=variant ;;
+    esac
+done
+
+sed -e "/$LABEL:/ !d" -e "s=.*$LABEL:\([^,]*\).*=\1=" | sort | uniq -c

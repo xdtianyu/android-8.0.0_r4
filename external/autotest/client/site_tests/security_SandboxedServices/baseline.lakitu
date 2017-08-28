@@ -1,0 +1,29 @@
+exe,euser,egroup,pidns,caps,filter
+cloud-init,root,root,No,No,No
+device_policy_m,root,root,No,No,No
+ensure_gke_dock,root,root,No,No,No
+first-boot,root,root,No,No,No
+install_custom_,root,root,No,No,No
+get_metadata_va,root,root,No,No,No
+onboot,root,root,No,No,No
+systemd-journal,root,root,No,No,No
+systemd-logind,root,root,No,No,No
+systemd,root,root,No,No,No
+systemd-udevd,root,root,No,No,No
+
+# TODO: We need better filters on these.
+curl,root,root,No,No,No
+
+# These processes won't run without network (which is the case for VMTests), but
+# they also run as root and are not sandboxed. You will hit these if you try to
+# run VMTests on your own KVM instance.
+docker,root,root,No,No,No
+containerd,root,root,No,No,No
+
+# Processes that used by GCP compute image packages.
+google_ip_forwa,root,root,No,No,No
+google_accounts,root,root,No,No,No
+google_clock_sk,root,root,No,No,No
+google_metadata,root,root,No,No,No
+google_instance,root,root,No,No,No
+google_network_,root,root,No,No,No
